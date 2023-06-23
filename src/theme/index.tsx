@@ -18,15 +18,18 @@ export const theme = {
     }
   },
   font_familly: {
-    400: 'Karla_400Regular',
-    700: 'Karla_700Bold'
+    regular: 'Karla_400Regular',
+    bold: 'Karla_700Bold'
   },
   lineHeight: '130%',
   font_size: {
-    sm: '12px',
-    md: '14px',
-    lg: '16px',
-    xl: '20px',
-    '2xl': '24px'
+    sm: 12,
+    md: 14,
+    lg: 16,
+    xl: 20,
+    '2xl': 24,
+    '3xl': 26,
+    '4xl': 28,
+    '5xl': 30
   }
 }
