@@ -11,6 +11,8 @@ export const Container = styled(SafeAreaView)`
 export const LogoSection = styled.View`
   align-items: center;
   gap: 20px;
+
+  margin-bottom: 76px;
 `
 
 export const Heading = styled.Text`
@@ -29,6 +31,15 @@ export const Description = styled.Text`
   `}
 `
 
-export const TextSection = styled.View`
-  align-items: center;
+export const FormHeader = styled(Description)`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[600]};
+  `}
+`
+
+export const FormSection = styled.View`
+  ${({ theme }) => css`
+    gap: 16px;
+    align-items: center;
+  `}
 `
