@@ -1,6 +1,8 @@
-import { Image, Text } from 'react-native'
+import { Image, View } from 'react-native'
 
 import Logo from '@assets/logo/logo.png'
+
+import { Input } from '@components/input'
 
 import * as Styled from './styled'
 
@@ -11,11 +13,17 @@ export const Login = ({}: LoginProps) => {
     <Styled.Container>
       <Styled.LogoSection>
         <Image source={Logo} />
-        <Styled.TextSection>
+        <View style={{ alignItems: 'center' }}>
           <Styled.Heading>marketspace</Styled.Heading>
           <Styled.Description>Seu espaço de compra e venda</Styled.Description>
-        </Styled.TextSection>
+        </View>
       </Styled.LogoSection>
+
+      <Styled.FormSection>
+        <Styled.FormHeader>Acesse sua conta</Styled.FormHeader>
+        <Input placeholder="E-mail" />
+        <Input isPassword placeholder="Senha" returnKeyType="send" />
+      </Styled.FormSection>
     </Styled.Container>
   )
 }
