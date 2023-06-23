@@ -1,10 +1,20 @@
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
 
-export const Container = styled(SafeAreaView)`
+export const Container = styled.View`
+  ${({ theme }) => css`
+    flex: 1;
+    background: ${theme.colors.gray[100]};
+  `}
+`
+
+export const Content = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
   justify-content: center;
+
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
   background: ${({ theme }) => theme.colors.gray[200]};
 `
 
@@ -38,8 +48,21 @@ export const FormHeader = styled(Description)`
 `
 
 export const FormSection = styled.View`
-  ${({ theme }) => css`
-    gap: 16px;
-    align-items: center;
-  `}
+  width: 100%;
+  max-width: 279px;
+
+  gap: 16px;
+  align-items: center;
+
+  margin-bottom: 32px;
+`
+
+export const RegisterSection = styled.View`
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+  padding: 56px 48px;
 `
