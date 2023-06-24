@@ -6,6 +6,7 @@
     "paths": {
       "@screens/*": ["./src/screens/*"],
       "@assets/*": ["./src/assets/*"],
+      "@routes/*": ["./src/routes/*"],
       "@components/*": ["./src/components/*"]
     },
     "exclude": ["node_modules"]
