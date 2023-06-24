@@ -1,17 +1,25 @@
-import { Image, ScrollView, Text, View } from 'react-native'
+import { useTheme } from 'styled-components/native'
+import { Image, ScrollView, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
+
+import { AuthRoutesScreenProps } from '@routes/auth.routes'
 
 import { Input } from '@components/input'
 import { Button } from '@components/button'
 
 import * as Styled from './styled'
-import { useTheme } from 'styled-components/native'
 
 type LoginProps = {}
 
 export const Login = ({}: LoginProps) => {
+  const { navigate } = useNavigation<AuthRoutesScreenProps>()
   const { colors } = useTheme()
+
+  function handleRegisterScreen() {
+    navigate('register')
+  }
 
   return (
     <Styled.Container>
@@ -42,7 +50,11 @@ export const Login = ({}: LoginProps) => {
 
           <Styled.RegisterSection>
             <Styled.FormHeader>Ainda não tem acesso?</Styled.FormHeader>
-            <Button title="Criar uma conta" type="PRIMARY" />
+            <Button
+              title="Criar uma conta"
+              type="PRIMARY"
+              onPress={handleRegisterScreen}
+            />
           </Styled.RegisterSection>
         </View>
       </ScrollView>
