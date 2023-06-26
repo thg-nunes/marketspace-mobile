@@ -1,7 +1,10 @@
-import { Image, ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
+import { Image, ScrollView, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
+
+import { AuthRoutesScreenProps } from '@routes/auth.routes'
 
 import { Input } from '@components/input'
 import { Button } from '@components/button'
@@ -13,6 +16,11 @@ type RegisterProps = {}
 
 export const Register = ({}: RegisterProps) => {
   const { colors } = useTheme()
+  const { goBack } = useNavigation<AuthRoutesScreenProps>()
+
+  function handleSignIn() {
+    goBack()
+  }
 
   return (
     <Styled.Container>
@@ -23,7 +31,7 @@ export const Register = ({}: RegisterProps) => {
         <View style={{ flex: 1 }}>
           <Styled.Content>
             <Styled.LogoSection>
-              <Image source={Logo} />
+              <Image source={Logo} style={{ width: 60, height: 40 }} />
               <View style={{ alignItems: 'center' }}>
                 <Styled.Heading>Boas vindas!</Styled.Heading>
                 <Styled.Description>
@@ -52,7 +60,11 @@ export const Register = ({}: RegisterProps) => {
 
           <Styled.RegisterSection>
             <Styled.FormHeader>Já tem uma conta?</Styled.FormHeader>
-            <Button title="Ir para o login" type="PRIMARY" />
+            <Button
+              title="Ir para o login"
+              type="PRIMARY"
+              onPress={handleSignIn}
+            />
           </Styled.RegisterSection>
         </View>
       </ScrollView>
