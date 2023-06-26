@@ -35,6 +35,7 @@ export const Container = styled(TouchableOpacity)<ButtonTypeStylePropsDTO>`
 
 export const ButtonText = styled.Text<ButtonTypeStylePropsDTO>`
   ${({ theme, type }) => css`
+    font-family: ${theme.font_familly.bold};
     color: ${type === 'PRIMARY'
       ? theme.colors.gray[600]
       : theme.colors.gray[100]};
