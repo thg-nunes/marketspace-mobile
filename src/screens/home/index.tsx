@@ -1,5 +1,12 @@
-import { ScrollView, View } from 'react-native'
-import { ArrowRight, Plus, Tag, User } from 'phosphor-react-native'
+import { ScrollView, View, TextInput } from 'react-native'
+import {
+  ArrowRight,
+  MagnifyingGlass,
+  Plus,
+  Sliders,
+  Tag,
+  User
+} from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
 import { Button } from '@components/button'
@@ -56,6 +63,30 @@ export const Home = ({}: HomeProps) => {
                 <ArrowRight size={16} />
               </Styled.LinkContainer>
             </Styled.ProductsAdsContent>
+
+            <View style={{ gap: 12 }}>
+              <Styled.ProductsAdsText>
+                Compre produtos variados
+              </Styled.ProductsAdsText>
+
+              <Styled.FilterInputSection>
+                <TextInput
+                  placeholder="Buscar anúncio"
+                  style={{ flex: 1, color: colors.gray[700], height: 21 }}
+                  placeholderTextColor={colors.gray[400]}
+                />
+                <View
+                  style={{
+                    paddingRight: 12,
+                    borderRightWidth: 1,
+                    borderColor: colors.gray[400]
+                  }}
+                >
+                  <MagnifyingGlass size={20} color={colors.gray[600]} />
+                </View>
+                <Sliders size={20} color={colors.gray[600]} />
+              </Styled.FilterInputSection>
+            </View>
           </Styled.ProductsAdsContainer>
         </View>
       </ScrollView>
