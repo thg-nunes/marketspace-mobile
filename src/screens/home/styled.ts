@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/native'
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
     flex: 1;
-    padding-top: 16px;
+    padding: 16px 24px 0 24px;
     background: ${theme.colors.gray[200]};
   `}
 `
@@ -15,7 +15,7 @@ export const HomeHeader = styled.View`
   gap: 8px;
 
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `
 
 export const HomeHeaderUserPhoto = styled.View`
@@ -55,4 +55,58 @@ export const Profile = styled.View`
 
   flex-direction: row;
   align-items: center;
+`
+
+export const ProductsAdsContainer = styled.View`
+  gap: 12px;
+  margin: 32px 0;
+`
+
+export const ProductsAdsText = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.font_size.md}px;
+    font-family: ${theme.font_familly.regular};
+
+    color: ${theme.colors.gray[500]};
+  `}
+`
+
+export const ProductsAdsContent = styled.View`
+  height: 66px;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const ProductsAdsBackground = styled.View`
+  ${({ theme }) => css`
+    position: absolute;
+    background-color: ${theme.colors.blue.light};
+    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+  `}
+`
+
+export const ActiveProducts = styled.View`
+  gap: 16px;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 16px;
+`
+
+export const LinkContainer = styled.Pressable`
+  gap: 10px;
+  flex-direction: row;
+  margin-right: 20px;
+`
+
+export const LinkText = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.font_size.sm}px;
+    color: ${theme.colors.blue.dark};
+    font-family: ${theme.font_familly.bold};
+  `}
 `
