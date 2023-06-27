@@ -59,7 +59,8 @@ export const Profile = styled.View`
 
 export const ProductsAdsContainer = styled.View`
   gap: 12px;
-  margin: 32px 0;
+  margin-top: 32px;
+  margin-bottom: 24px;
 `
 
 export const ProductsAdsText = styled.Text`
@@ -77,6 +78,8 @@ export const ProductsAdsContent = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  margin-bottom: 32px;
 `
 
 export const ProductsAdsBackground = styled.View`
@@ -108,5 +111,17 @@ export const LinkText = styled.Text`
     font-size: ${theme.font_size.sm}px;
     color: ${theme.colors.blue.dark};
     font-family: ${theme.font_familly.bold};
+  `}
+`
+
+export const FilterInputSection = styled.View`
+  ${({ theme }) => css`
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: ${theme.colors.gray[100]};
   `}
 `
