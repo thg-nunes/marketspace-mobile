@@ -1,9 +1,10 @@
 import { ScrollView, View } from 'react-native'
-import { Plus, User } from 'phosphor-react-native'
+import { ArrowRight, Plus, Tag, User } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
-import * as Styled from './styled'
 import { Button } from '@components/button'
+
+import * as Styled from './styled'
 
 type HomeProps = {}
 
@@ -34,6 +35,28 @@ export const Home = ({}: HomeProps) => {
               </Button>
             </View>
           </Styled.HomeHeader>
+
+          <Styled.ProductsAdsContainer>
+            <Styled.ProductsAdsText>
+              Seus produtos anunciados para venda
+            </Styled.ProductsAdsText>
+
+            <Styled.ProductsAdsContent>
+              <Styled.ProductsAdsBackground />
+              <Styled.ActiveProducts>
+                <Tag size={22} color={colors.blue.dark} />
+                <View>
+                  <Styled.Name>4</Styled.Name>
+                  <Styled.Text>anúncios ativos</Styled.Text>
+                </View>
+              </Styled.ActiveProducts>
+
+              <Styled.LinkContainer>
+                <Styled.LinkText>Meus anúncios</Styled.LinkText>
+                <ArrowRight size={16} />
+              </Styled.LinkContainer>
+            </Styled.ProductsAdsContent>
+          </Styled.ProductsAdsContainer>
         </View>
       </ScrollView>
     </Styled.Container>
