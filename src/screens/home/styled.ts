@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components/native'
 
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
+    position: relative;
     flex: 1;
-    padding: 16px 24px 0 24px;
     background: ${theme.colors.gray[200]};
   `}
 `
@@ -124,4 +124,93 @@ export const FilterInputSection = styled.View`
     border-radius: 6px;
     background: ${theme.colors.gray[100]};
   `}
+`
+
+export const FilterContainer = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
+
+export const FiltersModalBackGround = styled.View`
+  width: 100%;
+  height: 100%;
+
+  opacity: 0.6;
+  background: black;
+`
+
+export const FiltersContent = styled.View`
+  position: absolute;
+  bottom: 0;
+
+  align-items: center;
+  padding: 12px 24px 32px;
+
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+
+  width: 100%;
+  height: 582px;
+
+  gap: 24px;
+
+  background: white;
+`
+
+export const Divider = styled.View`
+  ${({ theme }) => css`
+    width: 56px;
+    height: 4px;
+
+    opacity: 0.3;
+
+    margin-top: 12px;
+    margin-bottom: 32px;
+    background: ${theme.colors.gray[400]};
+  `}
+`
+
+export const FiltersHeader = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.font_size['xl']}px;
+    font-family: ${theme.font_familly.bold};
+  `}
+`
+
+export const ProductConditionHeader = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.font_size.md}px;
+    font-family: ${theme.font_familly.bold};
+  `}
+`
+
+export const ProductCondition = styled.View`
+  width: 100%;
+  gap: 12px;
+`
+
+export const Switch = styled.View<{ switchEnabled: boolean }>`
+  ${({ theme, switchEnabled }) => css`
+    width: 50px;
+    height: 28px;
+
+    padding: 2px;
+    align-items: ${switchEnabled ? 'flex-end' : 'flex-start'};
+
+    border-radius: 999px;
+    background: ${switchEnabled
+      ? theme.colors.blue.light
+      : theme.colors.gray[300]};
+  `}
+`
+
+export const SwitchCircle = styled.View<{ switchEnabled: boolean }>`
+  width: 24px;
+  height: 24px;
+
+  border-radius: 999px;
+  background: white;
 `
