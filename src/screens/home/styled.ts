@@ -127,7 +127,6 @@ export const FilterInputSection = styled.View`
 `
 
 export const FilterContainer = styled.View`
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -168,7 +167,7 @@ export const Divider = styled.View`
     opacity: 0.3;
 
     margin-top: 12px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     background: ${theme.colors.gray[400]};
   `}
 `
