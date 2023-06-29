@@ -45,14 +45,12 @@ export const Description = styled.Text`
 
 export const FormHeader = styled(Description)`
   ${({ theme }) => css`
+    text-align: center;
     color: ${theme.colors.gray[600]};
   `}
 `
 
 export const FormSection = styled.View`
-  width: 100%;
-  max-width: 279px;
-
   gap: 16px;
   align-items: center;
 
@@ -60,11 +58,14 @@ export const FormSection = styled.View`
 `
 
 export const RegisterSection = styled.View`
-  width: 100%;
-
   align-items: center;
   justify-content: center;
 
-  gap: 16px;
   padding: 56px 48px;
+`
+
+export const RegisterSectionContent = styled.View`
+  width: 100%;
+  gap: 16px;
+  max-width: 279px;
 `

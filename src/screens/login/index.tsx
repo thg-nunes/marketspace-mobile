@@ -39,22 +39,26 @@ export const Login = ({}: LoginProps) => {
               </View>
             </Styled.LogoSection>
 
-            <Styled.FormSection>
-              <Styled.FormHeader>Acesse sua conta</Styled.FormHeader>
-              <Input placeholder="E-mail" />
-              <Input isPassword placeholder="Senha" returnKeyType="send" />
-            </Styled.FormSection>
+            <Styled.RegisterSectionContent>
+              <Styled.FormSection>
+                <Styled.FormHeader>Acesse sua conta</Styled.FormHeader>
+                <Input placeholder="E-mail" />
+                <Input isPassword placeholder="Senha" returnKeyType="send" />
+              </Styled.FormSection>
 
-            <Button title="Entrar" type="TERTIARY" />
+              <Button title="Entrar" type="TERTIARY" />
+            </Styled.RegisterSectionContent>
           </Styled.Content>
 
           <Styled.RegisterSection>
-            <Styled.FormHeader>Ainda não tem acesso?</Styled.FormHeader>
-            <Button
-              title="Criar uma conta"
-              type="PRIMARY"
-              onPress={handleRegisterScreen}
-            />
+            <Styled.RegisterSectionContent>
+              <Styled.FormHeader>Ainda não tem acesso?</Styled.FormHeader>
+              <Button
+                title="Criar uma conta"
+                type="PRIMARY"
+                onPress={handleRegisterScreen}
+              />
+            </Styled.RegisterSectionContent>
           </Styled.RegisterSection>
         </View>
       </ScrollView>

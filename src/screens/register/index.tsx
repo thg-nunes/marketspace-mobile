@@ -42,29 +42,32 @@ export const Register = ({}: RegisterProps) => {
             </Styled.LogoSection>
 
             <UserPhoto />
+            <View style={{ width: '100%', maxWidth: 279 }}>
+              <Styled.FormSection>
+                <Input placeholder="Nome" />
+                <Input placeholder="E-mail" />
+                <Input placeholder="Telefone" />
+                <Input isPassword placeholder="Senha" />
+                <Input
+                  isPassword
+                  placeholder="Confirmar Senha"
+                  returnKeyType="send"
+                />
+              </Styled.FormSection>
 
-            <Styled.FormSection>
-              <Input placeholder="Nome" />
-              <Input placeholder="E-mail" />
-              <Input placeholder="Telefone" />
-              <Input isPassword placeholder="Senha" />
-              <Input
-                isPassword
-                placeholder="Confirmar Senha"
-                returnKeyType="send"
-              />
-            </Styled.FormSection>
-
-            <Button title="Criar" type="SECONDARY" />
+              <Button title="Criar" type="SECONDARY" />
+            </View>
           </Styled.Content>
 
           <Styled.RegisterSection>
-            <Styled.FormHeader>Já tem uma conta?</Styled.FormHeader>
-            <Button
-              title="Ir para o login"
-              type="PRIMARY"
-              onPress={handleSignIn}
-            />
+            <View style={{ width: '100%', maxWidth: 279, gap: 16 }}>
+              <Styled.FormHeader>Já tem uma conta?</Styled.FormHeader>
+              <Button
+                title="Ir para o login"
+                type="PRIMARY"
+                onPress={handleSignIn}
+              />
+            </View>
           </Styled.RegisterSection>
         </View>
       </ScrollView>

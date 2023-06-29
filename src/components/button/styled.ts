@@ -9,7 +9,7 @@ type ButtonTypeStylePropsDTO = {
 
 export const Container = styled(TouchableOpacity)<ButtonTypeStylePropsDTO>`
   ${({ theme, type }) => css`
-    width: 100%;
+    flex: 1;
     max-width: 276px;
     height: 42px;
     max-height: 42px;
