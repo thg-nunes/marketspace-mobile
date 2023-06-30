@@ -41,7 +41,7 @@ export const Register = ({}: RegisterProps) => {
               </View>
             </Styled.LogoSection>
 
-            <UserPhoto />
+            <UserPhoto size={'xl'} photoEdiIcontShow />
             <View style={{ width: '100%', maxWidth: 279 }}>
               <Styled.FormSection>
                 <Input placeholder="Nome" />
