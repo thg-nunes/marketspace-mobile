@@ -6,12 +6,12 @@ import {
   Plus,
   Sliders,
   Tag,
-  User,
   X
 } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
 import { Button } from '@components/button'
+import { UserPhoto } from '@components/userPhoto'
 import { CheckboxInput } from '@components/checkBox'
 import { Tag as TagConponent } from '@components/tag'
 
@@ -38,9 +38,7 @@ export const Home = ({}: HomeProps) => {
         <View style={{ flex: 1, marginTop: 20 }}>
           <Styled.HomeHeader>
             <Styled.Profile>
-              <Styled.HomeHeaderUserPhoto>
-                <User size={28} color={colors.gray[400]} />
-              </Styled.HomeHeaderUserPhoto>
+              <UserPhoto size={'md'} photoEdiIcontShow={false} />
               <View>
                 <Styled.Text>Boas Vindas,</Styled.Text>
                 <Styled.Name>Maria!</Styled.Name>
