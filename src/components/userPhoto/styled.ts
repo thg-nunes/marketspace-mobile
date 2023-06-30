@@ -1,11 +1,23 @@
 import styled, { css } from 'styled-components/native'
 
-export const Container = styled.View`
-  ${({ theme }) => css`
+const sizes = {
+  xl: 88,
+  md: 45,
+  sm: 24
+}
+
+export type Size = 'xl' | 'md' | 'sm'
+
+type UerPhotoSize = {
+  size: Size
+}
+
+export const Container = styled.View<UerPhotoSize>`
+  ${({ theme, size }) => css`
     position: relative;
 
-    width: 88px;
-    height: 88px;
+    width: ${sizes[size]}px;
+    height: ${sizes[size]}px;
 
     align-items: center;
     justify-content: center;
