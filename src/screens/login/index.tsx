@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import { useTheme } from 'styled-components/native'
 import { Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
 
-import { AuthRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 import { Input } from '@components/input'
 import { Button } from '@components/button'
@@ -14,11 +15,20 @@ import * as Styled from './styled'
 type LoginProps = {}
 
 export const Login = ({}: LoginProps) => {
-  const { navigate } = useNavigation<AuthRoutesScreenProps>()
+  const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
   const { colors } = useTheme()
+  const [isSign, setIsSign] = useState(false)
 
   function handleRegisterScreen() {
     navigate('register')
+  }
+
+  function handleSignIn() {
+    setIsSign(true)
+    setTimeout(() => {
+      navigate('homeApp')
+      setIsSign(false)
+    }, 500)
   }
 
   return (
@@ -46,7 +56,13 @@ export const Login = ({}: LoginProps) => {
                 <Input isPassword placeholder="Senha" returnKeyType="send" />
               </Styled.FormSection>
 
-              <Button title="Entrar" type="TERTIARY" />
+              <Button
+                title="Entrar"
+                type="TERTIARY"
+                isLoading={isSign}
+                onPress={handleSignIn}
+                isLoadingProps={{ color: 'white' }}
+              />
             </Styled.RegisterSectionContent>
           </Styled.Content>
 
