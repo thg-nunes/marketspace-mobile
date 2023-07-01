@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react'
-import { FlatList, Image, View, ViewToken } from 'react-native'
+import { FlatList, Image, ScrollView, View, ViewToken } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+
+import { Tag } from '@components/tag'
+import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
 
@@ -72,6 +75,38 @@ export const AdDetails = ({}: AdDetailsProps) => {
           ))}
         </View>
       </Styled.ImageListContainer>
+
+      <ScrollView
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingLeft: 24,
+          paddingRight: 24
+        }}
+      >
+        <Styled.Content>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <UserPhoto size="sm" photoEdiIcontShow={false} />
+            <Styled.UserName>Maria</Styled.UserName>
+          </View>
+
+          <View style={{ gap: 8, marginTop: 24, marginBottom: 24 }}>
+            <Tag title="NOVO" type="USED" />
+            <View style={{ flexDirection: 'row' }}>
+              <Styled.AdHeader>Bicicleta</Styled.AdHeader>
+              <View style={{ flexDirection: 'row' }}>
+                <Styled.AmountIndicator>R$</Styled.AmountIndicator>
+                <Styled.Amount>129,90</Styled.Amount>
+              </View>
+            </View>
+            <Styled.AdDescription>
+              Cras congue cursus in tortor sagittis placerat nunc, tellus arcu.
+              Vitae ante leo eget maecenas urna mattis cursus. Mauris metus amet
+              nibh mauris mauris accumsan, euismod. Aenean leo nunc, purus
+              iaculis in aliquam.
+            </Styled.AdDescription>
+          </View>
+        </Styled.Content>
+      </ScrollView>
     </Styled.Container>
   )
 }
