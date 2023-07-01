@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
 
-import { AuthRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 import { Input } from '@components/input'
 import { Button } from '@components/button'
@@ -16,7 +16,7 @@ type RegisterProps = {}
 
 export const Register = ({}: RegisterProps) => {
   const { colors } = useTheme()
-  const { goBack } = useNavigation<AuthRoutesScreenProps>()
+  const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
 
   function handleSignIn() {
     goBack()
