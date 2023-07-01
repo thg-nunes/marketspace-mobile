@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { ScrollView, View, TextInput, Modal, Pressable } from 'react-native'
 import {
   ArrowRight,
@@ -10,6 +11,9 @@ import {
 } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
+import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+
+import { Card } from '@components/card'
 import { Button } from '@components/button'
 import { UserPhoto } from '@components/userPhoto'
 import { CheckboxInput } from '@components/checkBox'
@@ -21,8 +25,14 @@ type HomeProps = {}
 
 export const Home = ({}: HomeProps) => {
   const { colors } = useTheme()
+  const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
+
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
+
+  function handleProductDetails() {
+    navigate('adDetails')
+  }
 
   return (
     <Styled.Container>
@@ -97,6 +107,10 @@ export const Home = ({}: HomeProps) => {
                   <Sliders size={20} color={colors.gray[600]} />
                 </Pressable>
               </Styled.FilterInputSection>
+
+              <Pressable onPress={handleProductDetails}>
+                <Card />
+              </Pressable>
             </View>
           </Styled.ProductsAdsContainer>
         </View>
