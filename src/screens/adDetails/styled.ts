@@ -1,6 +1,10 @@
 import { AntDesign } from '@expo/vector-icons'
 import styled, { css } from 'styled-components/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  ProductAmountIndicator,
+  ProductAmountValue
+} from '@components/card/styled'
 
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
@@ -36,5 +40,46 @@ export const ImageListContainer = styled.View`
   ${({ theme }) => css`
     position: relative;
     width: 100%;
+  `}
+`
+
+export const Content = styled.View`
+  ${({ theme }) => css``}
+`
+
+export const UserName = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[700]};
+    font-size: ${theme.font_size.md}px;
+    font-family: ${theme.font_familly.regular};
+  `}
+`
+
+export const AmountIndicator = styled(ProductAmountIndicator)`
+  ${({ theme }) => css`
+    color: ${theme.colors.blue.light};
+  `}
+`
+
+export const Amount = styled(ProductAmountValue)`
+  ${({ theme }) => css`
+    color: ${theme.colors.blue.light};
+  `}
+`
+
+export const AdHeader = styled.Text`
+  ${({ theme }) => css`
+    flex: 1;
+    color: ${theme.colors.gray[700]};
+    font-size: ${theme.font_size.xl}px;
+    font-family: ${theme.font_familly.bold};
+  `}
+`
+
+export const AdDescription = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray[600]};
+    font-size: ${theme.font_size.md}px;
+    font-family: ${theme.font_familly.regular};
   `}
 `
