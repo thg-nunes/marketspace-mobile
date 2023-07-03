@@ -40,7 +40,7 @@ export const Register = ({}: RegisterProps) => {
                   vender seus produtos"
                   size="md"
                   color="500"
-                  font="regurlar"
+                  font="regular"
                   style={{
                     maxWidth: 279,
                     textAlign: 'center',

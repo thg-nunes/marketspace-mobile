@@ -54,7 +54,7 @@ export const Home = ({}: HomeProps) => {
                 <Text
                   text="Boas Vindas,"
                   size="lg"
-                  font="regurlar"
+                  font="regular"
                   color="700"
                 />
                 <Text text="Maria!" size="lg" font="bold" color="700" />
@@ -72,7 +72,7 @@ export const Home = ({}: HomeProps) => {
             <Text
               text="Seus produtos anunciados para venda"
               size="md"
-              font="regurlar"
+              font="regular"
               color="500"
             />
 
@@ -85,7 +85,7 @@ export const Home = ({}: HomeProps) => {
                   <Text
                     text="anúncios ativos"
                     size="lg"
-                    font="regurlar"
+                    font="regular"
                     color="700"
                   />
                 </View>
@@ -101,7 +101,7 @@ export const Home = ({}: HomeProps) => {
               <Text
                 text="Compre produtos variados"
                 size="md"
-                font="regurlar"
+                font="regular"
                 color="500"
               />
 

@@ -47,7 +47,7 @@ export const Login = ({}: LoginProps) => {
                 <Text
                   text="Seu espaço de compra e venda"
                   size="md"
-                  font="regurlar"
+                  font="regular"
                   color="500"
                 />
               </View>
@@ -58,7 +58,7 @@ export const Login = ({}: LoginProps) => {
                 <Text
                   text="Acesse sua conta"
                   size="md"
-                  font="regurlar"
+                  font="regular"
                   color="600"
                 />
                 <Input placeholder="E-mail" />
@@ -80,7 +80,7 @@ export const Login = ({}: LoginProps) => {
               <Text
                 text="Ainda não tem acesso?"
                 size="md"
-                font="regurlar"
+                font="regular"
                 color="600"
                 style={{ textAlign: 'center' }}
               />

@@ -10,7 +10,7 @@ type TextComponentProps = TextProps & {
 }
 
 export const Text = ({
-  font = 'regurlar',
+  font = 'regular',
   size = 'sm',
   text = '',
   color = '100',
