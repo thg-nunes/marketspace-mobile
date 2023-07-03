@@ -1,3 +1,5 @@
+import { Text } from '@components/text'
+
 import * as Styled from './styled'
 
 type CheckRadioInputProps = {
@@ -12,7 +14,13 @@ export const CheckRadioInput = ({
   return (
     <Styled.Container>
       {checked ? <Styled.CheckedRadioIcon /> : <Styled.UncheckedRadioIcon />}
-      <Styled.CheckboxText>{inputRadioLabel}</Styled.CheckboxText>
+      <Text
+        text={inputRadioLabel}
+        size="lg"
+        color="600"
+        font="regular"
+        style={{ textTransform: 'capitalize' }}
+      />
     </Styled.Container>
   )
 }
