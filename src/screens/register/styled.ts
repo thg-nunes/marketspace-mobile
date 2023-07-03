@@ -28,33 +28,6 @@ export const LogoSection = styled.View`
   margin-bottom: 32px;
 `
 
-export const Heading = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size['xl']}px;
-    color: ${theme.colors.gray[700]};
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
-export const Description = styled.Text`
-  ${({ theme }) => css`
-    max-width: 279px;
-    text-align: center;
-
-    margin-top: 8px;
-
-    font-size: ${theme.font_size.md}px;
-    color: ${theme.colors.gray[500]};
-    font-family: ${theme.font_familly.regular};
-  `}
-`
-
-export const FormHeader = styled(Description)`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray[600]};
-  `}
-`
-
 export const FormSection = styled.View`
   gap: 16px;
 

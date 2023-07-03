@@ -6,6 +6,7 @@ import Logo from '@assets/logo/logo.png'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
+import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
 import { UserPhoto } from '@components/userPhoto'
@@ -33,11 +34,19 @@ export const Register = ({}: RegisterProps) => {
             <Styled.LogoSection>
               <Image source={Logo} style={{ width: 60, height: 40 }} />
               <View style={{ alignItems: 'center' }}>
-                <Styled.Heading>Boas vindas!</Styled.Heading>
-                <Styled.Description>
-                  Crie sua conta e use o espaço para comprar itens variados e
-                  vender seus produtos
-                </Styled.Description>
+                <Text text="Boas vindas!" color="700" font="bold" size="xl" />
+                <Text
+                  text="Crie sua conta e use o espaço para comprar itens variados e
+                  vender seus produtos"
+                  size="md"
+                  color="500"
+                  font="regurlar"
+                  style={{
+                    maxWidth: 279,
+                    textAlign: 'center',
+                    marginTop: 8
+                  }}
+                />
               </View>
             </Styled.LogoSection>
 
@@ -61,7 +70,18 @@ export const Register = ({}: RegisterProps) => {
 
           <Styled.RegisterSection>
             <View style={{ width: '100%', maxWidth: 279, gap: 16 }}>
-              <Styled.FormHeader>Já tem uma conta?</Styled.FormHeader>
+              <Text
+                text="Já tem uma conta?"
+                color="600"
+                font="bold"
+                size="xl"
+                style={{
+                  maxWidth: 279,
+                  textAlign: 'center',
+                  marginTop: 8
+                }}
+              />
+
               <Button
                 title="Ir para o login"
                 type="PRIMARY"
