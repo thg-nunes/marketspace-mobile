@@ -27,29 +27,6 @@ export const LogoSection = styled.View`
   margin-bottom: 76px;
 `
 
-export const Heading = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size['4xl']}px;
-    color: ${theme.colors.gray[700]};
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
-export const Description = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size.md}px;
-    color: ${theme.colors.gray[500]};
-    font-family: ${theme.font_familly.regular};
-  `}
-`
-
-export const FormHeader = styled(Description)`
-  ${({ theme }) => css`
-    text-align: center;
-    color: ${theme.colors.gray[600]};
-  `}
-`
-
 export const FormSection = styled.View`
   gap: 16px;
   align-items: center;

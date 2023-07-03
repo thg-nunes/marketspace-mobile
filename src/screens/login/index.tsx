@@ -7,6 +7,7 @@ import Logo from '@assets/logo/logo.png'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
+import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
 
@@ -42,16 +43,24 @@ export const Login = ({}: LoginProps) => {
             <Styled.LogoSection>
               <Image source={Logo} />
               <View style={{ alignItems: 'center' }}>
-                <Styled.Heading>marketspace</Styled.Heading>
-                <Styled.Description>
-                  Seu espaço de compra e venda
-                </Styled.Description>
+                <Text text="marketspace" font="bold" size="4xl" color="700" />
+                <Text
+                  text="Seu espaço de compra e venda"
+                  size="md"
+                  font="regurlar"
+                  color="500"
+                />
               </View>
             </Styled.LogoSection>
 
             <Styled.RegisterSectionContent>
               <Styled.FormSection>
-                <Styled.FormHeader>Acesse sua conta</Styled.FormHeader>
+                <Text
+                  text="Acesse sua conta"
+                  size="md"
+                  font="regurlar"
+                  color="600"
+                />
                 <Input placeholder="E-mail" />
                 <Input isPassword placeholder="Senha" returnKeyType="send" />
               </Styled.FormSection>
@@ -68,7 +77,13 @@ export const Login = ({}: LoginProps) => {
 
           <Styled.RegisterSection>
             <Styled.RegisterSectionContent>
-              <Styled.FormHeader>Ainda não tem acesso?</Styled.FormHeader>
+              <Text
+                text="Ainda não tem acesso?"
+                size="md"
+                font="regurlar"
+                color="600"
+                style={{ textAlign: 'center' }}
+              />
               <Button
                 title="Criar uma conta"
                 type="PRIMARY"
