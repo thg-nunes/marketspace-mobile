@@ -1,3 +1,4 @@
+import { Text } from '@components/text'
 import * as Styled from './styled'
 
 type CheckBoxInputProps = {
@@ -12,7 +13,13 @@ export const CheckboxInput = ({
   return (
     <Styled.Container>
       {checked ? <Styled.CheckedBoxIcon /> : <Styled.UncheckedBoxIcon />}
-      <Styled.CheckboxText>{checkboxInputLabel}</Styled.CheckboxText>
+      <Text
+        text={checkboxInputLabel}
+        color="600"
+        font="regular"
+        size="lg"
+        style={{ textTransform: 'capitalize' }}
+      />
     </Styled.Container>
   )
 }

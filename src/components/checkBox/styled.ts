@@ -17,13 +17,3 @@ export const UncheckedBoxIcon = styled(Feather).attrs(({ theme }) => ({
   name: 'square',
   color: theme.colors.gray[400]
 }))``
-
-export const CheckboxText = styled.Text`
-  ${({ theme }) => css`
-    text-transform: capitalize;
-
-    color: ${theme.colors.gray[600]};
-    font-size: ${theme.font_size.lg}px;
-    font-family: ${theme.font_familly.regular};
-  `}
-`
