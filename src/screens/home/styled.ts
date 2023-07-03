@@ -33,20 +33,6 @@ export const HomeHeaderUserPhoto = styled.View`
   `}
 `
 
-export const Text = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size.lg}px;
-    font-family: ${theme.font_familly.regular};
-  `}
-`
-
-export const Name = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size.lg}px;
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
 export const Profile = styled.View`
   flex: 1;
   max-width: 180px;
@@ -61,15 +47,6 @@ export const ProductsAdsContainer = styled.View`
   gap: 12px;
   margin-top: 32px;
   margin-bottom: 24px;
-`
-
-export const ProductsAdsText = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size.md}px;
-    font-family: ${theme.font_familly.regular};
-
-    color: ${theme.colors.gray[500]};
-  `}
 `
 
 export const ProductsAdsContent = styled.View`
@@ -171,21 +148,6 @@ export const Divider = styled.View`
     background: ${theme.colors.gray[400]};
   `}
 `
-
-export const FiltersHeader = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size['xl']}px;
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
-export const ProductConditionHeader = styled.Text`
-  ${({ theme }) => css`
-    font-size: ${theme.font_size.md}px;
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
 export const ProductCondition = styled.View`
   width: 100%;
   gap: 12px;

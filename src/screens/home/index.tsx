@@ -14,6 +14,7 @@ import { useTheme } from 'styled-components/native'
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 import { Card } from '@components/card'
+import { Text } from '@components/text'
 import { Button } from '@components/button'
 import { UserPhoto } from '@components/userPhoto'
 import { CheckboxInput } from '@components/checkBox'
@@ -50,8 +51,13 @@ export const Home = ({}: HomeProps) => {
             <Styled.Profile>
               <UserPhoto size={'md'} photoEdiIcontShow={false} />
               <View>
-                <Styled.Text>Boas Vindas,</Styled.Text>
-                <Styled.Name>Maria!</Styled.Name>
+                <Text
+                  text="Boas Vindas,"
+                  size="lg"
+                  font="regurlar"
+                  color="700"
+                />
+                <Text text="Maria!" size="lg" font="bold" color="700" />
               </View>
             </Styled.Profile>
 
@@ -63,17 +69,25 @@ export const Home = ({}: HomeProps) => {
           </Styled.HomeHeader>
 
           <Styled.ProductsAdsContainer>
-            <Styled.ProductsAdsText>
-              Seus produtos anunciados para venda
-            </Styled.ProductsAdsText>
+            <Text
+              text="Seus produtos anunciados para venda"
+              size="md"
+              font="regurlar"
+              color="500"
+            />
 
             <Styled.ProductsAdsContent>
               <Styled.ProductsAdsBackground />
               <Styled.ActiveProducts>
                 <Tag size={22} color={colors.blue.dark} />
                 <View>
-                  <Styled.Name>4</Styled.Name>
-                  <Styled.Text>anúncios ativos</Styled.Text>
+                  <Text text="4" size="lg" font="bold" color="700" />
+                  <Text
+                    text="anúncios ativos"
+                    size="lg"
+                    font="regurlar"
+                    color="700"
+                  />
                 </View>
               </Styled.ActiveProducts>
 
@@ -84,9 +98,12 @@ export const Home = ({}: HomeProps) => {
             </Styled.ProductsAdsContent>
 
             <View style={{ gap: 12 }}>
-              <Styled.ProductsAdsText>
-                Compre produtos variados
-              </Styled.ProductsAdsText>
+              <Text
+                text="Compre produtos variados"
+                size="md"
+                font="regurlar"
+                color="500"
+              />
 
               <Styled.FilterInputSection>
                 <TextInput
@@ -130,16 +147,19 @@ export const Home = ({}: HomeProps) => {
                   alignItems: 'center'
                 }}
               >
-                <Styled.FiltersHeader>Filtrar anúncios</Styled.FiltersHeader>
+                <Text
+                  text="Filtrar anúncios"
+                  size="xl"
+                  font="bold"
+                  color="700"
+                />
                 <Pressable onPress={() => setFiltersVisible(false)}>
                   <X size={24} color={colors.gray[400]} />
                 </Pressable>
               </View>
 
               <Styled.ProductCondition>
-                <Styled.ProductConditionHeader>
-                  Condição
-                </Styled.ProductConditionHeader>
+                <Text text="Condição" size="md" font="bold" color="700" />
                 <View style={{ flexDirection: 'row', gap: 8 }}>
                   <TagConponent title="NOVO" />
                   <TagConponent title="USADO" type="USED" />
@@ -147,18 +167,19 @@ export const Home = ({}: HomeProps) => {
               </Styled.ProductCondition>
 
               <Styled.ProductCondition>
-                <Styled.ProductConditionHeader>
-                  Aceita troca?
-                </Styled.ProductConditionHeader>
+                <Text text="Aceita troca?" size="md" font="bold" color="700" />
                 <Styled.Switch switchEnabled={switchEnabled}>
                   <Styled.SwitchCircle switchEnabled={switchEnabled} />
                 </Styled.Switch>
               </Styled.ProductCondition>
 
               <View style={{ width: '100%', gap: 12 }}>
-                <Styled.ProductConditionHeader>
-                  Meios de pagamento aceitos
-                </Styled.ProductConditionHeader>
+                <Text
+                  text="Meios de pagamento aceitos"
+                  size="md"
+                  font="bold"
+                  color="700"
+                />
                 <CheckboxInput checkboxInputLabel="Boleto" />
                 <CheckboxInput checkboxInputLabel="Pix" />
                 <CheckboxInput checkboxInputLabel="Dinheiro" />
