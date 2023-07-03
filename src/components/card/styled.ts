@@ -6,10 +6,6 @@ type ProductStateProps = {
   type: ProductState
 }
 
-export const Container = styled.View`
-  ${({ theme }) => css``}
-`
-
 export const ProdutAdsContainer = styled.ImageBackground`
   flex-direction: row;
   justify-content: space-between;
@@ -39,30 +35,6 @@ export const AdvertiserPhotoContainer = styled.View`
     border-radius: 9999px;
   `}
 `
-
-export const ProductTitle = styled.Text`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray[600]};
-    font-size: ${theme.font_size.md}px;
-  `}
-`
-
-export const ProductAmountIndicator = styled.Text`
-  ${({ theme }) => css`
-    font-family: ${theme.font_familly.bold};
-    color: ${theme.colors.gray[700]};
-    font-size: 12px;
-  `}
-`
-
-export const ProductAmountValue = styled.Text`
-  ${({ theme }) => css`
-    font-family: ${theme.font_familly.bold};
-    color: ${theme.colors.gray[700]};
-    font-size: ${theme.font_size.lg}px;
-  `}
-`
-
 export const ProductState = styled.Text<ProductStateProps>`
   ${({ theme, type }) => css`
     width: 43px;
