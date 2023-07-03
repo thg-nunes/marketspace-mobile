@@ -1,4 +1,5 @@
-import { XCircle } from 'phosphor-react-native'
+import { Text } from '@components/text'
+
 import * as Styled from './styled'
 
 type TagProps = {
@@ -9,7 +10,12 @@ type TagProps = {
 export const Tag = ({ type = 'NEW', title = '' }: TagProps) => {
   return (
     <Styled.Container type={type}>
-      <Styled.TagText type={type}>{title}</Styled.TagText>
+      <Text
+        text={title}
+        size="sm"
+        font="bold"
+        color={type === 'NEW' ? '100' : '500'}
+      />
       {type === 'NEW' && <Styled.RemoveIcon />}
     </Styled.Container>
   )
