@@ -5,6 +5,8 @@ import {
   TouchableOpacityProps
 } from 'react-native'
 
+import { Text } from '@components/text'
+
 import * as Styled from './styled'
 
 type MyButtonProps = TouchableOpacityProps & {
@@ -29,7 +31,12 @@ export const Button = ({
       {isLoading ? (
         <ActivityIndicator {...isLoadingProps} />
       ) : (
-        <Styled.ButtonText type={type}>{title}</Styled.ButtonText>
+        <Text
+          text={title}
+          color={type === 'PRIMARY' ? '600' : '100'}
+          font="bold"
+          size="md"
+        />
       )}
     </Styled.Container>
   )
