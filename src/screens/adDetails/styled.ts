@@ -43,18 +43,6 @@ export const ImageListContainer = styled.View`
   `}
 `
 
-export const Content = styled.View`
-  ${({ theme }) => css``}
-`
-
-export const UserName = styled.Text`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray[700]};
-    font-size: ${theme.font_size.md}px;
-    font-family: ${theme.font_familly.regular};
-  `}
-`
-
 export const AmountIndicator = styled(ProductAmountIndicator)`
   ${({ theme }) => css`
     color: ${theme.colors.blue.light};
@@ -64,22 +52,5 @@ export const AmountIndicator = styled(ProductAmountIndicator)`
 export const Amount = styled(ProductAmountValue)`
   ${({ theme }) => css`
     color: ${theme.colors.blue.light};
-  `}
-`
-
-export const AdHeader = styled.Text`
-  ${({ theme }) => css`
-    flex: 1;
-    color: ${theme.colors.gray[700]};
-    font-size: ${theme.font_size.xl}px;
-    font-family: ${theme.font_familly.bold};
-  `}
-`
-
-export const AdDescription = styled.Text`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray[600]};
-    font-size: ${theme.font_size.md}px;
-    font-family: ${theme.font_familly.regular};
   `}
 `

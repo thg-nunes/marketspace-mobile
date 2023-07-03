@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 import { Tag } from '@components/tag'
+import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
@@ -83,29 +84,38 @@ export const AdDetails = ({}: AdDetailsProps) => {
           paddingRight: 24
         }}
       >
-        <Styled.Content>
+        <View>
           <View style={{ flexDirection: 'row', gap: 8 }}>
             <UserPhoto size="sm" photoEdiIcontShow={false} />
-            <Styled.UserName>Maria</Styled.UserName>
+            <Text text="Maria" color="700" font="regular" size="md" />
           </View>
 
           <View style={{ gap: 8, marginTop: 24, marginBottom: 24 }}>
             <Tag title="NOVO" type="USED" />
             <View style={{ flexDirection: 'row' }}>
-              <Styled.AdHeader>Bicicleta</Styled.AdHeader>
+              <Text
+                text="Bicicleta"
+                color="700"
+                font="bold"
+                size="xl"
+                style={{ flex: 1 }}
+              />
               <View style={{ flexDirection: 'row' }}>
                 <Styled.AmountIndicator>R$</Styled.AmountIndicator>
                 <Styled.Amount>129,90</Styled.Amount>
               </View>
             </View>
-            <Styled.AdDescription>
-              Cras congue cursus in tortor sagittis placerat nunc, tellus arcu.
+            <Text
+              text="Cras congue cursus in tortor sagittis placerat nunc, tellus arcu.
               Vitae ante leo eget maecenas urna mattis cursus. Mauris metus amet
               nibh mauris mauris accumsan, euismod. Aenean leo nunc, purus
-              iaculis in aliquam.
-            </Styled.AdDescription>
+              iaculis in aliquam."
+              color="600"
+              font="regular"
+              size="md"
+            />
           </View>
-        </Styled.Content>
+        </View>
       </ScrollView>
     </Styled.Container>
   )
