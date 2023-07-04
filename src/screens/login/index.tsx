@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTheme } from 'styled-components/native'
-import { Image, ScrollView, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
@@ -64,14 +64,13 @@ export const Login = ({}: LoginProps) => {
                 <Input placeholder="E-mail" />
                 <Input isPassword placeholder="Senha" returnKeyType="send" />
               </Styled.FormSection>
-
-              <Button
-                title="Entrar"
-                type="TERTIARY"
-                isLoading={isSign}
-                onPress={handleSignIn}
-                isLoadingProps={{ color: 'white' }}
-              />
+              <Button.Root type="TERTIARY" onPress={handleSignIn}>
+                {isSign ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text text="Entrar" size="md" font="bold" color="100" />
+                )}
+              </Button.Root>
             </Styled.RegisterSectionContent>
           </Styled.Content>
 
@@ -84,11 +83,19 @@ export const Login = ({}: LoginProps) => {
                 color="600"
                 style={{ textAlign: 'center' }}
               />
-              <Button
-                title="Criar uma conta"
-                type="PRIMARY"
-                onPress={handleRegisterScreen}
-              />
+
+              <Button.Root type="PRIMARY" onPress={handleRegisterScreen}>
+                {isSign ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text
+                    text="Criar uma conta"
+                    size="md"
+                    font="bold"
+                    color="700"
+                  />
+                )}
+              </Button.Root>
             </Styled.RegisterSectionContent>
           </Styled.RegisterSection>
         </View>
