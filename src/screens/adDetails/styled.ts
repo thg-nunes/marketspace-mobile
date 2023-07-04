@@ -1,10 +1,6 @@
 import { AntDesign } from '@expo/vector-icons'
 import styled, { css } from 'styled-components/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {
-  ProductAmountIndicator,
-  ProductAmountValue
-} from '@components/card/styled'
 
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
@@ -43,14 +39,17 @@ export const ImageListContainer = styled.View`
   `}
 `
 
-export const AmountIndicator = styled(ProductAmountIndicator)`
+export const AmountIndicator = styled.Text`
   ${({ theme }) => css`
+    font-size: ${theme.font_size.sm}px;
+    font-family: ${theme.font_familly.bold};
     color: ${theme.colors.blue.light};
   `}
 `
 
-export const Amount = styled(ProductAmountValue)`
+export const Amount = styled(AmountIndicator)`
   ${({ theme }) => css`
+    font-size: ${theme.font_size.md}px;
     color: ${theme.colors.blue.light};
   `}
 `
