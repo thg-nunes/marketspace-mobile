@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
-import { FlatList, Image, ScrollView, View, ViewToken } from 'react-native'
+import { useTheme } from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
+import { FlatList, Image, ScrollView, View, ViewToken } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
@@ -9,16 +10,24 @@ import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
+import {
+  Bank,
+  Barcode,
+  CreditCard,
+  Money,
+  QrCode,
+  WhatsappLogo
+} from 'phosphor-react-native'
+import { Button } from '@components/button'
 
-type AdDetailsProps = {}
-
-export const AdDetails = ({}: AdDetailsProps) => {
+export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
   const images = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3PFe0VM926Vss_eH-gkyWaUn3HUkkqeBxrw&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAMB7VSqy-EsGhPHiNV1ac6KIJo5e1eudaLw&usqp=CAU'
   ]
+  const { colors } = useTheme()
 
   function handleGoBackSecreen() {
     goBack()
@@ -80,25 +89,16 @@ export const AdDetails = ({}: AdDetailsProps) => {
 
       <ScrollView
         contentContainerStyle={{
-          paddingTop: 20,
-          paddingLeft: 24,
-          paddingRight: 24
+          paddingTop: 20
         }}
       >
         <View>
-          <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+          <Styled.RowCenterItems>
             <UserPhoto size="sm" photoEdiIcontShow={false} />
             <Text text="Maria" color="700" font="regular" size="md" />
-          </View>
+          </Styled.RowCenterItems>
 
-          <View
-            style={{
-              gap: 8,
-              marginTop: 24,
-              marginBottom: 24,
-              alignItems: 'flex-start'
-            }}
-          >
+          <Styled.AdContent>
             <Tag.Root type="GRAY.300" size="sm">
               <Text text="NOVO" color="600" font="bold" size="xsm" />
             </Tag.Root>
@@ -125,7 +125,85 @@ export const AdDetails = ({}: AdDetailsProps) => {
               font="regular"
               size="md"
             />
-          </View>
+          </Styled.AdContent>
+
+          <Styled.RowCenterItems>
+            <Text text="Aceita troca?" size="md" font="bold" color="600" />
+            <Text text="Sim" size="md" font="regular" color="600" />
+          </Styled.RowCenterItems>
+
+          <Styled.PaymentMethodsContainer>
+            <Text
+              text="Meios de pagamento:"
+              size="md"
+              font="bold"
+              color="700"
+            />
+            <Styled.PaymentMethod>
+              <Barcode size={18} color={colors.gray[700]} />
+              <Text color="600" font="regular" size="md" text="Boleto" />
+            </Styled.PaymentMethod>
+
+            <Styled.PaymentMethod>
+              <QrCode size={18} color={colors.gray[700]} />
+              <Text color="600" font="regular" size="md" text="Pix" />
+            </Styled.PaymentMethod>
+
+            <Styled.PaymentMethod>
+              <Money size={18} color={colors.gray[700]} />
+              <Text color="600" font="regular" size="md" text="Dinheiro" />
+            </Styled.PaymentMethod>
+
+            <Styled.PaymentMethod>
+              <CreditCard size={18} color={colors.gray[700]} />
+              <Text
+                color="600"
+                font="regular"
+                size="md"
+                text="Cartão de Crédito"
+              />
+            </Styled.PaymentMethod>
+
+            <Styled.PaymentMethod>
+              <Bank size={18} color={colors.gray[700]} />
+              <Text
+                color="600"
+                font="regular"
+                size="md"
+                text="Depósito Bancário"
+              />
+            </Styled.PaymentMethod>
+          </Styled.PaymentMethodsContainer>
+
+          <Styled.Contact>
+            <View style={{ flexDirection: 'row' }}>
+              <Styled.AmountIndicator style={{ color: colors.blue.dark }}>
+                R$
+              </Styled.AmountIndicator>
+              <Styled.Amount style={{ color: colors.blue.dark }}>
+                129,90
+              </Styled.Amount>
+            </View>
+
+            <View>
+              <Button.Root type="TERTIARY">
+                <Button.Icon
+                  Icon={WhatsappLogo}
+                  iconProps={{
+                    size: 16,
+                    color: 'white',
+                    weight: 'fill'
+                  }}
+                />
+                <Text
+                  color="100"
+                  font="bold"
+                  size="md"
+                  text="Entrar em contato"
+                />
+              </Button.Root>
+            </View>
+          </Styled.Contact>
         </View>
       </ScrollView>
     </Styled.Container>
