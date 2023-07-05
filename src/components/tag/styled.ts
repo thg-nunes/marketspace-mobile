@@ -20,7 +20,8 @@ export const Container = styled.View<TagStyleProps>`
     padding-right: ${size === 'sm' ? 8 : 16}px;
   `}
 
-  padding-right: ${({ hasTagIcon }) => (hasTagIcon ? 6 : 16)}px;
+  padding-right: ${({ hasTagIcon, size }) =>
+    hasTagIcon ? 6 : size === 'sm' ? 8 : 16}px;
 
   border-radius: 9999px;
   background: ${({ theme, type }) =>

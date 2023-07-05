@@ -28,7 +28,8 @@ export const AdDetails = ({}: AdDetailsProps) => {
     viewableItems: Array<ViewToken>
     changed: Array<ViewToken>
   }) {
-    info.changed[0]?.index && setActiveImage(info.changed[0]?.index)
+    const imageIndex = info.changed[0]?.index as number
+    setActiveImage(imageIndex)
   }
 
   const viewabilityConfig = {
@@ -72,7 +73,7 @@ export const AdDetails = ({}: AdDetailsProps) => {
           }}
         >
           {images.map((_, index) => (
-            <Styled.ImageCounter isActive={index === activeImage} />
+            <Styled.ImageCounter key={_} isActive={index === activeImage} />
           ))}
         </View>
       </Styled.ImageListContainer>
@@ -85,13 +86,23 @@ export const AdDetails = ({}: AdDetailsProps) => {
         }}
       >
         <View>
-          <View style={{ flexDirection: 'row', gap: 8 }}>
+          <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
             <UserPhoto size="sm" photoEdiIcontShow={false} />
             <Text text="Maria" color="700" font="regular" size="md" />
           </View>
 
-          <View style={{ gap: 8, marginTop: 24, marginBottom: 24 }}>
-            <Tag title="NOVO" type="USED" />
+          <View
+            style={{
+              gap: 8,
+              marginTop: 24,
+              marginBottom: 24,
+              alignItems: 'flex-start'
+            }}
+          >
+            <Tag.Root type="GRAY.300" size="sm">
+              <Text text="NOVO" color="600" font="bold" size="xsm" />
+            </Tag.Root>
+
             <View style={{ flexDirection: 'row' }}>
               <Text
                 text="Bicicleta"
