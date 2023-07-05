@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
     flex: 1;
-    background: ${theme.colors.gray[100]};
+    background: ${theme.colors.gray[200]};
   `}
 `
 
@@ -33,15 +33,13 @@ export const ImageCounter = styled.View<{ isActive: boolean }>`
 `
 
 export const ImageListContainer = styled.View`
-  ${({ theme }) => css`
-    position: relative;
-    width: 100%;
-  `}
+  position: relative;
+  width: 100%;
 `
 
 export const AmountIndicator = styled.Text`
   ${({ theme }) => css`
-    font-size: ${theme.font_size.sm}px;
+    font-size: ${theme.font_size.md}px;
     font-family: ${theme.font_familly.bold};
     color: ${theme.colors.blue.light};
   `}
@@ -49,7 +47,54 @@ export const AmountIndicator = styled.Text`
 
 export const Amount = styled(AmountIndicator)`
   ${({ theme }) => css`
-    font-size: ${theme.font_size.md}px;
+    font-size: ${theme.font_size.xl}px;
     color: ${theme.colors.blue.light};
+  `}
+`
+
+export const PaymentMethod = styled.View`
+  flex: 1;
+  gap: 8px;
+  flex-direction: row;
+`
+
+export const RowCenterItems = styled.View`
+  gap: 8px;
+  align-items: center;
+  flex-direction: row;
+
+  padding-left: 24px;
+  padding-right: 24px;
+`
+
+export const AdContent = styled.View`
+  flex: 1;
+  gap: 8px;
+  margin: 24px 0;
+
+  align-items: flex-start;
+
+  padding-left: 24px;
+  padding-right: 24px;
+`
+
+export const PaymentMethodsContainer = styled.View`
+  flex: 1;
+  gap: 12px;
+  margin-top: 16px;
+
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 26px;
+`
+
+export const Contact = styled.View`
+  ${({ theme }) => css`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px 28px 24px;
+    background: ${theme.colors.gray[100]};
   `}
 `
