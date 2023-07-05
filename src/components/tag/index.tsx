@@ -1,22 +1,7 @@
-import { Text } from '@components/text'
+import { TagIcon } from './icon'
+import { TagRoot } from './root'
 
-import * as Styled from './styled'
-
-type TagProps = {
-  title: string
-  type?: Styled.TagType
-}
-
-export const Tag = ({ type = 'NEW', title = '' }: TagProps) => {
-  return (
-    <Styled.Container type={type}>
-      <Text
-        text={title}
-        size="sm"
-        font="bold"
-        color={type === 'NEW' ? '100' : '500'}
-      />
-      {type === 'NEW' && <Styled.RemoveIcon />}
-    </Styled.Container>
-  )
+export const Tag = {
+  Root: TagRoot,
+  Icon: TagIcon
 }
