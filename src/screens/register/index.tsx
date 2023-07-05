@@ -51,7 +51,7 @@ export const Register = ({}: RegisterProps) => {
             </Styled.LogoSection>
 
             <UserPhoto size={'xl'} photoEdiIcontShow />
-            <View style={{ width: '100%', maxWidth: 279 }}>
+            <View style={{ width: '100%', maxWidth: 279, marginTop: 16 }}>
               <Styled.FormSection>
                 <Input placeholder="Nome" />
                 <Input placeholder="E-mail" />

@@ -22,8 +22,6 @@ export const Container = styled.View<UerPhotoSize>`
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 16px;
-
     border-radius: 9999px;
     background: ${theme.colors.gray[300]};
     border-width: 2px;
