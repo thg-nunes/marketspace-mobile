@@ -2,7 +2,16 @@ import styled, { css } from 'styled-components/native'
 
 export type FontStyle = 'regular' | 'bold'
 export type FontColor = '100' | '200' | '300' | '400' | '500' | '600' | '700'
-export type FontSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'
+export type FontSize =
+  | 'xsm'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
 
 type TextProps = {
   font: FontStyle
