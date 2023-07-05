@@ -13,9 +13,7 @@ import { Button } from '@components/button'
 
 import * as Styled from './styled'
 
-type LoginProps = {}
-
-export const Login = ({}: LoginProps) => {
+export const Login = () => {
   const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
   const { colors } = useTheme()
   const [isSign, setIsSign] = useState(false)
@@ -85,16 +83,12 @@ export const Login = ({}: LoginProps) => {
               />
 
               <Button.Root type="PRIMARY" onPress={handleRegisterScreen}>
-                {isSign ? (
-                  <ActivityIndicator color="white" />
-                ) : (
-                  <Text
-                    text="Criar uma conta"
-                    size="md"
-                    font="bold"
-                    color="700"
-                  />
-                )}
+                <Text
+                  text="Criar uma conta"
+                  size="md"
+                  font="bold"
+                  color="700"
+                />
               </Button.Root>
             </Styled.RegisterSectionContent>
           </Styled.RegisterSection>

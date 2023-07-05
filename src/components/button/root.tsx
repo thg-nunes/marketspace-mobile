@@ -1,11 +1,5 @@
 import { ReactNode } from 'react'
-import {
-  ActivityIndicator,
-  ActivityIndicatorProps,
-  TouchableOpacityProps
-} from 'react-native'
-
-import { Text } from '@components/text'
+import { TouchableOpacityProps } from 'react-native'
 
 import * as Styled from './styled'
 
