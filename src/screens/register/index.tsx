@@ -64,7 +64,9 @@ export const Register = ({}: RegisterProps) => {
                 />
               </Styled.FormSection>
 
-              <Button title="Criar" type="SECONDARY" />
+              <Button.Root type="SECONDARY">
+                <Text text="Criar" font="bold" size="sm" color="100" />
+              </Button.Root>
             </View>
           </Styled.Content>
 
@@ -82,11 +84,14 @@ export const Register = ({}: RegisterProps) => {
                 }}
               />
 
-              <Button
-                title="Ir para o login"
-                type="PRIMARY"
-                onPress={handleSignIn}
-              />
+              <Button.Root type="PRIMARY" onPress={handleSignIn}>
+                <Text
+                  text="Ir para o login"
+                  font="bold"
+                  size="sm"
+                  color="600"
+                />
+              </Button.Root>
             </View>
           </Styled.RegisterSection>
         </View>
