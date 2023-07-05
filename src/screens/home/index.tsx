@@ -62,9 +62,16 @@ export const Home = ({}: HomeProps) => {
             </Styled.Profile>
 
             <View>
-              <Button title="Criar anúncio" type="SECONDARY">
-                <Plus size={16} color={colors.gray[100]} />
-              </Button>
+              <Button.Root type="SECONDARY">
+                <Button.Icon
+                  Icon={Plus}
+                  iconProps={{
+                    size: 16,
+                    color: colors.gray[100]
+                  }}
+                />
+                <Text text="Criar anúncio" color="100" font="bold" size="md" />
+              </Button.Root>
             </View>
           </Styled.HomeHeader>
 
@@ -161,8 +168,14 @@ export const Home = ({}: HomeProps) => {
               <Styled.ProductCondition>
                 <Text text="Condição" size="md" font="bold" color="700" />
                 <View style={{ flexDirection: 'row', gap: 8 }}>
-                  <TagConponent title="NOVO" />
-                  <TagConponent title="USADO" type="USED" />
+                  <TagConponent.Root hasTagIcon size="lg" type="BLUE">
+                    <Text text="NOVO" color="100" font="bold" size="sm" />
+                    <TagConponent.Icon />
+                  </TagConponent.Root>
+
+                  <TagConponent.Root size="lg" type="GRAY.300">
+                    <Text text="USADO" color="500" font="bold" size="sm" />
+                  </TagConponent.Root>
                 </View>
               </Styled.ProductCondition>
 
@@ -188,8 +201,22 @@ export const Home = ({}: HomeProps) => {
               </View>
 
               <View style={{ gap: 12, flexDirection: 'row' }}>
-                <Button title="Resetar filtros" type="PRIMARY" />
-                <Button title="Aplicar filtros" type="SECONDARY" />
+                <Button.Root type="PRIMARY">
+                  <Text
+                    text="Resetar filtros"
+                    color="600"
+                    font="bold"
+                    size="md"
+                  />
+                </Button.Root>
+                <Button.Root type="SECONDARY">
+                  <Text
+                    text="Aplicar filtros"
+                    color="100"
+                    font="bold"
+                    size="md"
+                  />
+                </Button.Root>
               </View>
             </Styled.FiltersContent>
           </Styled.FilterContainer>

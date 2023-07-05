@@ -6,7 +6,7 @@ type TagProps = {
   children: ReactNode
   type: Styled.TagType
   size: 'lg' | 'sm'
-  hasTagIcon: boolean
+  hasTagIcon?: boolean
 }
 
 export const TagRoot = ({
