@@ -6,9 +6,17 @@ import { Text } from '@components/text'
 
 import * as Styled from './styled'
 
-type CardProps = {}
+type CardProps = {
+  showUserPhoto?: boolean
+  productType: Styled.ProductState
+  cardType: 'ACTIVE' | 'INACTIVE'
+}
 
-export const Card = ({}: CardProps) => {
+export const Card = ({
+  productType = 'NEW',
+  cardType = 'ACTIVE',
+  showUserPhoto = true
+}: CardProps) => {
   const { colors } = useTheme()
 
   return (
@@ -18,19 +26,43 @@ export const Card = ({}: CardProps) => {
           uri: 'https://anjuss.vteximg.com.br/arquivos/ids/163322/Tenis-Preto-e-Branco-Ride-Anjuss--PADRAO-33.jpg?v=637288059392900000'
         }}
       >
-        <Styled.AdvertiserPhotoContainer>
-          <User
-            size={18}
-            color={colors.gray[400]}
-            style={{
-              position: 'absolute'
-            }}
-          />
-        </Styled.AdvertiserPhotoContainer>
-        <Styled.ProductState type="NEW">Usado</Styled.ProductState>
+        {cardType === 'INACTIVE' && (
+          <Styled.InactiveAdsIndicatorContainer>
+            <Styled.BackgroundInactiveAds />
+            <Text
+              text="Anúncio desativado"
+              color="100"
+              font="bold"
+              size="sm"
+              style={{
+                textTransform: 'uppercase',
+                margin: 8,
+                position: 'absolute',
+                bottom: 0
+              }}
+            />
+          </Styled.InactiveAdsIndicatorContainer>
+        )}
+        {showUserPhoto && (
+          <Styled.AdvertiserPhotoContainer>
+            <User
+              size={18}
+              color={colors.gray[400]}
+              style={{
+                position: 'absolute'
+              }}
+            />
+          </Styled.AdvertiserPhotoContainer>
+        )}
+        <Styled.ProductState type={productType}>Usado</Styled.ProductState>
       </Styled.ProdutAdsContainer>
       <View>
-        <Text text="Tênis vermelho" color="600" size="md" font="regular" />
+        <Text
+          text="Tênis vermelho"
+          color={cardType === 'ACTIVE' ? '600' : '400'}
+          size="md"
+          font="regular"
+        />
         <View
           style={{
             height: 21,
@@ -38,8 +70,18 @@ export const Card = ({}: CardProps) => {
             gap: 2
           }}
         >
-          <Text color="700" font="bold" size="sm" text="R$" />
-          <Text text="59,90" font="bold" color="700" size="lg" />
+          <Text
+            color={cardType === 'ACTIVE' ? '700' : '400'}
+            font="bold"
+            size="sm"
+            text="R$"
+          />
+          <Text
+            text="59,90"
+            font="bold"
+            color={cardType === 'ACTIVE' ? '700' : '400'}
+            size="lg"
+          />
         </View>
       </View>
     </View>
