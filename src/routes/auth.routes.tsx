@@ -7,12 +7,14 @@ import { AdDetails } from '@screens/adDetails'
 import { Login } from '@screens/login'
 import { Register } from '@screens/register'
 import { AppRoutes } from './app.routes'
+import { MyAdDetails } from '@screens/myAdDetails'
 
 type AuthRoutesProps = {
   login: undefined
   register: undefined
   homeApp: undefined
   adDetails: undefined
+  myAdDetails: undefined
 }
 
 export type NativeStackRoutesScreenProps =
@@ -31,6 +33,7 @@ export function AuthRoutes() {
       <Screen name="register" component={Register} />
       <Screen name="homeApp" component={AppRoutes} />
       <Screen name="adDetails" component={AdDetails} />
+      <Screen name="myAdDetails" component={MyAdDetails} />
     </Navigator>
   )
 }
