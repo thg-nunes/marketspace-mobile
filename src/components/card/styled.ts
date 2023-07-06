@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components/native'
 
-type ProductState = 'NEW' | 'USED'
+export type ProductState = 'NEW' | 'USED'
 
 type ProductStateProps = {
   type: ProductState
 }
 
 export const ProdutAdsContainer = styled.ImageBackground`
+  position: relative;
   flex-direction: row;
   justify-content: space-between;
 
@@ -35,8 +36,13 @@ export const AdvertiserPhotoContainer = styled.View`
     border-radius: 9999px;
   `}
 `
+
 export const ProductState = styled.Text<ProductStateProps>`
   ${({ theme, type }) => css`
+    position: absolute;
+    right: 0;
+    margin: 4px 3px;
+
     width: 43px;
     height: 17px;
 
@@ -50,5 +56,21 @@ export const ProductState = styled.Text<ProductStateProps>`
 
     font-size: 10px;
     font-family: ${theme.font_familly.bold};
+  `}
+`
+
+export const InactiveAdsIndicatorContainer = styled.View`
+  position: absolute;
+
+  width: 153px;
+  height: 100px;
+  z-index: 1;
+`
+
+export const BackgroundInactiveAds = styled.View`
+  ${({ theme }) => css`
+    flex: 1;
+    opacity: 0.45;
+    background-color: ${theme.colors.gray[700]};
   `}
 `
