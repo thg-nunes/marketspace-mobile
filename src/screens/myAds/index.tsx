@@ -1,11 +1,24 @@
-import { Text, View } from 'react-native'
+import { Text } from '@components/text'
+import { Plus } from 'phosphor-react-native'
+import { useTheme } from 'styled-components'
 
-type MyAdsProps = {}
+import * as Styled from './styled'
 
-export const MyAds = ({}: MyAdsProps) => {
+export const MyAds = () => {
+  const { colors } = useTheme()
+
   return (
-    <View>
-      <Text> MyAds Screen </Text>
-    </View>
+    <Styled.Container>
+      <Styled.Header>
+        <Text
+          text="Meus anúncios"
+          color="700"
+          font="bold"
+          size="xl"
+          style={{ flex: 1, textAlign: 'center' }}
+        />
+        <Plus size={24} color={colors.gray[700]} />
+      </Styled.Header>
+    </Styled.Container>
   )
 }
