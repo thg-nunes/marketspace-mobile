@@ -7,11 +7,13 @@ import * as Styled from './styled'
 type InputProps = TextInputProps & {
   placeholder: string
   isPassword?: boolean
+  inputHeight?: number
 }
 
 export const Input = ({
   isPassword = false,
   placeholder = '',
+  inputHeight = 45,
   ...rest
 }: InputProps) => {
   const { colors } = useTheme()
@@ -19,7 +21,7 @@ export const Input = ({
   const [secureTextEntry, setSecureTextEntry] = useState(true)
 
   return (
-    <Styled.Container inputInFocus={inputInFocus}>
+    <Styled.Container inputInFocus={inputInFocus} inputHeight={inputHeight}>
       <Styled.Input
         placeholder={placeholder}
         secureTextEntry={isPassword && secureTextEntry}

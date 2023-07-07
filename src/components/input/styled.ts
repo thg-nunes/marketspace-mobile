@@ -4,14 +4,15 @@ import styled, { css } from 'styled-components/native'
 
 type ContainerPropsDTO = {
   inputInFocus: boolean
+  inputHeight: number
 }
 
 export const Container = styled.View<ContainerPropsDTO>`
-  ${({ theme, inputInFocus }) => css`
+  ${({ theme, inputInFocus, inputHeight }) => css`
     width: 100%;
     max-width: 297px;
-    height: 45px;
-    max-height: 45px;
+    height: ${inputHeight}px;
+    max-height: ${inputHeight}px;
 
     padding: 12px 16px;
     flex-direction: row;
@@ -19,7 +20,7 @@ export const Container = styled.View<ContainerPropsDTO>`
     border-radius: 6px;
 
     background: ${theme.colors.gray[100]};
-    border: ${inputInFocus ? `2px solid ${theme.colors.gray[700]}` : 'none'};
+    border: ${inputInFocus ? `1px solid ${theme.colors.gray[700]}` : 'none'};
   `}
 `
 
