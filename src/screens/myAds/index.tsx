@@ -6,11 +6,24 @@ import { useTheme } from 'styled-components'
 import { Select } from '@components/select'
 
 import * as Styled from './styled'
+import { Card } from '@components/card'
+import { Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 export const MyAds = () => {
   const { colors } = useTheme()
+  const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
 
   const [selectIsOpen, setSelectIsOpen] = useState(false)
+
+  function handleMyAdDetails() {
+    navigate('myAdDetails')
+  }
+
+  function handleAdCreate() {
+    navigate('adCreate')
+  }
 
   return (
     <Styled.Container>
@@ -22,7 +35,9 @@ export const MyAds = () => {
           size="xl"
           style={{ flex: 1, textAlign: 'center' }}
         />
-        <Plus size={24} color={colors.gray[700]} />
+        <Pressable onPress={handleAdCreate}>
+          <Plus size={24} color={colors.gray[700]} />
+        </Pressable>
       </Styled.Header>
 
       <Styled.MyAdsQuantity>
@@ -33,6 +48,10 @@ export const MyAds = () => {
           onPress={() => setSelectIsOpen(!selectIsOpen)}
         />
       </Styled.MyAdsQuantity>
+
+      <Pressable onPress={handleMyAdDetails}>
+        <Card cardType="ACTIVE" productType="NEW" />
+      </Pressable>
     </Styled.Container>
   )
 }
