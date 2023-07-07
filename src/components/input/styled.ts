@@ -10,7 +10,6 @@ type ContainerPropsDTO = {
 export const Container = styled.View<ContainerPropsDTO>`
   ${({ theme, inputInFocus, inputHeight }) => css`
     width: 100%;
-    max-width: 297px;
     height: ${inputHeight}px;
     max-height: ${inputHeight}px;
 
