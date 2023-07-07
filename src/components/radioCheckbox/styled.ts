@@ -2,6 +2,7 @@ import styled from 'styled-components/native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 export const Container = styled.View`
+  align-items: center;
   flex-direction: row;
   gap: 11px;
 `
