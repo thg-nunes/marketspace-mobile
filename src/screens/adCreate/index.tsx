@@ -8,6 +8,8 @@ import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 import { Text } from '@components/text'
 
 import * as Styled from './styled'
+import { Input } from '@components/input'
+import { CheckRadioInput } from '@components/radioCheckbox'
 
 export const AdCreate = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -88,6 +90,31 @@ export const AdCreate = () => {
               <Styled.PlusIcon />
             </Styled.ProductPhotoSelector>
           )}
+        </View>
+      </View>
+
+      <View
+        style={{
+          gap: 16,
+          marginVertical: 32,
+          flex: 1
+        }}
+      >
+        <Text font="bold" size="lg" color="600" text="Sobre o produto" />
+        <Input placeholder="Título do anúncio" />
+        <Input
+          placeholder="Descrição do produto"
+          numberOfLines={3}
+          inputHeight={136}
+          style={{
+            textAlignVertical: 'top',
+            height: 136,
+            paddingVertical: 12
+          }}
+        />
+        <View style={{ flexDirection: 'row', gap: 20 }}>
+          <CheckRadioInput inputRadioLabel="Produto novo" />
+          <CheckRadioInput inputRadioLabel="Produto usado" />
         </View>
       </View>
     </Styled.Container>
