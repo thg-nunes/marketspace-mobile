@@ -47,3 +47,13 @@ export const PlusIcon = styled(Plus).attrs(({ theme }) => ({
   size: 24,
   color: theme.colors.gray[400]
 }))``
+
+export const ButtonSection = styled.View`
+  ${({ theme }) => css`
+    flex-direction: row;
+
+    gap: 12px;
+    padding: 20px 0 28px;
+    background: ${theme.colors.gray[100]};
+  `}
+`
