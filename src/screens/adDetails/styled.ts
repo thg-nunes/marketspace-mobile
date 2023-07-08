@@ -52,19 +52,10 @@ export const Amount = styled(AmountIndicator)`
   `}
 `
 
-export const PaymentMethod = styled.View`
-  flex: 1;
-  gap: 8px;
-  flex-direction: row;
-`
-
 export const RowCenterItems = styled.View`
   gap: 8px;
   align-items: center;
   flex-direction: row;
-
-  padding-left: 24px;
-  padding-right: 24px;
 `
 
 export const AdContent = styled.View`
@@ -73,19 +64,12 @@ export const AdContent = styled.View`
   margin: 24px 0;
 
   align-items: flex-start;
-
-  padding-left: 24px;
-  padding-right: 24px;
 `
 
 export const PaymentMethodsContainer = styled.View`
   flex: 1;
   gap: 12px;
   margin-top: 16px;
-
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 26px;
 `
 
 export const Contact = styled.View`
