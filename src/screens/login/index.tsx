@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTheme } from 'styled-components/native'
 import { ActivityIndicator, Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -6,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import Logo from '@assets/logo/logo.png'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { useHandleSignIn } from '@hooks/login'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -16,18 +16,10 @@ import * as Styled from './styled'
 export const Login = () => {
   const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
   const { colors } = useTheme()
-  const [isSign, setIsSign] = useState(false)
+  const { isSign, handleSignIn } = useHandleSignIn()
 
   function handleRegisterScreen() {
     navigate('register')
-  }
-
-  function handleSignIn() {
-    setIsSign(true)
-    setTimeout(() => {
-      navigate('homeApp')
-      setIsSign(false)
-    }, 500)
   }
 
   return (
