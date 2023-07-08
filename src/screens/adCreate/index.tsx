@@ -5,13 +5,16 @@ import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
-import { Text } from '@components/text'
+import { Contact } from '@screens/adDetails/styled'
 
-import * as Styled from './styled'
+import { Text } from '@components/text'
 import { Input } from '@components/input'
+import { Button } from '@components/button'
+import { CheckboxInput } from '@components/checkBox'
 import { CheckRadioInput } from '@components/radioCheckbox'
 import { ProductCondition, Switch, SwitchCircle } from '@screens/home/styled'
-import { CheckboxInput } from '@components/checkBox'
+
+import * as Styled from './styled'
 
 export const AdCreate = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -153,6 +156,15 @@ export const AdCreate = () => {
             <CheckboxInput checkboxInputLabel="Depósito Bancário" />
           </View>
         </View>
+
+        <Styled.ButtonSection>
+          <Button.Root type="PRIMARY">
+            <Text color="600" font="bold" size="md" text="Cancelar" />
+          </Button.Root>
+          <Button.Root type="SECONDARY">
+            <Text color="100" font="bold" size="md" text="Avançar" />
+          </Button.Root>
+        </Styled.ButtonSection>
       </ScrollView>
     </Styled.Container>
   )
