@@ -1,8 +1,8 @@
 import { View } from 'react-native'
-import { User } from 'phosphor-react-native'
-import { useTheme } from 'styled-components'
 
 import { Text } from '@components/text'
+import { InactiveAd } from './inactiveAd'
+import { AdUserPhoto } from './adUserPhoto'
 
 import * as Styled from './styled'
 
@@ -17,8 +17,6 @@ export const Card = ({
   cardType = 'ACTIVE',
   showUserPhoto = true
 }: CardProps) => {
-  const { colors } = useTheme()
-
   return (
     <View>
       <Styled.ProdutAdsContainer
@@ -26,34 +24,8 @@ export const Card = ({
           uri: 'https://anjuss.vteximg.com.br/arquivos/ids/163322/Tenis-Preto-e-Branco-Ride-Anjuss--PADRAO-33.jpg?v=637288059392900000'
         }}
       >
-        {cardType === 'INACTIVE' && (
-          <Styled.InactiveAdsIndicatorContainer>
-            <Styled.BackgroundInactiveAds />
-            <Text
-              text="Anúncio desativado"
-              color="100"
-              font="bold"
-              size="sm"
-              style={{
-                textTransform: 'uppercase',
-                margin: 8,
-                position: 'absolute',
-                bottom: 0
-              }}
-            />
-          </Styled.InactiveAdsIndicatorContainer>
-        )}
-        {showUserPhoto && (
-          <Styled.AdvertiserPhotoContainer>
-            <User
-              size={18}
-              color={colors.gray[400]}
-              style={{
-                position: 'absolute'
-              }}
-            />
-          </Styled.AdvertiserPhotoContainer>
-        )}
+        {cardType === 'INACTIVE' && <InactiveAd />}
+        {showUserPhoto && <AdUserPhoto />}
         <Styled.ProductState type={productType}>Usado</Styled.ProductState>
       </Styled.ProdutAdsContainer>
       <View>
