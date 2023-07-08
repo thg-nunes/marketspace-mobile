@@ -2,14 +2,6 @@ import { useRef, useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, ScrollView, View, ViewToken } from 'react-native'
-
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
-
-import { Tag } from '@components/tag'
-import { Text } from '@components/text'
-import { UserPhoto } from '@components/userPhoto'
-
-import * as Styled from './styled'
 import {
   Bank,
   Barcode,
@@ -18,7 +10,16 @@ import {
   QrCode,
   WhatsappLogo
 } from 'phosphor-react-native'
+
+import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+
+import { Tag } from '@components/tag'
+import { Text } from '@components/text'
 import { Button } from '@components/button'
+import { UserInfo } from '@components/userInfo'
+import { PaymentMethod } from '@components/paymentMethod'
+
+import * as Styled from './styled'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -87,16 +88,11 @@ export const AdDetails = () => {
         </View>
       </Styled.ImageListContainer>
 
-      <ScrollView
-        contentContainerStyle={{
-          paddingTop: 20
-        }}
-      >
-        <View>
-          <Styled.RowCenterItems>
-            <UserPhoto size="sm" photoEdiIcontShow={false} />
+      <ScrollView>
+        <View style={{ paddingVertical: 20, paddingHorizontal: 24 }}>
+          <UserInfo photSize="sm" photoEdiIcontShow={false}>
             <Text text="Maria" color="700" font="regular" size="md" />
-          </Styled.RowCenterItems>
+          </UserInfo>
 
           <Styled.AdContent>
             <Tag.Root type="GRAY.300" size="sm">
@@ -139,72 +135,62 @@ export const AdDetails = () => {
               font="bold"
               color="700"
             />
-            <Styled.PaymentMethod>
-              <Barcode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Boleto" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Barcode} />
+              <PaymentMethod.Type type="Boleto" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <QrCode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Pix" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={QrCode} />
+              <PaymentMethod.Type type="Pix" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <Money size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Dinheiro" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Money} />
+              <PaymentMethod.Type type="Dinheiro" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <CreditCard size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Cartão de Crédito"
-              />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={CreditCard} />
+              <PaymentMethod.Type type="Cartão de Crédito" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <Bank size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Depósito Bancário"
-              />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Bank} />
+              <PaymentMethod.Type type="Depósito Bancário" />
+            </PaymentMethod.Root>
           </Styled.PaymentMethodsContainer>
-
-          <Styled.Contact>
-            <View style={{ flexDirection: 'row' }}>
-              <Styled.AmountIndicator style={{ color: colors.blue.dark }}>
-                R$
-              </Styled.AmountIndicator>
-              <Styled.Amount style={{ color: colors.blue.dark }}>
-                129,90
-              </Styled.Amount>
-            </View>
-
-            <View>
-              <Button.Root type="TERTIARY">
-                <Button.Icon
-                  Icon={WhatsappLogo}
-                  iconProps={{
-                    size: 16,
-                    color: 'white',
-                    weight: 'fill'
-                  }}
-                />
-                <Text
-                  color="100"
-                  font="bold"
-                  size="md"
-                  text="Entrar em contato"
-                />
-              </Button.Root>
-            </View>
-          </Styled.Contact>
         </View>
+
+        <Styled.Contact>
+          <View style={{ flexDirection: 'row' }}>
+            <Styled.AmountIndicator style={{ color: colors.blue.dark }}>
+              R$
+            </Styled.AmountIndicator>
+            <Styled.Amount style={{ color: colors.blue.dark }}>
+              129,90
+            </Styled.Amount>
+          </View>
+
+          <View>
+            <Button.Root type="TERTIARY">
+              <Button.Icon
+                Icon={WhatsappLogo}
+                iconProps={{
+                  size: 16,
+                  color: 'white',
+                  weight: 'fill'
+                }}
+              />
+              <Text
+                color="100"
+                font="bold"
+                size="md"
+                text="Entrar em contato"
+              />
+            </Button.Root>
+          </View>
+        </Styled.Contact>
       </ScrollView>
     </Styled.Container>
   )
