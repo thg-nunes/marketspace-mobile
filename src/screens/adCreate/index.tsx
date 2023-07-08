@@ -17,7 +17,7 @@ import { ProductCondition, Switch, SwitchCircle } from '@screens/home/styled'
 import * as Styled from './styled'
 
 export const AdCreate = () => {
-  const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
 
   const [images, setImages] = useState<string[]>([])
   const [switchEnabled, setSwitchEnabled] = useState(true)
@@ -40,6 +40,10 @@ export const AdCreate = () => {
 
     const imagesUri = assets.map((image) => image.uri)
     setImages((prevState) => [...prevState, ...imagesUri])
+  }
+
+  function handleAdPreview() {
+    navigate('adPreview')
   }
 
   return (
@@ -161,7 +165,7 @@ export const AdCreate = () => {
           <Button.Root type="PRIMARY">
             <Text color="600" font="bold" size="md" text="Cancelar" />
           </Button.Root>
-          <Button.Root type="SECONDARY">
+          <Button.Root type="SECONDARY" onPress={handleAdPreview}>
             <Text color="100" font="bold" size="md" text="Avançar" />
           </Button.Root>
         </Styled.ButtonSection>
