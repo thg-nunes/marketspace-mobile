@@ -15,11 +15,7 @@ import {
 
 import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
-import {
-  ImageCounter,
-  ImageListContainer,
-  PaymentMethod
-} from '@screens/adDetails/styled'
+import { ImageCounter, ImageListContainer } from '@screens/adDetails/styled'
 
 import { Text } from '@components/text'
 import { Button } from '@components/button'
@@ -32,6 +28,7 @@ import {
 } from '@screens/myAdDetails/styled'
 import { Tag } from '@components/tag'
 import { UserPhoto } from '@components/userPhoto'
+import { PaymentMethod } from '@components/paymentMethod'
 
 import * as Styled from './styled'
 
@@ -169,40 +166,30 @@ export const AdPreview = () => {
               font="bold"
               color="700"
             />
-            <PaymentMethod>
-              <Barcode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Boleto" />
-            </PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Barcode} />
+              <PaymentMethod.Type type="Boleto" />
+            </PaymentMethod.Root>
 
-            <PaymentMethod>
-              <QrCode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Pix" />
-            </PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={QrCode} />
+              <PaymentMethod.Type type="Pix" />
+            </PaymentMethod.Root>
 
-            <PaymentMethod>
-              <Money size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Dinheiro" />
-            </PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Money} />
+              <PaymentMethod.Type type="Dinheiro" />
+            </PaymentMethod.Root>
 
-            <PaymentMethod>
-              <CreditCard size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Cartão de Crédito"
-              />
-            </PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={CreditCard} />
+              <PaymentMethod.Type type="Cartão de Crédito" />
+            </PaymentMethod.Root>
 
-            <PaymentMethod>
-              <Bank size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Depósito Bancário"
-              />
-            </PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Bank} />
+              <PaymentMethod.Type type="Depósito Bancário" />
+            </PaymentMethod.Root>
           </PaymentMethodsContainer>
         </View>
       </ScrollView>

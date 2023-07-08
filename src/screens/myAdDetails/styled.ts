@@ -58,12 +58,6 @@ export const Amount = styled(AmountIndicator)`
   `}
 `
 
-export const PaymentMethod = styled.View`
-  flex: 1;
-  gap: 8px;
-  flex-direction: row;
-`
-
 export const RowCenterItems = styled.View`
   gap: 8px;
   align-items: center;

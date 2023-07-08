@@ -20,6 +20,7 @@ import {
   TrashSimple
 } from 'phosphor-react-native'
 import { Button } from '@components/button'
+import { PaymentMethod } from '@components/paymentMethod'
 
 export const MyAdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -141,40 +142,30 @@ export const MyAdDetails = () => {
               font="bold"
               color="700"
             />
-            <Styled.PaymentMethod>
-              <Barcode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Boleto" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Barcode} />
+              <PaymentMethod.Type type="Boleto" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <QrCode size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Pix" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={QrCode} />
+              <PaymentMethod.Type type="Pix" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <Money size={18} color={colors.gray[700]} />
-              <Text color="600" font="regular" size="md" text="Dinheiro" />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Money} />
+              <PaymentMethod.Type type="Dinheiro" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <CreditCard size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Cartão de Crédito"
-              />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={CreditCard} />
+              <PaymentMethod.Type type="Cartão de Crédito" />
+            </PaymentMethod.Root>
 
-            <Styled.PaymentMethod>
-              <Bank size={18} color={colors.gray[700]} />
-              <Text
-                color="600"
-                font="regular"
-                size="md"
-                text="Depósito Bancário"
-              />
-            </Styled.PaymentMethod>
+            <PaymentMethod.Root>
+              <PaymentMethod.Icon Icon={Bank} />
+              <PaymentMethod.Type type="Depósito Bancário" />
+            </PaymentMethod.Root>
           </Styled.PaymentMethodsContainer>
 
           <Styled.ColumnCenterItems>
