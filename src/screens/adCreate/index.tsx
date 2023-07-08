@@ -12,9 +12,10 @@ import { Input } from '@components/input'
 import { Button } from '@components/button'
 import { CheckboxInput } from '@components/checkBox'
 import { CheckRadioInput } from '@components/radioCheckbox'
-import { ProductCondition, Switch, SwitchCircle } from '@screens/home/styled'
+import { ProductCondition } from '@screens/home/styled'
 
 import * as Styled from './styled'
+import { Switch } from '@components/switch'
 
 export const AdCreate = () => {
   const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -141,9 +142,7 @@ export const AdCreate = () => {
 
           <ProductCondition>
             <Text text="Aceita troca?" size="md" font="bold" color="700" />
-            <Switch switchEnabled={switchEnabled}>
-              <SwitchCircle switchEnabled={switchEnabled} />
-            </Switch>
+            <Switch switchEnabled />
           </ProductCondition>
 
           <View style={{ width: '100%', gap: 12, marginBottom: 25 }}>
