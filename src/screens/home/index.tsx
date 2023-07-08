@@ -16,15 +16,14 @@ import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 import { Card } from '@components/card'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
-import { UserPhoto } from '@components/userPhoto'
+import { Switch } from '@components/switch'
+import { UserInfo } from '@components/userInfo'
 import { CheckboxInput } from '@components/checkBox'
 import { Tag as TagConponent } from '@components/tag'
 
 import * as Styled from './styled'
 
-type HomeProps = {}
-
-export const Home = ({}: HomeProps) => {
+export const Home = () => {
   const { colors } = useTheme()
   const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
 
@@ -48,8 +47,7 @@ export const Home = ({}: HomeProps) => {
       >
         <View style={{ flex: 1, marginTop: 20 }}>
           <Styled.HomeHeader>
-            <Styled.Profile>
-              <UserPhoto size={'md'} photoEdiIcontShow={false} />
+            <UserInfo photSize="md" photoEdiIcontShow={false}>
               <View>
                 <Text
                   text="Boas Vindas,"
@@ -59,7 +57,7 @@ export const Home = ({}: HomeProps) => {
                 />
                 <Text text="Maria!" size="lg" font="bold" color="700" />
               </View>
-            </Styled.Profile>
+            </UserInfo>
 
             <View>
               <Button.Root type="SECONDARY">
@@ -118,22 +116,16 @@ export const Home = ({}: HomeProps) => {
                   style={{ flex: 1, color: colors.gray[700], height: 21 }}
                   placeholderTextColor={colors.gray[400]}
                 />
-                <View
-                  style={{
-                    paddingRight: 12,
-                    borderRightWidth: 1,
-                    borderColor: colors.gray[400]
-                  }}
-                >
+                <Styled.SearchAdIcon>
                   <MagnifyingGlass size={20} color={colors.gray[600]} />
-                </View>
+                </Styled.SearchAdIcon>
                 <Pressable onPress={() => setFiltersVisible(true)}>
                   <Sliders size={20} color={colors.gray[600]} />
                 </Pressable>
               </Styled.FilterInputSection>
 
               <Pressable onPress={handleProductDetails}>
-                <Card />
+                <Card cardType="ACTIVE" productType="USED" />
               </Pressable>
             </View>
           </Styled.ProductsAdsContainer>
@@ -146,14 +138,7 @@ export const Home = ({}: HomeProps) => {
             <Styled.FiltersModalBackGround />
             <Styled.FiltersContent>
               <Styled.Divider />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: '100%',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
+              <Styled.FilterHeader>
                 <Text
                   text="Filtrar anúncios"
                   size="xl"
@@ -163,7 +148,7 @@ export const Home = ({}: HomeProps) => {
                 <Pressable onPress={() => setFiltersVisible(false)}>
                   <X size={24} color={colors.gray[400]} />
                 </Pressable>
-              </View>
+              </Styled.FilterHeader>
 
               <Styled.ProductCondition>
                 <Text text="Condição" size="md" font="bold" color="700" />
@@ -181,9 +166,7 @@ export const Home = ({}: HomeProps) => {
 
               <Styled.ProductCondition>
                 <Text text="Aceita troca?" size="md" font="bold" color="700" />
-                <Styled.Switch switchEnabled={switchEnabled}>
-                  <Styled.SwitchCircle switchEnabled={switchEnabled} />
-                </Styled.Switch>
+                <Switch switchEnabled={switchEnabled} />
               </Styled.ProductCondition>
 
               <View style={{ width: '100%', gap: 12 }}>

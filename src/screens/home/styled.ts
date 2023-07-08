@@ -18,31 +18,6 @@ export const HomeHeader = styled.View`
   justify-content: space-between;
 `
 
-export const HomeHeaderUserPhoto = styled.View`
-  ${({ theme }) => css`
-    width: 45px;
-    height: 45px;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 9999px;
-    background: ${theme.colors.gray[300]};
-    border-width: 2px;
-    border-color: ${theme.colors.blue.light};
-  `}
-`
-
-export const Profile = styled.View`
-  flex: 1;
-  max-width: 180px;
-
-  gap: 10px;
-
-  flex-direction: row;
-  align-items: center;
-`
-
 export const ProductsAdsContainer = styled.View`
   gap: 12px;
   margin-top: 32px;
@@ -103,11 +78,26 @@ export const FilterInputSection = styled.View`
   `}
 `
 
+export const SearchAdIcon = styled.Pressable`
+  ${({ theme }) => css`
+    padding-right: 12px;
+    border-right-width: 1px;
+    border-color: ${theme.colors.gray[400]};
+  `}
+`
+
 export const FilterContainer = styled.View`
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+`
+
+export const FilterHeader = styled.View`
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 `
 
 export const FiltersModalBackGround = styled.View`
@@ -151,27 +141,4 @@ export const Divider = styled.View`
 export const ProductCondition = styled.View`
   width: 100%;
   gap: 12px;
-`
-
-export const Switch = styled.View<{ switchEnabled: boolean }>`
-  ${({ theme, switchEnabled }) => css`
-    width: 50px;
-    height: 28px;
-
-    padding: 2px;
-    align-items: ${switchEnabled ? 'flex-end' : 'flex-start'};
-
-    border-radius: 999px;
-    background: ${switchEnabled
-      ? theme.colors.blue.light
-      : theme.colors.gray[300]};
-  `}
-`
-
-export const SwitchCircle = styled.View<{ switchEnabled: boolean }>`
-  width: 24px;
-  height: 24px;
-
-  border-radius: 999px;
-  background: white;
 `
