@@ -3,12 +3,15 @@ import { Eye } from 'phosphor-react-native'
 import styled, { css } from 'styled-components/native'
 
 type ContainerPropsDTO = {
-  inputInFocus: boolean
+  error: boolean
   inputHeight: number
+  inputInFocus: boolean
 }
 
 export const Container = styled.View<ContainerPropsDTO>`
-  ${({ theme, inputInFocus, inputHeight }) => css`
+  ${({ theme, inputInFocus, inputHeight, error }) => css`
+    position: relative;
+
     width: 100%;
     height: ${inputHeight}px;
     max-height: ${inputHeight}px;
@@ -19,7 +22,11 @@ export const Container = styled.View<ContainerPropsDTO>`
     border-radius: 6px;
 
     background: ${theme.colors.gray[100]};
-    border: ${inputInFocus ? `1px solid ${theme.colors.gray[700]}` : 'none'};
+    border: ${error
+      ? `1px solid ${theme.colors.red.light}`
+      : inputInFocus
+      ? `1px solid ${theme.colors.gray[700]}`
+      : 'none'};
   `}
 `
 
@@ -37,3 +44,14 @@ export const PasswordInputEye = styled(Eye).attrs(({ theme }) => ({
   size: 20,
   color: theme.colors.gray[700]
 }))``
+
+export const InputErrorMessage = styled.Text`
+  ${({ theme }) => css`
+    position: absolute;
+    bottom: -15px;
+
+    color: ${theme.colors.red.light};
+    font-family: ${theme.font_familly.bold};
+    font-size: ${theme.font_size.sm}px;
+  `}
+`
