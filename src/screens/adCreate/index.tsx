@@ -114,7 +114,7 @@ export const AdCreate = () => {
           }}
         >
           <Text font="bold" size="lg" color="600" text="Sobre o produto" />
-          <Input placeholder="Título do anúncio" />
+          {/* <Input placeholder="Título do anúncio" />
           <Input
             placeholder="Descrição do produto"
             numberOfLines={3}
@@ -124,7 +124,7 @@ export const AdCreate = () => {
               height: 136,
               paddingVertical: 12
             }}
-          />
+          /> */}
           <View style={{ flexDirection: 'row', gap: 20 }}>
             <CheckRadioInput inputRadioLabel="Produto novo" />
             <CheckRadioInput inputRadioLabel="Produto usado" />
@@ -138,7 +138,7 @@ export const AdCreate = () => {
           }}
         >
           <Text font="bold" size="lg" color="600" text="Venda" />
-          <Input placeholder="Valor de produto" />
+          {/* <Input placeholder="Valor de produto" /> */}
 
           <ProductCondition>
             <Text text="Aceita troca?" size="md" font="bold" color="700" />

@@ -51,8 +51,14 @@ export const Login = () => {
                   font="regular"
                   color="600"
                 />
-                <Input placeholder="E-mail" />
-                <Input isPassword placeholder="Senha" returnKeyType="send" />
+                <Input.Root placeholder="E-mail">
+                  <Input.ErrorMessage error="" />
+                </Input.Root>
+
+                <Input.Root placeholder="Senha" returnKeyType="send">
+                  <Input.ErrorMessage error="" />
+                  <Input.PasswordShow />
+                </Input.Root>
               </Styled.FormSection>
               <Button.Root type="TERTIARY" onPress={handleSignIn}>
                 {isSign ? (
