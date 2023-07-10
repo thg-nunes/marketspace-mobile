@@ -18,10 +18,15 @@ import * as Styled from './styled'
 
 type FormRegisterProps = {
   name: string
+  email: string
 }
 
 const registerSchema = yup.object({
-  name: yup.string().required('Informe um nome de usuário.')
+  name: yup.string().required('Informe um nome de usuário.'),
+  email: yup
+    .string()
+    .email('Informe um email válido.')
+    .required('Informe um email para se cadastrar.')
 })
 
 export const Register = () => {
@@ -88,8 +93,22 @@ export const Register = () => {
                   )}
                 />
 
-                {/* <Input placeholder="E-mail" />
-                <Input placeholder="Telefone" />
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input.Root
+                      placeholder="E-mail"
+                      value={value}
+                      error={errors.email?.message}
+                      onChangeText={onChange}
+                    >
+                      <Input.ErrorMessage error={errors.email?.message} />
+                    </Input.Root>
+                  )}
+                />
+
+                {/* <Input placeholder="Telefone" />
                 <Input isPassword placeholder="Senha" />
                 <Input
                   isPassword
