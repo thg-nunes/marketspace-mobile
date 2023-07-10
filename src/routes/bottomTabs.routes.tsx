@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Home } from '@screens/home'
 import { MyAds } from '@screens/myAds'
 
-type BottomTabProps = {
+export type BottomTabProps = {
   home: undefined
   myAds: undefined
   signOut: undefined
@@ -14,7 +14,7 @@ type BottomTabProps = {
 
 const { Navigator, Screen } = createBottomTabNavigator<BottomTabProps>()
 
-export function AppRoutes() {
+export function BottomTabsRoutes() {
   const { colors } = useTheme()
 
   return (

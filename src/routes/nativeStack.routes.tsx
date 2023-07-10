@@ -6,12 +6,12 @@ import { AdDetails } from '@screens/adDetails'
 
 import { Login } from '@screens/login'
 import { Register } from '@screens/register'
-import { AppRoutes } from './app.routes'
+import { BottomTabsRoutes } from './bottomTabs.routes'
 import { MyAdDetails } from '@screens/myAdDetails'
 import { AdCreate } from '@screens/adCreate'
 import { AdPreview } from '@screens/adPreview'
 
-type AuthRoutesProps = {
+type StackRoutesProps = {
   login: undefined
   register: undefined
   homeApp: undefined
@@ -22,11 +22,11 @@ type AuthRoutesProps = {
 }
 
 export type NativeStackRoutesScreenProps =
-  NativeStackNavigationProp<AuthRoutesProps>
+  NativeStackNavigationProp<StackRoutesProps>
 
-const { Screen, Navigator } = createNativeStackNavigator<AuthRoutesProps>()
+const { Screen, Navigator } = createNativeStackNavigator<StackRoutesProps>()
 
-export function AuthRoutes() {
+export function StackRoutes() {
   return (
     <Navigator
       screenOptions={{
@@ -35,7 +35,7 @@ export function AuthRoutes() {
     >
       <Screen name="login" component={Login} />
       <Screen name="register" component={Register} />
-      <Screen name="homeApp" component={AppRoutes} />
+      <Screen name="homeApp" component={BottomTabsRoutes} />
       <Screen name="adDetails" component={AdDetails} />
       <Screen name="myAdDetails" component={MyAdDetails} />
       <Screen name="adCreate" component={AdCreate} />
