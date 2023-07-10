@@ -11,7 +11,7 @@ import {
 } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'

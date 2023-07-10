@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
 
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { useHandleSignIn } from '@hooks/login'
 
 import { Text } from '@components/text'

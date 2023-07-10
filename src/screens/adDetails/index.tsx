@@ -11,7 +11,7 @@ import {
   WhatsappLogo
 } from 'phosphor-react-native'
 
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'

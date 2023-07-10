@@ -13,7 +13,7 @@ import {
   QrCode
 } from 'phosphor-react-native'
 
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { ImageCounter, ImageListContainer } from '@screens/adDetails/styled'
 

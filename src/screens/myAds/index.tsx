@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import { Text } from '@components/text'
+import { Pressable } from 'react-native'
 import { Plus } from 'phosphor-react-native'
 import { useTheme } from 'styled-components'
+import { useNavigation } from '@react-navigation/native'
 
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+
+import { Text } from '@components/text'
+import { Card } from '@components/card'
 import { Select } from '@components/select'
 
 import * as Styled from './styled'
-import { Card } from '@components/card'
-import { Pressable } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
 
 export const MyAds = () => {
   const { colors } = useTheme()

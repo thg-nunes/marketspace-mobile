@@ -3,7 +3,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import { NativeStackRoutesScreenProps } from '@routes/auth.routes'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { Contact } from '@screens/adDetails/styled'
 
