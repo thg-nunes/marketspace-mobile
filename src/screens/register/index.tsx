@@ -1,4 +1,7 @@
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useTheme } from 'styled-components/native'
+import { useForm, Controller } from 'react-hook-form'
 import { Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -13,14 +16,31 @@ import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
 
-type RegisterProps = {}
+type FormRegisterProps = {
+  name: string
+}
 
-export const Register = ({}: RegisterProps) => {
+const registerSchema = yup.object({
+  name: yup.string().required('Informe um nome de usuário.')
+})
+
+export const Register = () => {
   const { colors } = useTheme()
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormRegisterProps>({
+    resolver: yupResolver(registerSchema)
+  })
 
   function handleSignIn() {
     goBack()
+  }
+
+  async function handleSubmitForm(data: any) {
+    console.log(data)
   }
 
   return (
@@ -53,18 +73,35 @@ export const Register = ({}: RegisterProps) => {
             <UserPhoto size={'xl'} photoEdiIcontShow />
             <View style={{ width: '100%', maxWidth: 279, marginTop: 16 }}>
               <Styled.FormSection>
-                <Input placeholder="Nome" />
-                <Input placeholder="E-mail" />
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input.Root
+                      placeholder="Nome"
+                      value={value}
+                      error={errors.name?.message}
+                      onChangeText={onChange}
+                    >
+                      <Input.ErrorMessage error={errors.name?.message} />
+                    </Input.Root>
+                  )}
+                />
+
+                {/* <Input placeholder="E-mail" />
                 <Input placeholder="Telefone" />
                 <Input isPassword placeholder="Senha" />
                 <Input
                   isPassword
                   placeholder="Confirmar Senha"
                   returnKeyType="send"
-                />
+                /> */}
               </Styled.FormSection>
 
-              <Button.Root type="SECONDARY">
+              <Button.Root
+                type="SECONDARY"
+                onPress={handleSubmit(handleSubmitForm)}
+              >
                 <Text text="Criar" font="bold" size="sm" color="100" />
               </Button.Root>
             </View>
