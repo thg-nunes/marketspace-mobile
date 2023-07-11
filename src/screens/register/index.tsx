@@ -20,6 +20,7 @@ type FormRegisterProps = {
   name: string
   email: string
   phone: string
+  password: string
 }
 
 const registerSchema = yup.object({
@@ -34,7 +35,14 @@ const registerSchema = yup.object({
       message: 'Número de comtato inválido.'
     })
     .min(11, 'A quantidade mínima é de 11 dígitos.')
-    .required('Informe um número para contato com o DDD.')
+    .required('Informe um número para contato com o DDD.'),
+  password: yup
+    .string()
+    .required('Informe uma senha para seu cadastro.')
+    .matches(/^[A-Z](?=.*\d)(?![^a-zA-Z0-9])/, {
+      message: 'Siga o exemplo: Senha@123'
+    })
+    .min(8, 'A senha deve conter pelo menos 8 caracteries.')
 })
 
 export const Register = () => {
@@ -125,12 +133,27 @@ export const Register = () => {
                       value={value}
                       error={errors.phone?.message}
                       onChangeText={onChange}
+                      keyboardType="numeric"
                     >
                       <Input.ErrorMessage error={errors.phone?.message} />
                     </Input.Root>
                   )}
                 />
 
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input.Root
+                      placeholder="Senha"
+                      value={value}
+                      error={errors.password?.message}
+                      onChangeText={onChange}
+                    >
+                      <Input.ErrorMessage error={errors.password?.message} />
+                    </Input.Root>
+                  )}
+                />
                 {/*
                 <Input isPassword placeholder="Senha" />
                 <Input
