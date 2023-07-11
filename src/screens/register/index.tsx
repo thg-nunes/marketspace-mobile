@@ -1,13 +1,13 @@
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
 import { useTheme } from 'styled-components/native'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { useFormRegister } from '@utils/screens/register'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -15,9 +15,8 @@ import { Button } from '@components/button'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
-import { useState } from 'react'
 
-type FormRegisterProps = {
+export type FormRegisterProps = {
   name: string
   email: string
   phone: string
@@ -25,42 +24,10 @@ type FormRegisterProps = {
   password_confirm: string
 }
 
-const registerSchema = yup.object({
-  name: yup.string().required('Informe um nome de usuário.'),
-  email: yup
-    .string()
-    .email('Informe um email válido.')
-    .required('Informe um email para se cadastrar.'),
-  phone: yup
-    .string()
-    .matches(/^(?:\(?(\d{2})\)?\s?)?(?:9\s?)?(?:[6-9]{1}\d{3})[-\s]?\d{4}$/, {
-      message: 'Número de comtato inválido.'
-    })
-    .min(11, 'A quantidade mínima é de 11 dígitos.')
-    .required('Informe um número para contato com o DDD.'),
-  password: yup
-    .string()
-    .required('Informe uma senha para seu cadastro.')
-    .matches(/^[A-Z](?=.*\d)(?![^a-zA-Z0-9])/, {
-      message: 'Siga o exemplo: Senha@123'
-    })
-    .min(8, 'A senha deve conter pelo menos 8 caracteries.'),
-  password_confirm: yup
-    .string()
-    .required('Informe a confirmação de senha.')
-    .oneOf([yup.ref('password')], 'As senhas não convergem.')
-})
-
 export const Register = () => {
   const { colors } = useTheme()
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<FormRegisterProps>({
-    resolver: yupResolver(registerSchema)
-  })
+  const { control, handleSubmit, errors } = useFormRegister()
 
   const [passwordShow, setPasswordShow] = useState(false)
   const [passwordConfirmShow, setPasswordConfirmShow] = useState(false)

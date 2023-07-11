@@ -8,6 +8,7 @@
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/utils/*"],
       "@components/*": ["./src/components/*"]
     },
     "exclude": ["node_modules"]
