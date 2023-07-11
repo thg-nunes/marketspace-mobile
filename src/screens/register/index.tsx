@@ -21,6 +21,7 @@ type FormRegisterProps = {
   email: string
   phone: string
   password: string
+  password_confirm: string
 }
 
 const registerSchema = yup.object({
@@ -42,7 +43,11 @@ const registerSchema = yup.object({
     .matches(/^[A-Z](?=.*\d)(?![^a-zA-Z0-9])/, {
       message: 'Siga o exemplo: Senha@123'
     })
-    .min(8, 'A senha deve conter pelo menos 8 caracteries.')
+    .min(8, 'A senha deve conter pelo menos 8 caracteries.'),
+  password_confirm: yup
+    .string()
+    .required('Informe a confirmação de senha.')
+    .oneOf([yup.ref('password')], 'As senhas não convergem.')
 })
 
 export const Register = () => {
@@ -154,13 +159,25 @@ export const Register = () => {
                     </Input.Root>
                   )}
                 />
-                {/*
-                <Input isPassword placeholder="Senha" />
-                <Input
-                  isPassword
-                  placeholder="Confirmar Senha"
-                  returnKeyType="send"
-                /> */}
+
+                <Controller
+                  name="password_confirm"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input.Root
+                      placeholder="Confirmar Senha"
+                      value={value}
+                      error={errors.password_confirm?.message}
+                      onChangeText={onChange}
+                      returnKeyType="send"
+                      onSubmitEditing={handleSubmit(handleSubmitForm)}
+                    >
+                      <Input.ErrorMessage
+                        error={errors.password_confirm?.message}
+                      />
+                    </Input.Root>
+                  )}
+                />
               </Styled.FormSection>
 
               <Button.Root
