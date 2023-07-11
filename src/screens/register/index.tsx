@@ -15,6 +15,7 @@ import { Button } from '@components/button'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
+import { useState } from 'react'
 
 type FormRegisterProps = {
   name: string
@@ -60,6 +61,9 @@ export const Register = () => {
   } = useForm<FormRegisterProps>({
     resolver: yupResolver(registerSchema)
   })
+
+  const [passwordShow, setPasswordShow] = useState(false)
+  const [passwordConfirmShow, setPasswordConfirmShow] = useState(false)
 
   function handleSignIn() {
     goBack()
@@ -152,9 +156,13 @@ export const Register = () => {
                     <Input.Root
                       placeholder="Senha"
                       value={value}
+                      secureTextEntry={passwordShow}
                       error={errors.password?.message}
                       onChangeText={onChange}
                     >
+                      <Input.PasswordShow
+                        onPress={() => setPasswordShow(!passwordShow)}
+                      />
                       <Input.ErrorMessage error={errors.password?.message} />
                     </Input.Root>
                   )}
@@ -167,11 +175,17 @@ export const Register = () => {
                     <Input.Root
                       placeholder="Confirmar Senha"
                       value={value}
+                      secureTextEntry={passwordConfirmShow}
                       error={errors.password_confirm?.message}
                       onChangeText={onChange}
                       returnKeyType="send"
                       onSubmitEditing={handleSubmit(handleSubmitForm)}
                     >
+                      <Input.PasswordShow
+                        onPress={() =>
+                          setPasswordConfirmShow(!passwordConfirmShow)
+                        }
+                      />
                       <Input.ErrorMessage
                         error={errors.password_confirm?.message}
                       />

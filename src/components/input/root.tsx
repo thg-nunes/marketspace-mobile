@@ -6,14 +6,12 @@ import * as Styled from './styled'
 
 type RootInputProps = TextInputProps & {
   placeholder: string
-  secureTextEntry?: boolean
   inputHeight?: number
   error?: string
   children: ReactNode
 }
 
 export const RootInput = ({
-  secureTextEntry = false,
   placeholder = '',
   inputHeight = 45,
   error = '',
@@ -31,7 +29,6 @@ export const RootInput = ({
     >
       <Styled.Input
         placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
         onFocus={() => setInputInFocus(true)}
         onBlur={() => setInputInFocus(false)}
         placeholderTextColor={colors.gray[400]}
