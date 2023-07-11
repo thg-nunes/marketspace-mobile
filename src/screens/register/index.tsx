@@ -19,6 +19,7 @@ import * as Styled from './styled'
 type FormRegisterProps = {
   name: string
   email: string
+  phone: string
 }
 
 const registerSchema = yup.object({
@@ -26,7 +27,14 @@ const registerSchema = yup.object({
   email: yup
     .string()
     .email('Informe um email válido.')
-    .required('Informe um email para se cadastrar.')
+    .required('Informe um email para se cadastrar.'),
+  phone: yup
+    .string()
+    .matches(/^(?:\(?(\d{2})\)?\s?)?(?:9\s?)?(?:[6-9]{1}\d{3})[-\s]?\d{4}$/, {
+      message: 'Número de comtato inválido.'
+    })
+    .min(11, 'A quantidade mínima é de 11 dígitos.')
+    .required('Informe um número para contato com o DDD.')
 })
 
 export const Register = () => {
@@ -108,7 +116,22 @@ export const Register = () => {
                   )}
                 />
 
-                {/* <Input placeholder="Telefone" />
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input.Root
+                      placeholder="Telefone"
+                      value={value}
+                      error={errors.phone?.message}
+                      onChangeText={onChange}
+                    >
+                      <Input.ErrorMessage error={errors.phone?.message} />
+                    </Input.Root>
+                  )}
+                />
+
+                {/*
                 <Input isPassword placeholder="Senha" />
                 <Input
                   isPassword
