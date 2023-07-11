@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTheme } from 'styled-components/native'
 import { Controller } from 'react-hook-form'
 import { Image, ScrollView, View } from 'react-native'
@@ -7,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import Logo from '@assets/logo/logo.png'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { useFormRegister } from '@utils/screens/register'
+import { useFormRegister, usePasswordControls } from '@utils/screens/register'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -28,9 +27,7 @@ export const Register = () => {
   const { colors } = useTheme()
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const { control, handleSubmit, errors } = useFormRegister()
-
-  const [passwordShow, setPasswordShow] = useState(false)
-  const [passwordConfirmShow, setPasswordConfirmShow] = useState(false)
+  const passwordControls = usePasswordControls()
 
   function handleSignIn() {
     goBack()
@@ -123,12 +120,16 @@ export const Register = () => {
                     <Input.Root
                       placeholder="Senha"
                       value={value}
-                      secureTextEntry={passwordShow}
+                      secureTextEntry={passwordControls.passwordShow}
                       error={errors.password?.message}
                       onChangeText={onChange}
                     >
                       <Input.PasswordShow
-                        onPress={() => setPasswordShow(!passwordShow)}
+                        onPress={() =>
+                          passwordControls.setPasswordShow(
+                            !passwordControls.passwordShow
+                          )
+                        }
                       />
                       <Input.ErrorMessage error={errors.password?.message} />
                     </Input.Root>
@@ -142,7 +143,7 @@ export const Register = () => {
                     <Input.Root
                       placeholder="Confirmar Senha"
                       value={value}
-                      secureTextEntry={passwordConfirmShow}
+                      secureTextEntry={passwordControls.passwordConfirmShow}
                       error={errors.password_confirm?.message}
                       onChangeText={onChange}
                       returnKeyType="send"
@@ -150,7 +151,9 @@ export const Register = () => {
                     >
                       <Input.PasswordShow
                         onPress={() =>
-                          setPasswordConfirmShow(!passwordConfirmShow)
+                          passwordControls.setPasswordConfirmShow(
+                            !passwordControls.passwordConfirmShow
+                          )
                         }
                       />
                       <Input.ErrorMessage

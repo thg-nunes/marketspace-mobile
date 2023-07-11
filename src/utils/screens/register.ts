@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormRegisterProps } from '@screens/register'
@@ -45,4 +46,16 @@ const useFormRegister = () => {
   }
 }
 
-export { useFormRegister }
+const usePasswordControls = () => {
+  const [passwordShow, setPasswordShow] = useState(true)
+  const [passwordConfirmShow, setPasswordConfirmShow] = useState(true)
+
+  return {
+    passwordShow,
+    setPasswordShow,
+    passwordConfirmShow,
+    setPasswordConfirmShow
+  }
+}
+
+export { useFormRegister, usePasswordControls }
