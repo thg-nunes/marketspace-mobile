@@ -8,6 +8,8 @@ import Logo from '@assets/logo/logo.png'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { useFormRegister, usePasswordControls } from '@utils/screens/register'
 
+import { useHandleSubmitForm } from '@hooks/register'
+
 import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
@@ -28,14 +30,6 @@ export const Register = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const { control, handleSubmit, errors } = useFormRegister()
   const passwordControls = usePasswordControls()
-
-  function handleSignIn() {
-    goBack()
-  }
-
-  async function handleSubmitForm(data: any) {
-    console.log(data)
-  }
 
   return (
     <Styled.Container>
@@ -147,7 +141,7 @@ export const Register = () => {
                       error={errors.password_confirm?.message}
                       onChangeText={onChange}
                       returnKeyType="send"
-                      onSubmitEditing={handleSubmit(handleSubmitForm)}
+                      onSubmitEditing={handleSubmit(useHandleSubmitForm)}
                     >
                       <Input.PasswordShow
                         onPress={() =>
@@ -166,7 +160,7 @@ export const Register = () => {
 
               <Button.Root
                 type="SECONDARY"
-                onPress={handleSubmit(handleSubmitForm)}
+                onPress={handleSubmit(useHandleSubmitForm)}
               >
                 <Text text="Criar" font="bold" size="sm" color="100" />
               </Button.Root>
@@ -187,7 +181,7 @@ export const Register = () => {
                 }}
               />
 
-              <Button.Root type="PRIMARY" onPress={handleSignIn}>
+              <Button.Root type="PRIMARY" onPress={goBack}>
                 <Text
                   text="Ir para o login"
                   font="bold"
