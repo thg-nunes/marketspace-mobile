@@ -9,6 +9,7 @@
       "@routes/*": ["./src/routes/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
+      "@services/*": ["./src/services/*"],
       "@components/*": ["./src/components/*"]
     },
     "exclude": ["node_modules"]

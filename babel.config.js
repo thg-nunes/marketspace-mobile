@@ -13,6 +13,7 @@ module.exports = function (api) {
             '@assets': './src/assets',
             '@hooks': './src/hooks',
             '@utils': './src/utils',
+            '@services': './src/services',
             '@components': './src/components'
           }
         }
