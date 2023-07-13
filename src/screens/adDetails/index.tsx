@@ -90,7 +90,7 @@ export const AdDetails = () => {
 
       <ScrollView>
         <View style={{ paddingVertical: 20, paddingHorizontal: 24 }}>
-          <UserInfo photSize="sm" photoEdiIcontShow={false}>
+          <UserInfo photSize="sm">
             <Text text="Maria" color="700" font="regular" size="md" />
           </UserInfo>
 

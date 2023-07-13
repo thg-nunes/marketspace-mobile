@@ -6,18 +6,13 @@ import { Size } from '@components/userPhoto/styled'
 
 type UserInfoProps = {
   photSize: Size
-  photoEdiIcontShow: boolean
   children: ReactNode
 }
 
-export const UserInfo = ({
-  photSize,
-  photoEdiIcontShow,
-  children
-}: UserInfoProps) => {
+export const UserInfo = ({ photSize, children }: UserInfoProps) => {
   return (
     <Styled.Container>
-      <UserPhoto size={photSize} photoEdiIcontShow={photoEdiIcontShow} />
+      <UserPhoto.Root size={photSize} />
       {children}
     </Styled.Container>
   )
