@@ -1,14 +1,16 @@
-import { useTheme } from 'styled-components/native'
 import { Controller } from 'react-hook-form'
-import { Image, ScrollView, View } from 'react-native'
+import { useTheme } from 'styled-components/native'
+import { ActivityIndicator, Image, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
-
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { useFormRegister, usePasswordControls } from '@utils/screens/register'
-
-import { useHandleSubmitForm } from '@hooks/register'
+import {
+  useFormRegister,
+  useImageData,
+  usePasswordControls
+} from '@utils/screens/register'
+import { useHandleSubmitForm, useHandleUserPhotoSelect } from '@hooks/register'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -27,9 +29,10 @@ export type FormRegisterProps = {
 
 export const Register = () => {
   const { colors } = useTheme()
-  const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
-  const { control, handleSubmit, errors } = useFormRegister()
+  const { goBack, navigate } = useNavigation<NativeStackRoutesScreenProps>()
+  const image = useImageData()
   const passwordControls = usePasswordControls()
+  const { control, handleSubmit, errors } = useFormRegister()
 
   return (
     <Styled.Container>
@@ -58,7 +61,12 @@ export const Register = () => {
               </View>
             </Styled.LogoSection>
 
-            <UserPhoto size={'xl'} photoEdiIcontShow />
+            <UserPhoto.Root size={'xl'} uri={image.imageURI}>
+              <UserPhoto.Button
+                onPress={() => useHandleUserPhotoSelect(image.setImageURI)}
+              />
+            </UserPhoto.Root>
+
             <View style={{ width: '100%', maxWidth: 279, marginTop: 16 }}>
               <Styled.FormSection>
                 <Controller
@@ -141,7 +149,14 @@ export const Register = () => {
                       error={errors.password_confirm?.message}
                       onChangeText={onChange}
                       returnKeyType="send"
-                      onSubmitEditing={handleSubmit(useHandleSubmitForm)}
+                      onSubmitEditing={handleSubmit((data) =>
+                        useHandleSubmitForm({
+                          data,
+                          imageURI: image.imageURI,
+                          setIsRegistering: image.setIsRegistering,
+                          navigate
+                        })
+                      )}
                     >
                       <Input.PasswordShow
                         onPress={() =>
@@ -160,9 +175,20 @@ export const Register = () => {
 
               <Button.Root
                 type="SECONDARY"
-                onPress={handleSubmit(useHandleSubmitForm)}
+                onPress={handleSubmit((data) =>
+                  useHandleSubmitForm({
+                    data,
+                    imageURI: image.imageURI,
+                    setIsRegistering: image.setIsRegistering,
+                    navigate
+                  })
+                )}
               >
-                <Text text="Criar" font="bold" size="sm" color="100" />
+                {image.isRegistering ? (
+                  <ActivityIndicator color={colors.gray[100]} />
+                ) : (
+                  <Text text="Criar" font="bold" size="sm" color="100" />
+                )}
               </Button.Root>
             </View>
           </Styled.Content>
