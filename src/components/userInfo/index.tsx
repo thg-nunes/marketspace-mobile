@@ -5,14 +5,15 @@ import { UserPhoto } from '@components/userPhoto'
 import { Size } from '@components/userPhoto/styled'
 
 type UserInfoProps = {
+  uri?: string
   photSize: Size
   children: ReactNode
 }
 
-export const UserInfo = ({ photSize, children }: UserInfoProps) => {
+export const UserInfo = ({ photSize, children, uri }: UserInfoProps) => {
   return (
     <Styled.Container>
-      <UserPhoto.Root size={photSize} />
+      <UserPhoto.Root size={photSize} uri={uri} />
       {children}
     </Styled.Container>
   )
