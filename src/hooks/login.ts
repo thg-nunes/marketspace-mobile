@@ -5,6 +5,7 @@ import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { usersRoutes } from '@services/api/user'
 
 import { myToast } from '@utils/toast'
+import { userDataSave } from '@utils/storage/user'
 import { AppError } from '@utils/screens/appError'
 import { theme } from '../theme'
 
@@ -21,7 +22,9 @@ function useHandleSignIn() {
     try {
       setIsSign(true)
 
-      const response = await usersRoutes.signIn({ email, password })
+      const { user } = await usersRoutes.signIn({ email, password })
+
+      await userDataSave(user)
 
       navigate('homeApp')
     } catch (error) {
