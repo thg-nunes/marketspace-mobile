@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
-const sizes = {
+export const imageSizes = {
   xl: 88,
   md: 45,
   sm: 24
@@ -16,8 +16,8 @@ export const Container = styled.View<UerPhotoSize>`
   ${({ theme, size }) => css`
     position: relative;
 
-    width: ${sizes[size]}px;
-    height: ${sizes[size]}px;
+    width: ${imageSizes[size]}px;
+    height: ${imageSizes[size]}px;
 
     align-items: center;
     justify-content: center;
