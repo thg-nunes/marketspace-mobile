@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { ScrollView, View, TextInput, Modal, Pressable } from 'react-native'
 import {
   ArrowRight,
@@ -12,8 +12,7 @@ import {
 import { useTheme } from 'styled-components/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { userDataFetch } from '@utils/storage/user'
-import { UserDTO } from '@dtos/user'
+import { useFetchUserStorageData } from '@hooks/home'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
@@ -31,22 +30,11 @@ export const Home = () => {
 
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
-  const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
+  const { userData } = useFetchUserStorageData()
 
   function handleProductDetails() {
     navigate('adDetails')
   }
-
-  async function fetchUserStorageData() {
-    const userData = await userDataFetch()
-    setUserData(userData)
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchUserStorageData()
-    }, [])
-  )
 
   return (
     <Styled.Container>
