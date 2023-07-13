@@ -58,4 +58,16 @@ const usePasswordControls = () => {
   }
 }
 
-export { useFormRegister, usePasswordControls }
+const useImageData = () => {
+  const [imageURI, setImageURI] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
+
+  return {
+    imageURI,
+    setImageURI,
+    isRegistering,
+    setIsRegistering
+  }
+}
+
+export { useImageData, useFormRegister, usePasswordControls }
