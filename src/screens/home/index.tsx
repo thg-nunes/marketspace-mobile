@@ -47,7 +47,7 @@ export const Home = () => {
       >
         <View style={{ flex: 1, marginTop: 20 }}>
           <Styled.HomeHeader>
-            <UserInfo photSize="md" photoEdiIcontShow={false}>
+            <UserInfo photSize="md">
               <View>
                 <Text
                   text="Boas Vindas,"
