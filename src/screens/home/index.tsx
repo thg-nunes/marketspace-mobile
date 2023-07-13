@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useCallback, useState } from 'react'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ScrollView, View, TextInput, Modal, Pressable } from 'react-native'
 import {
   ArrowRight,
@@ -12,6 +12,8 @@ import {
 import { useTheme } from 'styled-components/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { userDataFetch } from '@utils/storage/user'
+import { UserDTO } from 'src/dtos/user'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
@@ -29,10 +31,22 @@ export const Home = () => {
 
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
+  const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
 
   function handleProductDetails() {
     navigate('adDetails')
   }
+
+  async function fetchUserStorageData() {
+    const userData = await userDataFetch()
+    setUserData(userData)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUserStorageData()
+    }, [])
+  )
 
   return (
     <Styled.Container>
@@ -47,7 +61,7 @@ export const Home = () => {
       >
         <View style={{ flex: 1, marginTop: 20 }}>
           <Styled.HomeHeader>
-            <UserInfo photSize="md">
+            <UserInfo photSize="md" uri={userData.avatar}>
               <View>
                 <Text
                   text="Boas Vindas,"
@@ -55,7 +69,7 @@ export const Home = () => {
                   font="regular"
                   color="700"
                 />
-                <Text text="Maria!" size="lg" font="bold" color="700" />
+                <Text text={userData.name} size="lg" font="bold" color="700" />
               </View>
             </UserInfo>
 
