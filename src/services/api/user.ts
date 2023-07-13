@@ -1,6 +1,6 @@
 import { SignInParams } from '@hooks/login'
 import { api } from '@services/axios'
-import { UserDTO } from 'src/dtos/user'
+import { UserDTO } from '@dtos/user'
 
 type UsersRoutes = {
   register: (data: FormData) => Promise<void>

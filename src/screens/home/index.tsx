@@ -13,7 +13,7 @@ import { useTheme } from 'styled-components/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { userDataFetch } from '@utils/storage/user'
-import { UserDTO } from 'src/dtos/user'
+import { UserDTO } from '@dtos/user'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
