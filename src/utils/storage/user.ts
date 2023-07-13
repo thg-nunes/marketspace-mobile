@@ -11,4 +11,16 @@ const userDataSave = async (data: UserDTO): Promise<void> => {
   }
 }
 
-export { userDataSave }
+const userDataFetch = async (): Promise<UserDTO> => {
+  try {
+    const response = await AsyncStorage.getItem(STORAGE_USER_KEY)
+
+    const userData: UserDTO = response ? JSON.parse(response) : {}
+
+    return userData
+  } catch (error) {
+    throw error
+  }
+}
+
+export { userDataSave, userDataFetch }
