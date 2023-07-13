@@ -1,20 +1,14 @@
 import { api } from '@services/axios'
-import { FormRegisterProps } from '@screens/register'
+import { UseHandleSubmitFormParams } from '@hooks/register'
 
 type UsersRoutes = {
-  register: (data: FormRegisterProps) => Promise<void>
+  register: (data: FormData) => Promise<void>
 }
 
 const usersRoutes: UsersRoutes = {
-  register: async (data: FormRegisterProps): Promise<void> => {
-    const formData = new FormData()
-    formData.append('tel', data.phone)
-    formData.append('name', data.name)
-    formData.append('email', data.email)
-    formData.append('password', data.password)
-
+  register: async (data: FormData): Promise<void> => {
     try {
-      await api.post('/users', formData, {
+      await api.post('/users', data, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data'
