@@ -8,7 +8,7 @@ type RootInputProps = TextInputProps & {
   placeholder: string
   inputHeight?: number
   error?: string
-  children: ReactNode
+  children?: ReactNode
 }
 
 export const RootInput = ({
