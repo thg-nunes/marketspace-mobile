@@ -8,6 +8,7 @@ import { myToast } from '@utils/toast'
 import { userDataSave } from '@utils/storage/user'
 import { AppError } from '@utils/screens/appError'
 import { theme } from '../theme'
+import { userTokenSave } from '@utils/storage/token'
 
 export type SignInParams = {
   email: string
@@ -22,9 +23,13 @@ function useHandleSignIn() {
     try {
       setIsSign(true)
 
-      const { user } = await usersRoutes.signIn({ email, password })
+      const { user, token, refresh_token } = await usersRoutes.signIn({
+        email,
+        password
+      })
 
       await userDataSave(user)
+      await userTokenSave({ token, refresh_token })
 
       navigate('homeApp')
     } catch (error) {
