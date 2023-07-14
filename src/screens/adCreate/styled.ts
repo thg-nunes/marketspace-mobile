@@ -6,13 +6,12 @@ import { Plus } from 'phosphor-react-native'
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
     flex: 1;
-    padding: 0 24px;
     background: ${theme.colors.gray[200]};
   `}
 `
 
 export const Header = styled.View`
-  margin: 20px 0;
+  margin: 20px 24px;
   gap: 8px;
   align-items: center;
   flex-direction: row;
@@ -53,7 +52,7 @@ export const ButtonSection = styled.View`
     flex-direction: row;
 
     gap: 12px;
-    padding: 20px 0 28px;
+    padding: 20px 24px 28px;
     background: ${theme.colors.gray[100]};
   `}
 `
