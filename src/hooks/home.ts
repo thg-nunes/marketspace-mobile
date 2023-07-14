@@ -3,10 +3,12 @@ import { UserDTO } from '@dtos/user'
 import { useFocusEffect } from '@react-navigation/native'
 import { userDataFetch } from '@utils/storage/user'
 import { useCallback, useState } from 'react'
+import { apiServices } from '@services/api'
 
 const useFetchUserStorageData = () => {
   const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
   const [userProducts, setUserProducts] = useState('')
+  const [appProducts, setAppProducts] = useState([])
 
   async function fetchUserStorageData() {
     const userData = await userDataFetch()
@@ -18,14 +20,20 @@ const useFetchUserStorageData = () => {
     setUserProducts(String(response.data.length))
   }
 
+  async function fetcheAppProducts() {
+    const response = await apiServices.fetchProducts()
+    setAppProducts(response)
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchUserStorageData()
       fetcheUserProducts()
+      fetcheAppProducts()
     }, [])
   )
 
-  return { userData, userProducts }
+  return { userData, userProducts, appProducts }
 }
 
 export { useFetchUserStorageData }
