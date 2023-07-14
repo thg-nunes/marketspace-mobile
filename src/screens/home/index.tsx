@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { ScrollView, View, TextInput, Modal, Pressable } from 'react-native'
+import {
+  ScrollView,
+  View,
+  TextInput,
+  Modal,
+  Pressable,
+  FlatList
+} from 'react-native'
 import {
   ArrowRight,
   MagnifyingGlass,
@@ -30,7 +37,7 @@ export const Home = () => {
 
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
-  const { userData, userProducts } = useFetchUserStorageData()
+  const { userData, userProducts, appProducts } = useFetchUserStorageData()
 
   function handleProductDetails() {
     navigate('adDetails')
@@ -126,9 +133,14 @@ export const Home = () => {
                 </Pressable>
               </Styled.FilterInputSection>
 
-              <Pressable onPress={handleProductDetails}>
-                <Card cardType="ACTIVE" productType="USED" />
-              </Pressable>
+              <FlatList
+                data={appProducts}
+                renderItem={() => (
+                  <Pressable onPress={handleProductDetails}>
+                    <Card cardType="ACTIVE" productType="USED" />
+                  </Pressable>
+                )}
+              />
             </View>
           </Styled.ProductsAdsContainer>
         </View>
