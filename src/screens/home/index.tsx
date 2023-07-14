@@ -43,108 +43,97 @@ export const Home = () => {
     navigate('adDetails')
   }
 
+  function handleAdCreate() {
+    navigate('adCreate')
+  }
+
   return (
     <Styled.Container>
-      <ScrollView
-        style={{
-          backgroundColor: colors.gray[200],
-          paddingTop: 16,
-          paddingRight: 24,
-          paddingLeft: 24
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ flex: 1, marginTop: 20 }}>
-          <Styled.HomeHeader>
-            <UserInfo photSize="md" uri={userData.avatar}>
+      <View style={{ flex: 1, marginTop: 20 }}>
+        <Styled.HomeHeader>
+          <UserInfo photSize="md" uri={userData.avatar}>
+            <View>
+              <Text text="Boas Vindas," size="lg" font="regular" color="700" />
+              <Text text={userData.name} size="lg" font="bold" color="700" />
+            </View>
+          </UserInfo>
+
+          <View>
+            <Button.Root type="SECONDARY" onPress={handleAdCreate}>
+              <Button.Icon
+                Icon={Plus}
+                iconProps={{
+                  size: 16,
+                  color: colors.gray[100]
+                }}
+              />
+              <Text text="Criar anúncio" color="100" font="bold" size="md" />
+            </Button.Root>
+          </View>
+        </Styled.HomeHeader>
+
+        <Styled.ProductsAdsContainer>
+          <Text
+            text="Seus produtos anunciados para venda"
+            size="md"
+            font="regular"
+            color="500"
+          />
+
+          <Styled.ProductsAdsContent>
+            <Styled.ProductsAdsBackground />
+            <Styled.ActiveProducts>
+              <Tag size={22} color={colors.blue.dark} />
               <View>
+                <Text text={userProducts} size="lg" font="bold" color="700" />
                 <Text
-                  text="Boas Vindas,"
+                  text="anúncios ativos"
                   size="lg"
                   font="regular"
                   color="700"
                 />
-                <Text text={userData.name} size="lg" font="bold" color="700" />
               </View>
-            </UserInfo>
+            </Styled.ActiveProducts>
 
-            <View>
-              <Button.Root type="SECONDARY">
-                <Button.Icon
-                  Icon={Plus}
-                  iconProps={{
-                    size: 16,
-                    color: colors.gray[100]
-                  }}
-                />
-                <Text text="Criar anúncio" color="100" font="bold" size="md" />
-              </Button.Root>
-            </View>
-          </Styled.HomeHeader>
+            <Styled.LinkContainer>
+              <Styled.LinkText>Meus anúncios</Styled.LinkText>
+              <ArrowRight size={16} />
+            </Styled.LinkContainer>
+          </Styled.ProductsAdsContent>
 
-          <Styled.ProductsAdsContainer>
+          <View style={{ gap: 12 }}>
             <Text
-              text="Seus produtos anunciados para venda"
+              text="Compre produtos variados"
               size="md"
               font="regular"
               color="500"
             />
 
-            <Styled.ProductsAdsContent>
-              <Styled.ProductsAdsBackground />
-              <Styled.ActiveProducts>
-                <Tag size={22} color={colors.blue.dark} />
-                <View>
-                  <Text text={userProducts} size="lg" font="bold" color="700" />
-                  <Text
-                    text="anúncios ativos"
-                    size="lg"
-                    font="regular"
-                    color="700"
-                  />
-                </View>
-              </Styled.ActiveProducts>
-
-              <Styled.LinkContainer>
-                <Styled.LinkText>Meus anúncios</Styled.LinkText>
-                <ArrowRight size={16} />
-              </Styled.LinkContainer>
-            </Styled.ProductsAdsContent>
-
-            <View style={{ gap: 12 }}>
-              <Text
-                text="Compre produtos variados"
-                size="md"
-                font="regular"
-                color="500"
+            <Styled.FilterInputSection>
+              <TextInput
+                placeholder="Buscar anúncio"
+                style={{ flex: 1, color: colors.gray[700], height: 21 }}
+                placeholderTextColor={colors.gray[400]}
               />
+              <Styled.SearchAdIcon>
+                <MagnifyingGlass size={20} color={colors.gray[600]} />
+              </Styled.SearchAdIcon>
+              <Pressable onPress={() => setFiltersVisible(true)}>
+                <Sliders size={20} color={colors.gray[600]} />
+              </Pressable>
+            </Styled.FilterInputSection>
+          </View>
+        </Styled.ProductsAdsContainer>
+      </View>
 
-              <Styled.FilterInputSection>
-                <TextInput
-                  placeholder="Buscar anúncio"
-                  style={{ flex: 1, color: colors.gray[700], height: 21 }}
-                  placeholderTextColor={colors.gray[400]}
-                />
-                <Styled.SearchAdIcon>
-                  <MagnifyingGlass size={20} color={colors.gray[600]} />
-                </Styled.SearchAdIcon>
-                <Pressable onPress={() => setFiltersVisible(true)}>
-                  <Sliders size={20} color={colors.gray[600]} />
-                </Pressable>
-              </Styled.FilterInputSection>
-
-              <FlatList
-                data={appProducts}
-                renderItem={() => (
-                  <Pressable onPress={handleProductDetails}>
-                    <Card cardType="ACTIVE" productType="USED" />
-                  </Pressable>
-                )}
-              />
-            </View>
-          </Styled.ProductsAdsContainer>
-        </View>
-      </ScrollView>
+      <FlatList
+        data={appProducts}
+        renderItem={() => (
+          <Pressable onPress={handleProductDetails}>
+            <Card cardType="ACTIVE" productType="USED" />
+          </Pressable>
+        )}
+      />
 
       {filtersVisible && (
         <Modal animationType="slide" transparent>

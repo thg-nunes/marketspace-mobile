@@ -5,6 +5,9 @@ export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
     position: relative;
     flex: 1;
+    padding-top: 16px;
+    padding-left: 24px;
+    padding-right: 24px;
     background: ${theme.colors.gray[200]};
   `}
 `
