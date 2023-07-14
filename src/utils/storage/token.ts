@@ -35,4 +35,12 @@ const userTokenUpdate = async (token: string): Promise<void> => {
   }
 }
 
-export { userTokenSave, userTokenFetch, userTokenUpdate }
+const userTokenDelete = async (): Promise<void> => {
+  try {
+    await AsyncStorage.removeItem(STORAGE_USER_TOKEN_KEY)
+  } catch (error) {
+    throw error
+  }
+}
+
+export { userTokenSave, userTokenFetch, userTokenUpdate, userTokenDelete }
