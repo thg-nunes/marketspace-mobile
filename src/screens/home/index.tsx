@@ -30,7 +30,7 @@ export const Home = () => {
 
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
-  const { userData } = useFetchUserStorageData()
+  const { userData, userProducts } = useFetchUserStorageData()
 
   function handleProductDetails() {
     navigate('adDetails')
@@ -88,7 +88,7 @@ export const Home = () => {
               <Styled.ActiveProducts>
                 <Tag size={22} color={colors.blue.dark} />
                 <View>
-                  <Text text="4" size="lg" font="bold" color="700" />
+                  <Text text={userProducts} size="lg" font="bold" color="700" />
                   <Text
                     text="anúncios ativos"
                     size="lg"
