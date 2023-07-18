@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
-import { Contact } from '@screens/adDetails/styled'
-
 import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
@@ -16,19 +14,23 @@ import { ProductCondition } from '@screens/home/styled'
 
 import * as Styled from './styled'
 import { Switch } from '@components/switch'
-import { ProductState } from '@components/card/styled'
 import {
   productPaymentChecked,
   updateProductsPayments
 } from '@utils/screens/adCreate'
+import { apiServices } from '@services/api'
+import { AppError } from '@utils/screens/appError'
+import { myToast } from '@utils/toast'
+import { theme } from '../../theme'
 
 export const AdCreate = () => {
   const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
 
   const [images, setImages] = useState<string[]>([])
-  const [acceptExchange, setAcceptExchange] = useState(false)
-  const [productState, setProductState] = useState<ProductState | ''>('')
+  const [acceptTrade, setAcceptTrade] = useState(false)
+  const [productIsNew, setProductIsNew] = useState(true)
   const [productValue, setProductValue] = useState('')
+  const [productTitle, setProductTitle] = useState('')
   const [productAcceptPayments, setProductAcceptPayments] = useState<string[]>(
     []
   )
@@ -59,7 +61,31 @@ export const AdCreate = () => {
   }
 
   async function handleAdCreate() {
-    JA TENHO TODOS OS DADOS NECESSÁRIOS PARA FAZER O CADASTRO DE PRODUTOS, AGORA SÓ FALTA INICIAR ESSA PARTE
+    try {
+      if (images.length === 0) {
+        myToast({
+          message: 'Pelo meno 1 foto do produto é necessária.',
+          background: theme.colors.red.light
+        })
+        return
+      }
+
+      const product_id = await apiServices.createProduct({
+        name: productTitle,
+        description: productDescription,
+        is_new: productIsNew,
+        accept_trade: acceptTrade,
+        price: parseInt(productValue),
+        payment_methods: productAcceptPayments
+      })
+    } catch (error) {
+      if (error instanceof AppError) {
+        myToast({
+          message: error.message,
+          background: theme.colors.red.light
+        })
+      }
+    }
   }
 
   return (
@@ -125,7 +151,21 @@ export const AdCreate = () => {
           <View
             style={{
               gap: 16,
-              marginVertical: 32,
+              marginTop: 32,
+              flex: 1
+            }}
+          >
+            <Text font="bold" size="lg" color="600" text="Sobre o produto" />
+            <Input.Root
+              placeholder="Título do anúncio"
+              onChangeText={setProductTitle}
+            />
+          </View>
+
+          <View
+            style={{
+              gap: 16,
+              marginBottom: 32,
               flex: 1
             }}
           >
@@ -144,14 +184,14 @@ export const AdCreate = () => {
 
             <View style={{ flexDirection: 'row', gap: 20 }}>
               <CheckRadioInput
-                productStateChange={() => setProductState('NEW')}
+                productStateChange={() => setProductIsNew(true)}
                 inputRadioLabel="Produto novo"
-                checked={productState === 'NEW'}
+                checked={productIsNew}
               />
               <CheckRadioInput
-                productStateChange={() => setProductState('USED')}
+                productStateChange={() => setProductIsNew(false)}
                 inputRadioLabel="Produto usado"
-                checked={productState === 'USED'}
+                checked={!productIsNew}
               />
             </View>
           </View>
@@ -172,8 +212,8 @@ export const AdCreate = () => {
             <ProductCondition>
               <Text text="Aceita troca?" size="md" font="bold" color="700" />
               <Switch
-                switchEnabled={acceptExchange}
-                onPress={() => setAcceptExchange(!acceptExchange)}
+                switchEnabled={acceptTrade}
+                onPress={() => setAcceptTrade(!acceptTrade)}
               />
             </ProductCondition>
 
@@ -217,13 +257,13 @@ export const AdCreate = () => {
                 checkboxInputLabel="Dinheiro"
                 productAcceptPayments={() =>
                   updateProductsPayments({
-                    paymentType: 'Dinheiro',
+                    paymentType: 'Cash',
                     productAcceptPayments,
                     setProductAcceptPayments
                   })
                 }
                 checked={productPaymentChecked({
-                  paymentType: 'Dinheiro',
+                  paymentType: 'Cash',
                   productAcceptPayments
                 })}
               />
@@ -231,13 +271,13 @@ export const AdCreate = () => {
                 checkboxInputLabel="Cartão de Crédito"
                 productAcceptPayments={() =>
                   updateProductsPayments({
-                    paymentType: 'Cartão de Crédito',
+                    paymentType: 'card',
                     productAcceptPayments,
                     setProductAcceptPayments
                   })
                 }
                 checked={productPaymentChecked({
-                  paymentType: 'Cartão de Crédito',
+                  paymentType: 'card',
                   productAcceptPayments
                 })}
               />
@@ -245,13 +285,13 @@ export const AdCreate = () => {
                 checkboxInputLabel="Depósito Bancário"
                 productAcceptPayments={() =>
                   updateProductsPayments({
-                    paymentType: 'Depósito Bancário',
+                    paymentType: 'deposit',
                     productAcceptPayments,
                     setProductAcceptPayments
                   })
                 }
                 checked={productPaymentChecked({
-                  paymentType: 'Depósito Bancário',
+                  paymentType: 'deposit',
                   productAcceptPayments
                 })}
               />
@@ -262,7 +302,7 @@ export const AdCreate = () => {
           <Button.Root type="PRIMARY">
             <Text color="600" font="bold" size="md" text="Cancelar" />
           </Button.Root>
-          <Button.Root type="SECONDARY" onPress={handleAdPreview}>
+          <Button.Root type="SECONDARY" onPress={handleAdCreate}>
             <Text color="100" font="bold" size="md" text="Avançar" />
           </Button.Root>
         </Styled.ButtonSection>
