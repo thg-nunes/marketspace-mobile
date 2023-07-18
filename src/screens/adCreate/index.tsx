@@ -4,24 +4,25 @@ import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-
-import { Text } from '@components/text'
-import { Input } from '@components/input'
-import { Button } from '@components/button'
-import { CheckboxInput } from '@components/checkBox'
-import { CheckRadioInput } from '@components/radioCheckbox'
-import { ProductCondition } from '@screens/home/styled'
-
-import * as Styled from './styled'
-import { Switch } from '@components/switch'
+import { apiServices } from '@services/api'
+import { myToast } from '@utils/toast'
+import { AppError } from '@utils/screens/appError'
 import {
   productPaymentChecked,
   updateProductsPayments
 } from '@utils/screens/adCreate'
-import { apiServices } from '@services/api'
-import { AppError } from '@utils/screens/appError'
-import { myToast } from '@utils/toast'
+
+import { Text } from '@components/text'
+import { Input } from '@components/input'
+import { Button } from '@components/button'
+import { Switch } from '@components/switch'
+import { CheckboxInput } from '@components/checkBox'
+import { CheckRadioInput } from '@components/radioCheckbox'
+import { ProductCondition } from '@screens/home/styled'
+
 import { theme } from '../../theme'
+import * as Styled from './styled'
+import { api } from '@services/axios'
 
 export const AdCreate = () => {
   const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -78,6 +79,16 @@ export const AdCreate = () => {
         price: parseInt(productValue),
         payment_methods: productAcceptPayments
       })
+
+      images.forEach(
+        async (image) => await apiServices.createProductImage(product_id, image)
+      )
+
+      myToast({
+        message: 'Produto cadastrado com sucesso.',
+        background: theme.colors.green.dark
+      })
+      setTimeout(() => navigate('homeApp'), 1500)
     } catch (error) {
       if (error instanceof AppError) {
         myToast({
