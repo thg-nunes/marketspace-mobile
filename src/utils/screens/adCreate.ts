@@ -15,16 +15,19 @@ const updateProductsPayments = ({
   setProductAcceptPayments
 }: UpdateProductsPayments) => {
   const paymentAlreadyExists = productAcceptPayments.find(
-    (payment) => payment === paymentType
+    (payment) => payment === paymentType.toLowerCase()
   )
   if (paymentAlreadyExists) {
     const paymentUpdate = productAcceptPayments.filter(
-      (payment) => payment !== paymentType
+      (payment) => payment !== paymentType.toLowerCase()
     )
     return setProductAcceptPayments(paymentUpdate)
   }
 
-  setProductAcceptPayments((prevState) => [...prevState, paymentType])
+  setProductAcceptPayments((prevState) => [
+    ...prevState,
+    paymentType.toLowerCase()
+  ])
 }
 
 const productPaymentChecked = ({
@@ -32,7 +35,7 @@ const productPaymentChecked = ({
   paymentType
 }: ProductPaymentChecked): boolean => {
   const paymentAlreadyExists = productAcceptPayments.find(
-    (payment) => payment === paymentType
+    (payment) => payment === paymentType.toLowerCase()
   )
 
   return !!paymentAlreadyExists
