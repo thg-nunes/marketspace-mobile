@@ -34,8 +34,8 @@ export const Home = () => {
   const { userData, userProducts } = useFetchUserStorageData()
   const appProducts = useFetcheAppProducts()
 
-  function handleProductDetails() {
-    navigate('adDetails')
+  function handleProductDetails(productId: string) {
+    navigate('adDetails', { id: productId })
   }
 
   function handleAdCreate() {
@@ -132,7 +132,7 @@ export const Home = () => {
           justifyContent: 'space-between'
         }}
         renderItem={({ item }) => (
-          <Pressable onPress={handleProductDetails}>
+          <Pressable onPress={() => handleProductDetails(item.id)}>
             <Card
               productActive={item.is_active}
               productType={item.is_new ? 'NEW' : 'USED'}
