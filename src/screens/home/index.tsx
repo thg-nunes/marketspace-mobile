@@ -1,13 +1,6 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import {
-  ScrollView,
-  View,
-  TextInput,
-  Modal,
-  Pressable,
-  FlatList
-} from 'react-native'
+import { View, TextInput, Modal, Pressable, FlatList } from 'react-native'
 import {
   ArrowRight,
   MagnifyingGlass,
@@ -18,8 +11,9 @@ import {
 } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
+import { api } from '@services/axios'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { useFetchUserStorageData } from '@hooks/home'
+import { useFetchUserStorageData, useFetcheAppProducts } from '@hooks/home'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
@@ -37,7 +31,8 @@ export const Home = () => {
 
   const [switchEnabled, setSwitchEnabled] = useState(true)
   const [filtersVisible, setFiltersVisible] = useState(false)
-  const { userData, userProducts, appProducts } = useFetchUserStorageData()
+  const { userData, userProducts } = useFetchUserStorageData()
+  const appProducts = useFetcheAppProducts()
 
   function handleProductDetails() {
     navigate('adDetails')
@@ -49,9 +44,12 @@ export const Home = () => {
 
   return (
     <Styled.Container>
-      <View style={{ flex: 1, marginTop: 20 }}>
+      <View style={{ marginTop: 20 }}>
         <Styled.HomeHeader>
-          <UserInfo photSize="md" uri={userData.avatar}>
+          <UserInfo
+            photSize="md"
+            uri={`${api.defaults.baseURL}/images/${userData.avatar}`}
+          >
             <View>
               <Text text="Boas Vindas," size="lg" font="regular" color="700" />
               <Text text={userData.name} size="lg" font="bold" color="700" />
@@ -128,9 +126,18 @@ export const Home = () => {
 
       <FlatList
         data={appProducts}
-        renderItem={() => (
+        style={{ flex: 1 }}
+        contentContainerStyle={{
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}
+        renderItem={({ item }) => (
           <Pressable onPress={handleProductDetails}>
-            <Card cardType="ACTIVE" productType="USED" />
+            <Card
+              productActive={item.is_active}
+              productType={item.is_new ? 'NEW' : 'USED'}
+              productData={item}
+            />
           </Pressable>
         )}
       />
