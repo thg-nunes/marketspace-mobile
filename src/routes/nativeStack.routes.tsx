@@ -15,7 +15,9 @@ type StackRoutesProps = {
   login: undefined
   register: undefined
   homeApp: undefined
-  adDetails: undefined
+  adDetails: {
+    id: string
+  }
   myAdDetails: undefined
   adCreate: undefined
   adPreview: undefined
