@@ -1,37 +1,51 @@
 import { View } from 'react-native'
 
+import { api } from '@services/axios'
+import { AdProductDTO } from '@dtos/product'
+
 import { Text } from '@components/text'
+import { UserPhoto } from '@components/userPhoto'
 import { InactiveAd } from './inactiveAd'
-import { AdUserPhoto } from './adUserPhoto'
 
 import * as Styled from './styled'
 
 type CardProps = {
   showUserPhoto?: boolean
+  productData: AdProductDTO
   productType: Styled.ProductState
-  cardType: 'ACTIVE' | 'INACTIVE'
+  productActive: boolean
 }
 
 export const Card = ({
+  productData,
   productType = 'NEW',
-  cardType = 'ACTIVE',
+  productActive = true,
   showUserPhoto = true
 }: CardProps) => {
+  const product_type = productData?.is_new ? 'Novo' : 'Usado'
+
   return (
     <View>
       <Styled.ProdutAdsContainer
         source={{
-          uri: 'https://anjuss.vteximg.com.br/arquivos/ids/163322/Tenis-Preto-e-Branco-Ride-Anjuss--PADRAO-33.jpg?v=637288059392900000'
+          uri: `${api.defaults.baseURL}/images/${productData?.product_images[0].path}`
         }}
       >
-        {cardType === 'INACTIVE' && <InactiveAd />}
-        {showUserPhoto && <AdUserPhoto />}
-        <Styled.ProductState type={productType}>Usado</Styled.ProductState>
+        {!productActive && <InactiveAd />}
+        {showUserPhoto && (
+          <UserPhoto.Root
+            size="sm"
+            uri={`${api.defaults.baseURL}/images/${productData?.user.avatar}`}
+          />
+        )}
+        <Styled.ProductState type={productType}>
+          {product_type}
+        </Styled.ProductState>
       </Styled.ProdutAdsContainer>
       <View>
         <Text
-          text="Tênis vermelho"
-          color={cardType === 'ACTIVE' ? '600' : '400'}
+          text={productData?.name}
+          color={productActive ? '600' : '400'}
           size="md"
           font="regular"
         />
@@ -43,15 +57,15 @@ export const Card = ({
           }}
         >
           <Text
-            color={cardType === 'ACTIVE' ? '700' : '400'}
+            color={productActive ? '700' : '400'}
             font="bold"
             size="sm"
             text="R$"
           />
           <Text
-            text="59,90"
+            text={`${productData?.price}`}
             font="bold"
-            color={cardType === 'ACTIVE' ? '700' : '400'}
+            color={productActive ? '700' : '400'}
             size="lg"
           />
         </View>
