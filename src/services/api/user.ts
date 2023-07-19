@@ -28,7 +28,7 @@ const usersRoutes: UsersRoutes = {
   },
   signIn: async ({ email, password }: SignInParams): Promise<Session> => {
     try {
-      const { data } = await api.post('/sessions', { email, password })
+      const { data } = await api.post<Session>('/sessions', { email, password })
 
       return data
     } catch (error) {

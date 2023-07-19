@@ -7,6 +7,7 @@ import { myToast } from '@utils/toast'
 import { AppError } from '@utils/screens/appError'
 
 import { FormRegisterProps } from '@screens/register'
+import { userTokenSave } from '@utils/storage/token'
 
 export type UseRegisterUserParams = FormRegisterProps & { avatar: string }
 
@@ -84,6 +85,12 @@ async function useHandleSubmitForm({
       ...data,
       avatar: imageURI
     })
+    const { token, refresh_token } = await usersRoutes.signIn({
+      email: data.email,
+      password: data.password
+    })
+
+    await userTokenSave({ token, refresh_token })
     navigate('homeApp')
   } catch (error) {
     if (error instanceof AppError) {
