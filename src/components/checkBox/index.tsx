@@ -5,7 +5,7 @@ import * as Styled from './styled'
 type CheckBoxInputProps = {
   checked?: boolean
   checkboxInputLabel: string
-  productAcceptPayments: () => void
+  productAcceptPayments?: () => void
 }
 
 export const CheckboxInput = ({
