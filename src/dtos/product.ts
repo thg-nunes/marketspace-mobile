@@ -8,6 +8,7 @@ export type ProductDTO = {
 }
 
 export type AdProductDTO = {
+  id: string
   name: string
   description: string
   is_new: boolean
@@ -25,4 +26,12 @@ export type AdProductDTO = {
   product_images: {
     path: string
   }[]
+}
+
+export type AdProductDetailsDTO = AdProductDTO & {
+  user: {
+    tel: number
+    name: string
+    avatar: string
+  }
 }

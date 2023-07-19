@@ -1,8 +1,9 @@
-import { AdProductDTO, ProductDTO } from '@dtos/product'
+import { AdProductDTO, AdProductDetailsDTO, ProductDTO } from '@dtos/product'
 import { api } from '@services/axios'
 
 type ApiServices = {
   fetchProducts: () => Promise<AdProductDTO[]>
+  fetchProductDetails: (id: string) => Promise<AdProductDetailsDTO>
   createProduct: (product: ProductDTO) => Promise<string>
   createProductImage: (product_id: string, image: string) => Promise<void>
 }
@@ -42,6 +43,11 @@ const apiServices: ApiServices = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  fetchProductDetails: async (id: string): Promise<AdProductDetailsDTO> => {
+    const { data } = await api.get<AdProductDetailsDTO>(`/products/${id}`)
+
+    return data
   }
 }
 
