@@ -7,6 +7,11 @@ export type ProductDTO = {
   payment_methods: string[]
 }
 
+export type PaymentMethods = {
+  key: string
+  name: string
+}[]
+
 export type AdProductDTO = {
   id: string
   name: string
@@ -19,10 +24,7 @@ export type AdProductDTO = {
   user: {
     avatar: string
   }
-  payment_methods: {
-    [key: string]: string
-    name: string
-  }[]
+  payment_methods: PaymentMethods
   product_images: {
     path: string
   }[]
