@@ -1,14 +1,16 @@
-import { api } from '@services/axios'
-import { UserDTO } from '@dtos/user'
+import { useCallback, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
-import { userDataFetch } from '@utils/storage/user'
-import { useCallback, useState } from 'react'
+
+import { api } from '@services/axios'
 import { apiServices } from '@services/api'
+
+import { UserDTO } from '@dtos/user'
+import { AdProductDTO } from '@dtos/product'
+import { userDataFetch } from '@utils/storage/user'
 
 const useFetchUserStorageData = () => {
   const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
   const [userProducts, setUserProducts] = useState('')
-  const [appProducts, setAppProducts] = useState([])
 
   async function fetchUserStorageData() {
     const userData = await userDataFetch()
@@ -20,20 +22,28 @@ const useFetchUserStorageData = () => {
     setUserProducts(String(response.data.length))
   }
 
-  async function fetcheAppProducts() {
-    const response = await apiServices.fetchProducts()
-    setAppProducts(response)
-  }
-
   useFocusEffect(
     useCallback(() => {
       fetchUserStorageData()
       fetcheUserProducts()
-      fetcheAppProducts()
     }, [])
   )
 
-  return { userData, userProducts, appProducts }
+  return { userData, userProducts }
 }
 
-export { useFetchUserStorageData }
+const useFetcheAppProducts = (): AdProductDTO[] => {
+  const [appProducts, setAppProducts] = useState<AdProductDTO[]>([])
+
+  useEffect(() => {
+    async function fetcheAppProducts() {
+      const response = await apiServices.fetchProducts()
+      setAppProducts(response)
+    }
+    fetcheAppProducts()
+  }, [])
+
+  return appProducts
+}
+
+export { useFetchUserStorageData, useFetcheAppProducts }
