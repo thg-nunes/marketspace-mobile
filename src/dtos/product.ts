@@ -15,7 +15,9 @@ export type AdProductDTO = {
   accept_trade: boolean
   is_active: boolean
   user_id: string
-  avatar: string
+  user: {
+    avatar: string
+  }
   payment_methods: {
     [key: string]: string
     name: string
