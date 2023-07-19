@@ -4,7 +4,6 @@ import { useTheme } from 'styled-components'
 import { User } from 'phosphor-react-native'
 
 import * as Styled from './styled'
-import { api } from '@services/axios'
 
 type UserPhotoRootProps = {
   uri?: string
@@ -30,7 +29,7 @@ export const UserPhotoRoot = ({
       {uri ? (
         <Image
           source={{
-            uri: `${api.defaults.baseURL}/images/${uri}`,
+            uri,
             width: Styled.imageSizes[size] - 4,
             height: Styled.imageSizes[size] - 4
           }}
