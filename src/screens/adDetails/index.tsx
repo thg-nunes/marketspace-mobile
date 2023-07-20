@@ -149,7 +149,12 @@ export const AdDetails = () => {
 
               <Styled.AdContent>
                 <Tag.Root type="GRAY.300" size="sm">
-                  <Text text="NOVO" color="600" font="bold" size="xsm" />
+                  <Text
+                    text={productDetails.is_new ? 'NOVO' : 'USADO'}
+                    color="600"
+                    font="bold"
+                    size="xsm"
+                  />
                 </Tag.Root>
 
                 <View style={{ flexDirection: 'row' }}>
