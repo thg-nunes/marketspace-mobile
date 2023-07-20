@@ -12,8 +12,10 @@ import {
 import { useTheme } from 'styled-components/native'
 
 import { api } from '@services/axios'
+import { apiServices } from '@services/api'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { useFetchUserStorageData, useFetcheAppProducts } from '@hooks/home'
+import { AdProductByFilterDTO } from '@dtos/product'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
@@ -32,12 +34,19 @@ import {
 export const Home = () => {
   const { colors } = useTheme()
   const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
+  const [adQueryText, setAdQueryText] = useState('')
   const [productIsNew, setProductIsNew] = useState<'new' | 'used' | ''>('')
   const [switchEnabled, setSwitchEnabled] = useState(false)
-  const [productAcceptPayments, setProductAcceptPayments] = useState([''])
+  const [productAcceptPayments, setProductAcceptPayments] = useState<string[]>(
+    []
+  )
   const [filtersVisible, setFiltersVisible] = useState(false)
   const { userData, userProducts } = useFetchUserStorageData()
   const appProducts = useFetcheAppProducts()
+  const [isProductsByFilters, setIsProductsByFilters] = useState(false)
+  const [productsByFilters, setProductsByFilters] = useState<
+    AdProductByFilterDTO[]
+  >([])
 
   function handleProductDetails(productId: string) {
     navigate('adDetails', { id: productId })
@@ -45,6 +54,21 @@ export const Home = () => {
 
   function handleAdCreate() {
     navigate('adCreate')
+  }
+
+  async function handleApplyFilters(): Promise<void> {
+    setIsProductsByFilters(true)
+    const is_new = productIsNew === 'new'
+    const accept_trade = switchEnabled
+
+    const response = await apiServices.fetchProductsByFilter({
+      is_new,
+      accept_trade,
+      payment_methods: productAcceptPayments,
+      query: adQueryText
+    })
+
+    setProductsByFilters(response)
   }
 
   return (
@@ -115,10 +139,11 @@ export const Home = () => {
             <Styled.FilterInputSection>
               <TextInput
                 placeholder="Buscar anúncio"
+                onChangeText={setAdQueryText}
                 style={{ flex: 1, color: colors.gray[700], height: 21 }}
                 placeholderTextColor={colors.gray[400]}
               />
-              <Styled.SearchAdIcon>
+              <Styled.SearchAdIcon onPress={handleApplyFilters}>
                 <MagnifyingGlass size={20} color={colors.gray[600]} />
               </Styled.SearchAdIcon>
               <Pressable onPress={() => setFiltersVisible(true)}>
@@ -129,23 +154,55 @@ export const Home = () => {
         </Styled.ProductsAdsContainer>
       </View>
 
-      <FlatList
-        data={appProducts}
-        style={{ flex: 1 }}
-        contentContainerStyle={{
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => handleProductDetails(item.id)}>
-            <Card
-              productActive={item.is_active}
-              productType={item.is_new ? 'NEW' : 'USED'}
-              productData={item}
-            />
-          </Pressable>
-        )}
-      />
+      {!isProductsByFilters && (
+        <FlatList
+          data={appProducts}
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => handleProductDetails(item.id)}>
+              <Card
+                productActive={item.is_active}
+                productType={item.is_new ? 'NEW' : 'USED'}
+                productData={item}
+              />
+            </Pressable>
+          )}
+        />
+      )}
+
+      {isProductsByFilters && (
+        <FlatList
+          data={productsByFilters}
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => handleProductDetails(item.id)}>
+              <Card
+                productActive
+                productType={item.is_new ? 'NEW' : 'USED'}
+                productData={item}
+              />
+            </Pressable>
+          )}
+          ListEmptyComponent={() => (
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text
+                color="500"
+                font="bold"
+                size="md"
+                text="Sem produtos para a combinação de filtros feita."
+              />
+            </View>
+          )}
+        />
+      )}
 
       {filtersVisible && (
         <Modal animationType="slide" transparent>
@@ -223,13 +280,13 @@ export const Home = () => {
                   checkboxInputLabel="Boleto"
                   productAcceptPayments={() =>
                     updateProductsPayments({
-                      paymentType: 'Boleto',
+                      paymentType: 'boleto',
                       productAcceptPayments,
                       setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
-                    paymentType: 'Boleto',
+                    paymentType: 'boleto',
                     productAcceptPayments
                   })}
                 />
@@ -237,13 +294,13 @@ export const Home = () => {
                   checkboxInputLabel="Pix"
                   productAcceptPayments={() =>
                     updateProductsPayments({
-                      paymentType: 'Pix',
+                      paymentType: 'pix',
                       productAcceptPayments,
                       setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
-                    paymentType: 'Pix',
+                    paymentType: 'pix',
                     productAcceptPayments
                   })}
                 />
@@ -251,13 +308,13 @@ export const Home = () => {
                   checkboxInputLabel="Dinheiro"
                   productAcceptPayments={() =>
                     updateProductsPayments({
-                      paymentType: 'Dinheiro',
+                      paymentType: 'cash',
                       productAcceptPayments,
                       setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
-                    paymentType: 'Dinheiro',
+                    paymentType: 'cash',
                     productAcceptPayments
                   })}
                 />
@@ -265,13 +322,13 @@ export const Home = () => {
                   checkboxInputLabel="Cartão de Crédito"
                   productAcceptPayments={() =>
                     updateProductsPayments({
-                      paymentType: 'Cartão de Crédito',
+                      paymentType: 'card',
                       productAcceptPayments,
                       setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
-                    paymentType: 'Cartão de Crédito',
+                    paymentType: 'card',
                     productAcceptPayments
                   })}
                 />
@@ -279,13 +336,13 @@ export const Home = () => {
                   checkboxInputLabel="Depósito Bancário"
                   productAcceptPayments={() =>
                     updateProductsPayments({
-                      paymentType: 'Depósito Bancário',
+                      paymentType: 'deposit',
                       productAcceptPayments,
                       setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
-                    paymentType: 'Depósito Bancário',
+                    paymentType: 'deposit',
                     productAcceptPayments
                   })}
                 />
@@ -295,9 +352,10 @@ export const Home = () => {
                 <Button.Root
                   type="PRIMARY"
                   onPress={() => {
-                    setProductAcceptPayments([''])
+                    setProductAcceptPayments([])
                     setProductIsNew('')
                     setSwitchEnabled(false)
+                    setIsProductsByFilters(false)
                   }}
                 >
                   <Text
@@ -307,7 +365,7 @@ export const Home = () => {
                     size="md"
                   />
                 </Button.Root>
-                <Button.Root type="SECONDARY">
+                <Button.Root type="SECONDARY" onPress={handleApplyFilters}>
                   <Text
                     text="Aplicar filtros"
                     color="100"
