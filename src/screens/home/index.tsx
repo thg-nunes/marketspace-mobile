@@ -24,12 +24,17 @@ import { CheckboxInput } from '@components/checkBox'
 import { Tag as TagConponent } from '@components/tag'
 
 import * as Styled from './styled'
+import {
+  productPaymentChecked,
+  updateProductsPayments
+} from '@utils/screens/adCreate'
 
 export const Home = () => {
   const { colors } = useTheme()
   const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
-
-  const [switchEnabled, setSwitchEnabled] = useState(true)
+  const [productIsNew, setProductIsNew] = useState<'new' | 'used' | ''>('')
+  const [switchEnabled, setSwitchEnabled] = useState(false)
+  const [productAcceptPayments, setProductAcceptPayments] = useState([''])
   const [filtersVisible, setFiltersVisible] = useState(false)
   const { userData, userProducts } = useFetchUserStorageData()
   const appProducts = useFetcheAppProducts()
@@ -163,20 +168,48 @@ export const Home = () => {
               <Styled.ProductCondition>
                 <Text text="Condição" size="md" font="bold" color="700" />
                 <View style={{ flexDirection: 'row', gap: 8 }}>
-                  <TagConponent.Root hasTagIcon size="lg" type="BLUE">
-                    <Text text="NOVO" color="100" font="bold" size="sm" />
-                    <TagConponent.Icon />
+                  <TagConponent.Root
+                    onPress={() => setProductIsNew('new')}
+                    hasTagIcon={productIsNew === 'new'}
+                    size="lg"
+                    type={productIsNew === 'new' ? 'BLUE' : 'GRAY.300'}
+                  >
+                    <Text
+                      text="NOVO"
+                      color={productIsNew === 'new' ? '100' : '500'}
+                      font="bold"
+                      size="sm"
+                    />
+                    {productIsNew === 'new' && (
+                      <TagConponent.Icon onPress={() => setProductIsNew('')} />
+                    )}
                   </TagConponent.Root>
 
-                  <TagConponent.Root size="lg" type="GRAY.300">
-                    <Text text="USADO" color="500" font="bold" size="sm" />
+                  <TagConponent.Root
+                    onPress={() => setProductIsNew('used')}
+                    hasTagIcon={productIsNew === 'used'}
+                    size="lg"
+                    type={productIsNew === 'used' ? 'BLUE' : 'GRAY.300'}
+                  >
+                    <Text
+                      text="USADO"
+                      color={productIsNew === 'used' ? '100' : '500'}
+                      font="bold"
+                      size="sm"
+                    />
+                    {productIsNew === 'used' && (
+                      <TagConponent.Icon onPress={() => setProductIsNew('')} />
+                    )}
                   </TagConponent.Root>
                 </View>
               </Styled.ProductCondition>
 
               <Styled.ProductCondition>
                 <Text text="Aceita troca?" size="md" font="bold" color="700" />
-                <Switch switchEnabled={switchEnabled} />
+                <Switch
+                  switchEnabled={switchEnabled}
+                  onPress={() => setSwitchEnabled(!switchEnabled)}
+                />
               </Styled.ProductCondition>
 
               <View style={{ width: '100%', gap: 12 }}>
@@ -186,15 +219,87 @@ export const Home = () => {
                   font="bold"
                   color="700"
                 />
-                <CheckboxInput checkboxInputLabel="Boleto" />
-                <CheckboxInput checkboxInputLabel="Pix" />
-                <CheckboxInput checkboxInputLabel="Dinheiro" />
-                <CheckboxInput checkboxInputLabel="Cartão de Crédito" />
-                <CheckboxInput checkboxInputLabel="Depósito Bancário" />
+                <CheckboxInput
+                  checkboxInputLabel="Boleto"
+                  productAcceptPayments={() =>
+                    updateProductsPayments({
+                      paymentType: 'Boleto',
+                      productAcceptPayments,
+                      setProductAcceptPayments
+                    })
+                  }
+                  checked={productPaymentChecked({
+                    paymentType: 'Boleto',
+                    productAcceptPayments
+                  })}
+                />
+                <CheckboxInput
+                  checkboxInputLabel="Pix"
+                  productAcceptPayments={() =>
+                    updateProductsPayments({
+                      paymentType: 'Pix',
+                      productAcceptPayments,
+                      setProductAcceptPayments
+                    })
+                  }
+                  checked={productPaymentChecked({
+                    paymentType: 'Pix',
+                    productAcceptPayments
+                  })}
+                />
+                <CheckboxInput
+                  checkboxInputLabel="Dinheiro"
+                  productAcceptPayments={() =>
+                    updateProductsPayments({
+                      paymentType: 'Dinheiro',
+                      productAcceptPayments,
+                      setProductAcceptPayments
+                    })
+                  }
+                  checked={productPaymentChecked({
+                    paymentType: 'Dinheiro',
+                    productAcceptPayments
+                  })}
+                />
+                <CheckboxInput
+                  checkboxInputLabel="Cartão de Crédito"
+                  productAcceptPayments={() =>
+                    updateProductsPayments({
+                      paymentType: 'Cartão de Crédito',
+                      productAcceptPayments,
+                      setProductAcceptPayments
+                    })
+                  }
+                  checked={productPaymentChecked({
+                    paymentType: 'Cartão de Crédito',
+                    productAcceptPayments
+                  })}
+                />
+                <CheckboxInput
+                  checkboxInputLabel="Depósito Bancário"
+                  productAcceptPayments={() =>
+                    updateProductsPayments({
+                      paymentType: 'Depósito Bancário',
+                      productAcceptPayments,
+                      setProductAcceptPayments
+                    })
+                  }
+                  checked={productPaymentChecked({
+                    paymentType: 'Depósito Bancário',
+                    productAcceptPayments
+                  })}
+                />
               </View>
 
               <View style={{ gap: 12, flexDirection: 'row' }}>
-                <Button.Root type="PRIMARY">
+                <Button.Root
+                  type="PRIMARY"
+                  onPress={() => {
+                    setProductAcceptPayments([''])
+                    setProductIsNew('')
+                    setSwitchEnabled(false)
+                  }}
+                >
                   <Text
                     text="Resetar filtros"
                     color="600"
