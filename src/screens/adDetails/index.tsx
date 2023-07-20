@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useTheme } from 'styled-components'
 import {
   useFocusEffect,
@@ -21,6 +21,7 @@ import {
   QrCode,
   WhatsappLogo
 } from 'phosphor-react-native'
+import * as Linking from 'expo-linking'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
@@ -72,6 +73,10 @@ export const AdDetails = () => {
       onViewableItemsChanged
     }
   ])
+
+  function handleCallUser() {
+    Linking.openURL(`https://wa.me/55${productDetails.user.tel}`)
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -258,7 +263,7 @@ export const AdDetails = () => {
               </View>
 
               <View>
-                <Button.Root type="TERTIARY">
+                <Button.Root type="TERTIARY" onPress={handleCallUser}>
                   <Button.Icon
                     Icon={WhatsappLogo}
                     iconProps={{
