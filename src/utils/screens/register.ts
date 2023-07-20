@@ -13,7 +13,7 @@ const useFormRegister = () => {
       .required('Informe um email para se cadastrar.'),
     phone: yup
       .string()
-      .matches(/^(?:\(?(\d{2})\)?\s?)?(?:9\s?)?(?:[6-9]{1}\d{3})[-\s]?\d{4}$/, {
+      .matches(/^(\d{2})9[6-9]{1}\d{3}[-\s]?\d{4}$/, {
         message: 'Número de comtato inválido.'
       })
       .min(11, 'A quantidade mínima é de 11 dígitos.')
