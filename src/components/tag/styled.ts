@@ -8,7 +8,7 @@ type TagStyleProps = {
   hasTagIcon?: boolean
 }
 
-export const Container = styled.View<TagStyleProps>`
+export const Container = styled.Pressable<TagStyleProps>`
   align-items: center;
   justify-content: center;
 
