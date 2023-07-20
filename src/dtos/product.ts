@@ -37,3 +37,18 @@ export type AdProductDetailsDTO = AdProductDTO & {
     avatar: string
   }
 }
+
+export type AdProductByFilterDTO = {
+  id: string
+  name: string
+  is_new: boolean
+  price: number
+  accept_trade: boolean
+  product_images: {
+    path: string
+  }[]
+  payment_methods: PaymentMethods
+  user: {
+    avatar: string
+  }
+}
