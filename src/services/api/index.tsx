@@ -1,8 +1,17 @@
-import { AdProductDTO, AdProductDetailsDTO, ProductDTO } from '@dtos/product'
+import {
+  AdProductByFilterDTO,
+  AdProductDTO,
+  AdProductDetailsDTO,
+  FetchProductsByFilterParams,
+  ProductDTO
+} from '@dtos/product'
 import { api } from '@services/axios'
 
 type ApiServices = {
   fetchProducts: () => Promise<AdProductDTO[]>
+  fetchProductsByFilter: (
+    params: FetchProductsByFilterParams
+  ) => Promise<AdProductByFilterDTO[]>
   fetchProductDetails: (id: string) => Promise<AdProductDetailsDTO>
   createProduct: (product: ProductDTO) => Promise<string>
   createProductImage: (product_id: string, image: string) => Promise<void>
@@ -48,6 +57,15 @@ const apiServices: ApiServices = {
     const { data } = await api.get<AdProductDetailsDTO>(`/products/${id}`)
 
     return data
+  },
+  fetchProductsByFilter: async (
+    params: FetchProductsByFilterParams
+  ): Promise<AdProductByFilterDTO[]> => {
+    const response = await api.get<AdProductByFilterDTO[]>('/products', {
+      params
+    })
+
+    return response.data
   }
 }
 

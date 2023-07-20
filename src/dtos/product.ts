@@ -52,3 +52,10 @@ export type AdProductByFilterDTO = {
     avatar: string
   }
 }
+
+export type FetchProductsByFilterParams = {
+  is_new: boolean
+  accept_trade: boolean
+  payment_methods: string[]
+  query: string
+}
