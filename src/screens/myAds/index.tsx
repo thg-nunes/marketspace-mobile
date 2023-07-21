@@ -23,8 +23,8 @@ export const MyAds = () => {
   const [selectIsOpen, setSelectIsOpen] = useState(false)
   const [userProducts, setUserProducts] = useState<AdProductDTO[]>([])
 
-  function handleMyAdDetails() {
-    navigate('myAdDetails')
+  function handleMyAdDetails(id: string) {
+    navigate('myAdDetails', { id })
   }
 
   function handleAdCreate() {
@@ -101,7 +101,7 @@ export const MyAds = () => {
             justifyContent: 'space-between'
           }}
           renderItem={({ item }) => (
-            <Pressable onPress={handleMyAdDetails}>
+            <Pressable onPress={() => handleMyAdDetails(item.id)}>
               <Card
                 productData={item}
                 showUserPhoto={false}
