@@ -1,10 +1,12 @@
 import { SignInParams } from '@hooks/login'
 import { api } from '@services/axios'
 import { UserDTO } from '@dtos/user'
+import { AdProductByFilterDTO, AdProductDTO } from '@dtos/product'
 
-type UsersRoutes = {
+type UserServices = {
   register: (data: FormData) => Promise<void>
   signIn: (data: SignInParams) => Promise<Session>
+  fetchMyProducts: () => Promise<AdProductDTO[]>
 }
 
 export type Session = {
@@ -13,7 +15,7 @@ export type Session = {
   user: UserDTO
 }
 
-const usersRoutes: UsersRoutes = {
+const userServices: UserServices = {
   register: async (data: FormData): Promise<void> => {
     try {
       await api.post('/users', data, {
@@ -34,7 +36,15 @@ const usersRoutes: UsersRoutes = {
     } catch (error) {
       throw error
     }
+  },
+  fetchMyProducts: async (): Promise<AdProductDTO[]> => {
+    try {
+      const { data } = await api.get<AdProductDTO[]>('/users/products')
+      return data
+    } catch (error) {
+      throw error
+    }
   }
 }
 
-export { usersRoutes }
+export { userServices }
