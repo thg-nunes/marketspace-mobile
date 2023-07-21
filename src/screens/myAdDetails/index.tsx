@@ -29,9 +29,10 @@ import {
 import { Button } from '@components/button'
 import { PaymentMethod } from '@components/paymentMethod'
 import { apiServices } from '@services/api'
-import { AdProductDetailsDTO } from '@dtos/product'
+import { AdProductDetailsDTO, UpdataProductVisibility } from '@dtos/product'
 import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
+import { myToast } from '@utils/toast'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
@@ -65,6 +66,25 @@ export const MyAdDetails = () => {
       onViewableItemsChanged
     }
   ])
+
+  async function handleUpdateProductVisibility({
+    id,
+    is_active
+  }: UpdataProductVisibility): Promise<void> {
+    try {
+      await apiServices.updataProductVisibility({
+        id,
+        is_active
+      })
+
+      myToast({
+        message: 'Produto atualizado com sucesso.',
+        background: colors.green.dark
+      })
+
+      goBack()
+    } catch (error) {}
+  }
 
   useEffect(() => {
     async function fetchProductDetails(id: string) {
@@ -242,7 +262,16 @@ export const MyAdDetails = () => {
               </Styled.PaymentMethodsContainer>
 
               <Styled.ColumnCenterItems>
-                <Button.Root type="SECONDARY" style={{ maxWidth: '100%' }}>
+                <Button.Root
+                  type={productDetails.is_active ? 'SECONDARY' : 'TERTIARY'}
+                  style={{ maxWidth: '100%' }}
+                  onPress={() =>
+                    handleUpdateProductVisibility({
+                      id: productDetails.id,
+                      is_active: !productDetails.is_active
+                    })
+                  }
+                >
                   <Button.Icon
                     Icon={Power}
                     iconProps={{
@@ -254,7 +283,11 @@ export const MyAdDetails = () => {
                     color="100"
                     font="bold"
                     size="md"
-                    text="Desativar anúncio"
+                    text={
+                      productDetails.is_active
+                        ? 'Desativar anúncio'
+                        : 'Reativar anúncio'
+                    }
                   />
                 </Button.Root>
 
