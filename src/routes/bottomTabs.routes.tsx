@@ -1,7 +1,10 @@
 import { View } from 'react-native'
 import { useTheme } from 'styled-components'
 import { House, SignOut, Tag } from 'phosphor-react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import {
+  BottomTabNavigationProp,
+  createBottomTabNavigator
+} from '@react-navigation/bottom-tabs'
 
 import { Home } from '@screens/home'
 import { MyAds } from '@screens/myAds'
@@ -13,6 +16,8 @@ export type BottomTabProps = {
 }
 
 const { Navigator, Screen } = createBottomTabNavigator<BottomTabProps>()
+
+export type BottomTabRoutesScreenProps = BottomTabNavigationProp<BottomTabProps>
 
 export function BottomTabsRoutes() {
   const { colors } = useTheme()
