@@ -14,6 +14,7 @@ import { useTheme } from 'styled-components/native'
 import { api } from '@services/axios'
 import { apiServices } from '@services/api'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import { useFetchUserStorageData, useFetcheAppProducts } from '@hooks/home'
 import { AdProductByFilterDTO } from '@dtos/product'
 
@@ -33,7 +34,8 @@ import {
 
 export const Home = () => {
   const { colors } = useTheme()
-  const { navigate } = useNavigation<NativeStackRoutesScreenProps>()
+  const stackNavigation = useNavigation<NativeStackRoutesScreenProps>()
+  const bottomNavigation = useNavigation<BottomTabRoutesScreenProps>()
   const [adQueryText, setAdQueryText] = useState('')
   const [productIsNew, setProductIsNew] = useState<'new' | 'used' | ''>('')
   const [switchEnabled, setSwitchEnabled] = useState(false)
@@ -49,11 +51,11 @@ export const Home = () => {
   >([])
 
   function handleProductDetails(productId: string) {
-    navigate('adDetails', { id: productId })
+    stackNavigation.navigate('adDetails', { id: productId })
   }
 
   function handleAdCreate() {
-    navigate('adCreate')
+    stackNavigation.navigate('adCreate')
   }
 
   async function handleApplyFilters(): Promise<void> {
@@ -123,7 +125,9 @@ export const Home = () => {
             </Styled.ActiveProducts>
 
             <Styled.LinkContainer>
-              <Styled.LinkText>Meus anúncios</Styled.LinkText>
+              <Pressable onPress={() => bottomNavigation.navigate('myAds')}>
+                <Styled.LinkText>Meus anúncios</Styled.LinkText>
+              </Pressable>
               <ArrowRight size={16} />
             </Styled.LinkContainer>
           </Styled.ProductsAdsContent>

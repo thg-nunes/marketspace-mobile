@@ -55,7 +55,7 @@ export const ActiveProducts = styled.View`
   margin-left: 16px;
 `
 
-export const LinkContainer = styled.Pressable`
+export const LinkContainer = styled.View`
   gap: 10px;
   flex-direction: row;
   margin-right: 20px;
