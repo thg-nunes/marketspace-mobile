@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { usersRoutes } from '@services/api/user'
+import { userServices } from '@services/api/user'
 
 import { myToast } from '@utils/toast'
 import { userDataSave } from '@utils/storage/user'
@@ -23,7 +23,7 @@ function useHandleSignIn() {
     try {
       setIsSign(true)
 
-      const { user, token, refresh_token } = await usersRoutes.signIn({
+      const { user, token, refresh_token } = await userServices.signIn({
         email,
         password
       })

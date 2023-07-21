@@ -1,7 +1,7 @@
 import * as ImagePicker from 'expo-image-picker'
 
 import { theme } from '../theme'
-import { usersRoutes } from '@services/api/user'
+import { userServices } from '@services/api/user'
 
 import { myToast } from '@utils/toast'
 import { AppError } from '@utils/screens/appError'
@@ -37,7 +37,7 @@ async function useRegisterUser(data: UseRegisterUserParams) {
 
     formData.append('avatar', photoData)
 
-    await usersRoutes.register(formData)
+    await userServices.register(formData)
   } catch (error) {
     if (error instanceof AppError) {
       myToast({
@@ -86,7 +86,7 @@ async function useHandleSubmitForm({
       ...data,
       avatar: imageURI
     })
-    const { token, refresh_token, user } = await usersRoutes.signIn({
+    const { token, refresh_token, user } = await userServices.signIn({
       email: data.email,
       password: data.password
     })
