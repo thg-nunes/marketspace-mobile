@@ -20,4 +20,7 @@ export const MyAdsQuantity = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  margin-bottom: 20px;
+  z-index: 2;
 `
