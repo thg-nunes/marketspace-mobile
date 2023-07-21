@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTheme } from 'styled-components'
 import { PressableProps } from 'react-native'
 import { CaretDown, CaretUp } from 'phosphor-react-native'
@@ -10,21 +9,24 @@ import * as Styled from './styled'
 type SelectProps = PressableProps & {
   isOpen: boolean
   items: string[]
+  adStatus: string
+  setAdStatus: (option: string) => void
 }
 
 export const Select = ({
   isOpen = false,
   items = [],
+  adStatus,
+  setAdStatus,
   ...rest
 }: SelectProps) => {
   const { colors } = useTheme()
-  const [selectedOption, setSelectedOption] = useState('Todos')
 
   return (
     <Styled.Container isOpen={isOpen} {...rest}>
       <Styled.SelectContent>
         <Text
-          text={selectedOption}
+          text={adStatus}
           font="regular"
           size="md"
           color="700"
@@ -45,8 +47,8 @@ export const Select = ({
               text={item}
               size="md"
               color="600"
-              font={selectedOption === item ? 'bold' : 'regular'}
-              onPress={() => setSelectedOption(item)}
+              font={adStatus === item ? 'bold' : 'regular'}
+              onPress={() => setAdStatus(item)}
             />
           ))}
         </Styled.OptionsContainer>
