@@ -1,28 +1,26 @@
-import {
-  AdProductByFilterDTO,
-  AdProductDTO,
-  AdProductDetailsDTO,
-  FetchProductsByFilterParams,
-  ProductDTO
-} from '@dtos/product'
+import * as ProductDTOS from '@dtos/product'
 import { api } from '@services/axios'
 
 type ApiServices = {
-  fetchProducts: () => Promise<AdProductDTO[]>
+  fetchProducts: () => Promise<ProductDTOS.AdProductDTO[]>
   fetchProductsByFilter: (
-    params: FetchProductsByFilterParams
-  ) => Promise<AdProductByFilterDTO[]>
-  fetchProductDetails: (id: string) => Promise<AdProductDetailsDTO>
-  createProduct: (product: ProductDTO) => Promise<string>
+    params: ProductDTOS.FetchProductsByFilterParams
+  ) => Promise<ProductDTOS.AdProductByFilterDTO[]>
+  fetchProductDetails: (id: string) => Promise<ProductDTOS.AdProductDetailsDTO>
+  createProduct: (product: ProductDTOS.ProductDTO) => Promise<string>
   createProductImage: (product_id: string, image: string) => Promise<void>
+  updataProductVisibility: ({
+    id,
+    is_active
+  }: ProductDTOS.UpdataProductVisibility) => Promise<void>
 }
 
 const apiServices: ApiServices = {
   fetchProducts: async (): Promise<any> => {
-    const { data } = await api.get<AdProductDTO[]>('/products')
+    const { data } = await api.get<ProductDTOS.AdProductDTO[]>('/products')
     return data
   },
-  createProduct: async (product: ProductDTO): Promise<string> => {
+  createProduct: async (product: ProductDTOS.ProductDTO): Promise<string> => {
     const {
       data: { id }
     } = await api.post<{ id: string }>('/products', product)
@@ -53,19 +51,36 @@ const apiServices: ApiServices = {
       }
     })
   },
-  fetchProductDetails: async (id: string): Promise<AdProductDetailsDTO> => {
-    const { data } = await api.get<AdProductDetailsDTO>(`/products/${id}`)
+  fetchProductDetails: async (
+    id: string
+  ): Promise<ProductDTOS.AdProductDetailsDTO> => {
+    const { data } = await api.get<ProductDTOS.AdProductDetailsDTO>(
+      `/products/${id}`
+    )
 
     return data
   },
   fetchProductsByFilter: async (
-    params: FetchProductsByFilterParams
-  ): Promise<AdProductByFilterDTO[]> => {
-    const response = await api.get<AdProductByFilterDTO[]>('/products', {
-      params
-    })
+    params: ProductDTOS.FetchProductsByFilterParams
+  ): Promise<ProductDTOS.AdProductByFilterDTO[]> => {
+    const response = await api.get<ProductDTOS.AdProductByFilterDTO[]>(
+      '/products',
+      {
+        params
+      }
+    )
 
     return response.data
+  },
+  updataProductVisibility: async ({
+    id,
+    is_active
+  }: ProductDTOS.UpdataProductVisibility): Promise<void> => {
+    try {
+      await api.patch(`/products/${id}`, { is_active })
+    } catch (error) {
+      throw error
+    }
   }
 }
 

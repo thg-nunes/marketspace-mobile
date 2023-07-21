@@ -59,3 +59,8 @@ export type FetchProductsByFilterParams = {
   payment_methods: string[]
   query: string
 }
+
+export type UpdataProductVisibility = {
+  id: string
+  is_active: boolean
+}
