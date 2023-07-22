@@ -43,6 +43,17 @@ export const ImageListContainer = styled.View`
   width: 100%;
 `
 
+export const InactiveAd = styled.View`
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 3;
+`
+
 export const AmountIndicator = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.font_size.md}px;

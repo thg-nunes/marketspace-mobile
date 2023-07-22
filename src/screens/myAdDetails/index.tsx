@@ -108,6 +108,15 @@ export const MyAdDetails = () => {
       {productDetails.id ? (
         <>
           <Styled.ImageListContainer>
+            <Styled.InactiveAd>
+              <Text
+                size="md"
+                font="bold"
+                color="100"
+                text="Anúncio desativado"
+                style={{ zIndex: 4 }}
+              />
+            </Styled.InactiveAd>
             <FlatList
               data={productDetails.product_images}
               horizontal
