@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Pressable,
   ScrollView,
   View,
   ViewToken
@@ -37,7 +38,7 @@ import { myToast } from '@utils/toast'
 export const MyAdDetails = () => {
   const { params } = useRoute()
   const { id } = params as { id: string }
-  const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const { goBack, navigate } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
     {} as AdProductDetailsDTO
@@ -99,7 +100,9 @@ export const MyAdDetails = () => {
     <Styled.Container>
       <Styled.Header>
         <Styled.GobackIcon onPress={handleGoBackSecreen} />
-        <Styled.EditAdIcon />
+        <Pressable onPress={() => navigate('adEdit', { productId: id })}>
+          <Styled.EditAdIcon />
+        </Pressable>
       </Styled.Header>
 
       {productDetails.id ? (
