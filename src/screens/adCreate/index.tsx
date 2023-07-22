@@ -4,9 +4,6 @@ import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { apiServices } from '@services/api'
-import { myToast } from '@utils/toast'
-import { AppError } from '@utils/screens/appError'
 import {
   productPaymentChecked,
   updateProductsPayments
@@ -20,9 +17,9 @@ import { CheckboxInput } from '@components/checkBox'
 import { CheckRadioInput } from '@components/radioCheckbox'
 import { ProductCondition } from '@screens/home/styled'
 
-import { theme } from '../../theme'
 import * as Styled from './styled'
-import { api } from '@services/axios'
+import { myToast } from '@utils/toast'
+import { theme } from '../../theme'
 
 export const AdCreate = () => {
   const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -58,45 +55,33 @@ export const AdCreate = () => {
   }
 
   function handleAdPreview() {
-    navigate('adPreview')
-  }
-
-  async function handleAdCreate() {
-    try {
-      if (images.length === 0) {
-        myToast({
-          message: 'Pelo meno 1 foto do produto é necessária.',
-          background: theme.colors.red.light
-        })
-        return
-      }
-
-      const product_id = await apiServices.createProduct({
-        name: productTitle,
-        description: productDescription,
-        is_new: productIsNew,
-        accept_trade: acceptTrade,
-        price: parseInt(productValue),
-        payment_methods: productAcceptPayments
-      })
-
-      images.forEach(
-        async (image) => await apiServices.createProductImage(product_id, image)
-      )
-
+    if (images.length === 0) {
       myToast({
-        message: 'Produto cadastrado com sucesso.',
-        background: theme.colors.green.dark
+        message: 'Pelo menos 1 foto do produto é necessária.',
+        background: theme.colors.red.light
       })
-      setTimeout(() => navigate('homeApp'), 1500)
-    } catch (error) {
-      if (error instanceof AppError) {
-        myToast({
-          message: error.message,
-          background: theme.colors.red.light
-        })
-      }
+      return
     }
+
+    if (productAcceptPayments.length === 0) {
+      myToast({
+        message: 'Pelo menos 1 meio de pagamento é necessário.',
+        background: theme.colors.red.light
+      })
+      return
+    }
+
+    navigate('adPreview', {
+      images,
+      product: {
+        name: productTitle,
+        is_new: productIsNew,
+        price: parseInt(productValue),
+        accept_trade: acceptTrade,
+        description: productDescription,
+        payment_methods: productAcceptPayments
+      }
+    })
   }
 
   return (
@@ -313,7 +298,7 @@ export const AdCreate = () => {
           <Button.Root type="PRIMARY">
             <Text color="600" font="bold" size="md" text="Cancelar" />
           </Button.Root>
-          <Button.Root type="SECONDARY" onPress={handleAdCreate}>
+          <Button.Root type="SECONDARY" onPress={handleAdPreview}>
             <Text color="100" font="bold" size="md" text="Avançar" />
           </Button.Root>
         </Styled.ButtonSection>

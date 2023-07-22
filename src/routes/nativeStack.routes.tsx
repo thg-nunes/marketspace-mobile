@@ -11,6 +11,7 @@ import { MyAdDetails } from '@screens/myAdDetails'
 import { AdCreate } from '@screens/adCreate'
 import { AdPreview } from '@screens/adPreview'
 import { AdEdit } from '@screens/adEdit'
+import { ProductDTO } from '@dtos/product'
 
 type StackRoutesProps = {
   login: undefined
@@ -26,7 +27,10 @@ type StackRoutesProps = {
     id: string
   }
   adCreate: undefined
-  adPreview: undefined
+  adPreview: {
+    images: string[]
+    product: ProductDTO
+  }
 }
 
 export type NativeStackRoutesScreenProps =
