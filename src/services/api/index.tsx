@@ -9,6 +9,10 @@ type ApiServices = {
   fetchProductDetails: (id: string) => Promise<ProductDTOS.AdProductDetailsDTO>
   createProduct: (product: ProductDTOS.ProductDTO) => Promise<string>
   createProductImage: (product_id: string, image: string) => Promise<void>
+  editProduct: (
+    product_id: string,
+    product: ProductDTOS.ProductDTO
+  ) => Promise<void>
   updataProductVisibility: ({
     id,
     is_active
@@ -78,6 +82,16 @@ const apiServices: ApiServices = {
   }: ProductDTOS.UpdataProductVisibility): Promise<void> => {
     try {
       await api.patch(`/products/${id}`, { is_active })
+    } catch (error) {
+      throw error
+    }
+  },
+  editProduct: async (
+    product_id: string,
+    product: ProductDTOS.ProductDTO
+  ): Promise<void> => {
+    try {
+      await api.put(`/products/${product_id}`, product)
     } catch (error) {
       throw error
     }
