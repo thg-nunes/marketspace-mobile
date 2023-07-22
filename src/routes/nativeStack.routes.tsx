@@ -10,6 +10,7 @@ import { BottomTabsRoutes } from './bottomTabs.routes'
 import { MyAdDetails } from '@screens/myAdDetails'
 import { AdCreate } from '@screens/adCreate'
 import { AdPreview } from '@screens/adPreview'
+import { AdEdit } from '@screens/adEdit'
 
 type StackRoutesProps = {
   login: undefined
@@ -17,6 +18,9 @@ type StackRoutesProps = {
   homeApp: undefined
   adDetails: {
     id: string
+  }
+  adEdit: {
+    productId: string
   }
   myAdDetails: {
     id: string
@@ -43,6 +47,7 @@ export function StackRoutes() {
       <Screen name="adDetails" component={AdDetails} />
       <Screen name="myAdDetails" component={MyAdDetails} />
       <Screen name="adCreate" component={AdCreate} />
+      <Screen name="adEdit" component={AdEdit} />
       <Screen name="adPreview" component={AdPreview} />
     </Navigator>
   )
