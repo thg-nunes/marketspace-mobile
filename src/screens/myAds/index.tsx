@@ -97,9 +97,9 @@ export const MyAds = () => {
         <FlatList
           data={userProducts}
           contentContainerStyle={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
+            flexDirection: 'column'
           }}
+          numColumns={2}
           renderItem={({ item }) => (
             <Pressable onPress={() => handleMyAdDetails(item.id)}>
               <Card
