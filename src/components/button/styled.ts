@@ -11,7 +11,7 @@ export const Container = styled(TouchableOpacity)<ButtonTypeStylePropsDTO>`
   ${({ theme, type }) => css`
     flex: 1;
     max-width: 276px;
-    height: 42px;
+    min-height: 42px;
     max-height: 42px;
 
     flex-direction: row;
