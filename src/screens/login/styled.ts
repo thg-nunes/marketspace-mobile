@@ -9,11 +9,12 @@ export const Container = styled(SafeAreaView)`
 `
 
 export const Content = styled.View`
+  min-height: 556px;
+
   flex: 1;
   align-items: center;
   justify-content: center;
 
-  padding-bottom: 68px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   background: ${({ theme }) => theme.colors.gray[200]};
@@ -43,7 +44,5 @@ export const RegisterSection = styled.View`
 export const RegisterSectionContent = styled.View`
   width: 100%;
   gap: 16px;
-  min-height: 76px;
-  max-height: 76px;
   max-width: 279px;
 `
