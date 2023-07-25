@@ -1,4 +1,3 @@
-import { View } from 'react-native'
 import { useTheme } from 'styled-components'
 import { House, SignOut, Tag } from 'phosphor-react-native'
 import {
@@ -8,6 +7,7 @@ import {
 
 import { Home } from '@screens/home'
 import { MyAds } from '@screens/myAds'
+import { SignOut as ScreenSignOut } from '@screens/signOut'
 
 export type BottomTabProps = {
   home: undefined
@@ -61,7 +61,7 @@ export function BottomTabsRoutes() {
 
       <Screen
         name="signOut"
-        children={() => <View />}
+        children={ScreenSignOut}
         options={{
           tabBarIcon: () => (
             <SignOut size={24} color={colors.red.light} weight="bold" />
