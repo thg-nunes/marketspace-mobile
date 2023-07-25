@@ -1,9 +1,7 @@
 import { Text } from '@components/text'
 import * as Styled from './styled'
 
-type InactiveAdProps = {}
-
-export const InactiveAd = ({}: InactiveAdProps) => {
+export const InactiveAd = () => {
   return (
     <Styled.InactiveAdsIndicatorContainer>
       <Styled.BackgroundInactiveAds />

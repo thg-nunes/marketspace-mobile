@@ -42,6 +42,7 @@ export const ProductState = styled.Text<ProductStateProps>`
     position: absolute;
     right: 0;
     margin: 4px 3px;
+    padding: 1px 0;
 
     width: 43px;
     height: 17px;
