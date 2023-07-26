@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTheme } from 'styled-components'
 import {
   useFocusEffect,
@@ -7,12 +7,10 @@ import {
 } from '@react-navigation/native'
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
-  View,
-  ViewToken
+  View
 } from 'react-native'
 import {
   Bank,
@@ -22,7 +20,6 @@ import {
   QrCode,
   WhatsappLogo
 } from 'phosphor-react-native'
-import * as Linking from 'expo-linking'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
@@ -38,43 +35,19 @@ import { apiServices } from '@services/api'
 import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
+import { courselFlatlistImage } from '@hooks/myAdDetails'
+import { handleCallUser } from '@hooks/adDetails'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
   const { colors } = useTheme()
   const { params } = useRoute()
+  const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
     {} as AdProductDetailsDTO
   )
   const { id } = params as { id: string }
-
-  function handleGoBackSecreen() {
-    goBack()
-  }
-
-  function onViewableItemsChanged(info: {
-    viewableItems: Array<ViewToken>
-    changed: Array<ViewToken>
-  }) {
-    const imageIndex = info.changed[0]?.index as number
-    setActiveImage(imageIndex)
-  }
-
-  const viewabilityConfig = {
-    viewAreaCoveragePercentThreshold: 95
-  }
-
-  const viewabilityConfigCallbackPair = useRef([
-    {
-      viewabilityConfig,
-      onViewableItemsChanged
-    }
-  ])
-
-  function handleCallUser() {
-    Linking.openURL(`https://wa.me/55${productDetails.user.tel}`)
-  }
 
   useFocusEffect(
     useCallback(() => {
@@ -91,7 +64,7 @@ export const AdDetails = () => {
     <Styled.Container>
       {productDetails.id ? (
         <>
-          <Styled.GobackButton onPress={handleGoBackSecreen}>
+          <Styled.GobackButton onPress={goBack}>
             <Styled.GobackIcon />
           </Styled.GobackButton>
 
@@ -110,7 +83,7 @@ export const AdDetails = () => {
               )}
               keyExtractor={(item) => item.path}
               viewabilityConfigCallbackPairs={
-                viewabilityConfigCallbackPair.current
+                viewabilityConfigCallbackPairs.current
               }
               showsHorizontalScrollIndicator={false}
             />
@@ -264,7 +237,10 @@ export const AdDetails = () => {
               </View>
 
               <View>
-                <Button.Root type="TERTIARY" onPress={handleCallUser}>
+                <Button.Root
+                  type="TERTIARY"
+                  onPress={() => handleCallUser(productDetails.user.tel)}
+                >
                   <Button.Icon
                     Icon={WhatsappLogo}
                     iconProps={{
