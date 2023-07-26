@@ -263,7 +263,7 @@ export const AdCreate = () => {
           </View>
         </View>
         <Styled.ButtonSection>
-          <Button.Root type="PRIMARY">
+          <Button.Root type="PRIMARY" onPress={stack.goBack}>
             <Text color="600" font="bold" size="md" text="Cancelar" />
           </Button.Root>
           <Button.Root
