@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { FlatList, Image, View, ViewToken } from 'react-native'
@@ -53,6 +53,7 @@ export const AdPreview = () => {
   }
   const { userData } = useFetchUserStorageData()
 
+  const screenwidth = Dimensions.get('window').width.toFixed(2)
   const [activeImage, setActiveImage] = useState(0)
 
   function onViewableItemsChanged(info: {
@@ -122,7 +123,10 @@ export const AdPreview = () => {
           horizontal
           pagingEnabled
           renderItem={({ item }) => (
-            <Image source={{ uri: item }} style={{ width: 375, height: 280 }} />
+            <Image
+              source={{ uri: item }}
+              style={{ width: parseFloat(screenwidth), height: 280 }}
+            />
           )}
           keyExtractor={(item) => item}
           viewabilityConfigCallbackPairs={viewabilityConfigCallbackPair.current}

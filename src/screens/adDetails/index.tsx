@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/native'
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -40,16 +41,13 @@ import { returnsPaymentMethod } from '@utils/screens/adDetails'
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
-  const images = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3PFe0VM926Vss_eH-gkyWaUn3HUkkqeBxrw&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAMB7VSqy-EsGhPHiNV1ac6KIJo5e1eudaLw&usqp=CAU'
-  ]
   const { colors } = useTheme()
   const { params } = useRoute()
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
     {} as AdProductDetailsDTO
   )
   const { id } = params as { id: string }
+  const screenwidth = Dimensions.get('window').width.toFixed(2)
 
   function handleGoBackSecreen() {
     goBack()
@@ -107,7 +105,7 @@ export const AdDetails = () => {
                   source={{
                     uri: `${api.defaults.baseURL}/images/${item.path}`
                   }}
-                  style={{ width: 375, height: 280 }}
+                  style={{ width: parseFloat(screenwidth), height: 280 }}
                 />
               )}
               keyExtractor={(item) => item.path}
@@ -127,8 +125,11 @@ export const AdDetails = () => {
                 gap: 4
               }}
             >
-              {images.map((_, index) => (
-                <Styled.ImageCounter key={_} isActive={index === activeImage} />
+              {productDetails.product_images.map((image, index) => (
+                <Styled.ImageCounter
+                  key={image.path}
+                  isActive={index === activeImage}
+                />
               ))}
             </View>
           </Styled.ImageListContainer>

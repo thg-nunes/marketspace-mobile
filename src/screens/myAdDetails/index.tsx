@@ -3,6 +3,7 @@ import { useTheme } from 'styled-components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Image,
   Pressable,
@@ -44,6 +45,7 @@ export const MyAdDetails = () => {
     {} as AdProductDetailsDTO
   )
   const { colors } = useTheme()
+  const screenwidth = Dimensions.get('window').width.toFixed(2)
 
   function handleGoBackSecreen() {
     goBack()
@@ -108,15 +110,17 @@ export const MyAdDetails = () => {
       {productDetails.id ? (
         <>
           <Styled.ImageListContainer>
-            <Styled.InactiveAd>
-              <Text
-                size="md"
-                font="bold"
-                color="100"
-                text="Anúncio desativado"
-                style={{ zIndex: 4 }}
-              />
-            </Styled.InactiveAd>
+            {!productDetails.is_active && (
+              <Styled.InactiveAd>
+                <Text
+                  size="md"
+                  font="bold"
+                  color="100"
+                  text="Anúncio desativado"
+                  style={{ zIndex: 4 }}
+                />
+              </Styled.InactiveAd>
+            )}
             <FlatList
               data={productDetails.product_images}
               horizontal
@@ -126,7 +130,7 @@ export const MyAdDetails = () => {
                   source={{
                     uri: `${api.defaults.baseURL}/images/${item.path}`
                   }}
-                  style={{ width: 375, height: 280 }}
+                  style={{ width: parseFloat(screenwidth), height: 280 }}
                 />
               )}
               keyExtractor={(item) => item.path}
