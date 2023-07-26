@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
   Image,
   Pressable,
   ScrollView,
-  View,
-  ViewToken
+  View
 } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { screenwidth } from '../../../App'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
@@ -31,63 +30,24 @@ import {
 import { Button } from '@components/button'
 import { PaymentMethod } from '@components/paymentMethod'
 import { apiServices } from '@services/api'
-import { AdProductDetailsDTO, UpdataProductVisibility } from '@dtos/product'
+import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
-import { myToast } from '@utils/toast'
+import {
+  handleUpdateProductVisibility,
+  courselFlatlistImage
+} from '@hooks/myAdDetails'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
   const { id } = params as { id: string }
   const { goBack, navigate } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
+  const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
     {} as AdProductDetailsDTO
   )
   const { colors } = useTheme()
-  const screenwidth = Dimensions.get('window').width.toFixed(2)
-
-  function handleGoBackSecreen() {
-    goBack()
-  }
-
-  function onViewableItemsChanged(info: {
-    viewableItems: Array<ViewToken>
-    changed: Array<ViewToken>
-  }) {
-    const imageIndex = info.changed[0]?.index as number
-    setActiveImage(imageIndex)
-  }
-
-  const viewabilityConfig = {
-    viewAreaCoveragePercentThreshold: 95
-  }
-
-  const viewabilityConfigCallbackPair = useRef([
-    {
-      viewabilityConfig,
-      onViewableItemsChanged
-    }
-  ])
-
-  async function handleUpdateProductVisibility({
-    id,
-    is_active
-  }: UpdataProductVisibility): Promise<void> {
-    try {
-      await apiServices.updataProductVisibility({
-        id,
-        is_active
-      })
-
-      myToast({
-        message: 'Produto atualizado com sucesso.',
-        background: colors.green.dark
-      })
-
-      goBack()
-    } catch (error) {}
-  }
 
   useEffect(() => {
     async function fetchProductDetails(id: string) {
@@ -101,7 +61,7 @@ export const MyAdDetails = () => {
   return (
     <Styled.Container>
       <Styled.Header>
-        <Styled.GobackIcon onPress={handleGoBackSecreen} />
+        <Styled.GobackIcon onPress={goBack} />
         <Pressable onPress={() => navigate('adEdit', { productId: id })}>
           <Styled.EditAdIcon />
         </Pressable>
@@ -135,7 +95,7 @@ export const MyAdDetails = () => {
               )}
               keyExtractor={(item) => item.path}
               viewabilityConfigCallbackPairs={
-                viewabilityConfigCallbackPair.current
+                viewabilityConfigCallbackPairs.current
               }
               showsHorizontalScrollIndicator={false}
             />
@@ -282,10 +242,13 @@ export const MyAdDetails = () => {
                   type={productDetails.is_active ? 'SECONDARY' : 'TERTIARY'}
                   style={{ maxWidth: '100%' }}
                   onPress={() =>
-                    handleUpdateProductVisibility({
-                      id: productDetails.id,
-                      is_active: !productDetails.is_active
-                    })
+                    handleUpdateProductVisibility(
+                      {
+                        id: productDetails.id,
+                        is_active: !productDetails.is_active
+                      },
+                      goBack
+                    )
                   }
                 >
                   <Button.Icon
