@@ -26,6 +26,7 @@ import * as Linking from 'expo-linking'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
+import { screenwidth } from '../../../App'
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
@@ -47,7 +48,6 @@ export const AdDetails = () => {
     {} as AdProductDetailsDTO
   )
   const { id } = params as { id: string }
-  const screenwidth = Dimensions.get('window').width.toFixed(2)
 
   function handleGoBackSecreen() {
     goBack()

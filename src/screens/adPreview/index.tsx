@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Dimensions, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { FlatList, Image, View, ViewToken } from 'react-native'
@@ -17,6 +17,7 @@ import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { ImageCounter, ImageListContainer } from '@screens/adDetails/styled'
 
+import { screenwidth } from '../../../App'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
 import {
@@ -53,7 +54,6 @@ export const AdPreview = () => {
   }
   const { userData } = useFetchUserStorageData()
 
-  const screenwidth = Dimensions.get('window').width.toFixed(2)
   const [activeImage, setActiveImage] = useState(0)
 
   function onViewableItemsChanged(info: {

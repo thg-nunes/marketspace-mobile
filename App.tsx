@@ -1,3 +1,4 @@
+import { Dimensions } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { ThemeProvider } from 'styled-components/native'
 import {
@@ -10,6 +11,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { theme } from './src/theme'
 import { Routes } from './src/routes'
+
+export const screenwidth = Dimensions.get('window').width.toFixed(2)
 
 export default function App() {
   const [isFontLoading] = useFonts({ Karla_400Regular, Karla_700Bold })
