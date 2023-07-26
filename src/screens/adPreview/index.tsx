@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { FlatList, Image, View, ViewToken } from 'react-native'
+import { FlatList, Image, View } from 'react-native'
 import {
   ArrowLeft,
   Bank,
@@ -33,70 +33,25 @@ import { PaymentMethod } from '@components/paymentMethod'
 
 import * as Styled from './styled'
 import { ProductDTO } from '@dtos/product'
-import { myToast } from '@utils/toast'
-import { theme } from '../../theme'
-import { apiServices } from '@services/api'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
-import { AppError } from '@utils/screens/appError'
 import { useFetchUserStorageData } from '@hooks/home'
 import { api } from '@services/axios'
 import { productPaymentChecked } from '@utils/screens/adCreate'
+import { courselFlatlistImage } from '@hooks/myAdDetails'
+import { handleAdCreate } from '@hooks/adPreview'
 
 export const AdPreview = () => {
   const { colors } = useTheme()
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const bottomNavigation = useNavigation<BottomTabRoutesScreenProps>()
-
+  const [activeImage, setActiveImage] = useState(0)
+  const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
   const { params } = useRoute()
   const { images, product } = params as {
     images: string[]
     product: ProductDTO
   }
   const { userData } = useFetchUserStorageData()
-
-  const [activeImage, setActiveImage] = useState(0)
-
-  function onViewableItemsChanged(info: {
-    viewableItems: Array<ViewToken>
-    changed: Array<ViewToken>
-  }) {
-    const imageIndex = info.changed[0]?.index as number
-    setActiveImage(imageIndex)
-  }
-
-  const viewabilityConfig = {
-    viewAreaCoveragePercentThreshold: 95
-  }
-
-  const viewabilityConfigCallbackPair = useRef([
-    {
-      viewabilityConfig,
-      onViewableItemsChanged
-    }
-  ])
-
-  async function handleAdCreate() {
-    try {
-      const product_id = await apiServices.createProduct(product)
-
-      images.forEach(
-        async (image) => await apiServices.createProductImage(product_id, image)
-      )
-
-      myToast({
-        message: 'Produto cadastrado com sucesso.',
-        background: theme.colors.green.dark
-      })
-      setTimeout(() => bottomNavigation.navigate('myAds'), 1500)
-    } catch (error) {
-      if (error instanceof AppError) {
-        myToast({
-          message: error.message,
-          background: theme.colors.red.light
-        })
-      }
-    }
-  }
 
   return (
     <Styled.Container>
@@ -129,7 +84,9 @@ export const AdPreview = () => {
             />
           )}
           keyExtractor={(item) => item}
-          viewabilityConfigCallbackPairs={viewabilityConfigCallbackPair.current}
+          viewabilityConfigCallbackPairs={
+            viewabilityConfigCallbackPairs.current
+          }
           showsHorizontalScrollIndicator={false}
         />
 
@@ -292,7 +249,7 @@ export const AdPreview = () => {
         <Button.Root
           type="SECONDARY"
           style={{ maxWidth: '100%' }}
-          onPress={handleAdCreate}
+          onPress={() => handleAdCreate(product, images, bottomNavigation)}
         >
           <Button.Icon
             Icon={TagIcon}
