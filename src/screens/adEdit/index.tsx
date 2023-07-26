@@ -1,5 +1,3 @@
-import { useCallback, useState } from 'react'
-import * as ImagePicker from 'expo-image-picker'
 import {
   ActivityIndicator,
   FlatList,
@@ -7,11 +5,7 @@ import {
   ScrollView,
   View
 } from 'react-native'
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute
-} from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { apiServices } from '@services/api'
@@ -28,103 +22,30 @@ import { ProductCondition } from '@screens/home/styled'
 
 import { theme } from '../../theme'
 import * as Styled from './styled'
-import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
 import {
   productPaymentChecked,
   updateProductsPayments
 } from '@utils/screens/adEdit'
+import {
+  fetchProductDetails,
+  handleAdUpdate,
+  handleProductPhotoSelect,
+  handleRemoveImage
+} from '@hooks/adEdit'
 
 export const AdEdit = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const { params } = useRoute()
   const { productId } = params as { productId: string }
-
-  const [product, setProduct] = useState<AdProductDetailsDTO>(
-    {} as AdProductDetailsDTO
-  )
-  const [images, setImages] = useState<string[]>([])
-  const [acceptTrade, setAcceptTrade] = useState(false)
-  const [productIsNew, setProductIsNew] = useState(true)
-  const [productValue, setProductValue] = useState('')
-  const [productTitle, setProductTitle] = useState('')
-  const [productAcceptPayments, setProductAcceptPayments] = useState<string[]>(
-    []
-  )
-  const [productDescription, setProductDescription] = useState('')
-
-  async function handleProductPhotoSelect() {
-    if (images.length === 3) {
-      // exibir alerta com mensagem de aviso de quantidade de imgs atingida
-      return
-    }
-
-    const { assets, canceled } = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      selectionLimit: 3,
-      quality: 1,
-      aspect: [4, 4]
-    })
-
-    if (canceled) return
-
-    const imagesUri = assets.map((image) => image.uri)
-    setImages((prevState) => [...prevState, ...imagesUri])
-  }
-
-  function handleRemoveImage(imageUri: string): void {
-    const imagesUri = images.filter((image) => image !== imageUri)
-    setImages(imagesUri)
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      async function fetchProductDetails() {
-        const response = await apiServices.fetchProductDetails(productId)
-
-        const payment_methods = response.payment_methods.map(
-          (paymentMethod) => paymentMethod.key
-        )
-        const imagesUri = response.product_images.map((image) => image.path)
-
-        setProduct(response)
-        setImages(imagesUri)
-        setProductTitle(response.name)
-        setProductDescription(response.description)
-        setProductIsNew(response.is_new)
-        setAcceptTrade(response.accept_trade)
-        setProductAcceptPayments(payment_methods)
-        setProductValue(String(response.price))
-      }
-
-      fetchProductDetails()
-    }, [productId])
-  )
-
-  async function handleAdUpdate() {
-    try {
-      await apiServices.editProduct(productId, {
-        name: productTitle,
-        description: productDescription,
-        is_new: productIsNew,
-        accept_trade: acceptTrade,
-        price: parseInt(productValue),
-        payment_methods: productAcceptPayments
-      })
-
-      myToast({
-        message: 'Produto editado com sucesso.',
-        background: theme.colors.green.dark
-      })
-    } catch (error) {
-      if (error instanceof AppError) {
-        myToast({
-          message: error.message,
-          background: theme.colors.red.light
-        })
-      }
-    }
+  const productData = fetchProductDetails(productId)
+  const product = {
+    name: productData.productTitle,
+    description: productData.productDescription,
+    is_new: productData.productIsNew,
+    accept_trade: productData.acceptTrade,
+    price: parseInt(productData.productValue),
+    payment_methods: productData.productAcceptPayments
   }
 
   return (
@@ -142,7 +63,7 @@ export const AdEdit = () => {
         />
       </Styled.Header>
 
-      {product.id ? (
+      {productData.product.id ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ paddingHorizontal: 24 }}>
             <View style={{ gap: 16 }}>
@@ -160,9 +81,9 @@ export const AdEdit = () => {
 
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <FlatList
-                  data={images}
+                  data={productData.images}
                   style={{
-                    maxWidth: images.length * 100
+                    maxWidth: productData.images.length * 100
                   }}
                   contentContainerStyle={{ gap: 8, paddingRight: 15 }}
                   renderItem={({ item }) => (
@@ -171,7 +92,14 @@ export const AdEdit = () => {
                         uri: `${api.defaults.baseURL}/images/${item}`
                       }}
                     >
-                      <Pressable onPress={() => handleRemoveImage(item)}>
+                      <Pressable
+                        onPress={() =>
+                          handleRemoveImage(item, {
+                            images: productData.images,
+                            setImages: productData.setImages
+                          })
+                        }
+                      >
                         <Styled.RemoveImageIcons />
                       </Pressable>
                     </Styled.ProductPhotoSelected>
@@ -179,10 +107,15 @@ export const AdEdit = () => {
                   horizontal
                   showsHorizontalScrollIndicator={false}
                 />
-                {images.length < 3 && (
+                {productData.images.length < 3 && (
                   <Styled.ProductPhotoSelector
                     activeOpacity={0.8}
-                    onPress={handleProductPhotoSelect}
+                    onPress={() =>
+                      handleProductPhotoSelect({
+                        images: productData.images,
+                        setImages: productData.setImages
+                      })
+                    }
                   >
                     <Styled.PlusIcon />
                   </Styled.ProductPhotoSelector>
@@ -199,9 +132,9 @@ export const AdEdit = () => {
             >
               <Text font="bold" size="lg" color="600" text="Sobre o produto" />
               <Input.Root
-                value={productTitle}
+                value={productData.productTitle}
                 placeholder="Título do anúncio"
-                onChangeText={setProductTitle}
+                onChangeText={productData.setProductTitle}
               />
             </View>
 
@@ -222,20 +155,20 @@ export const AdEdit = () => {
                   height: 136,
                   paddingVertical: 12
                 }}
-                value={productDescription}
-                onChangeText={setProductDescription}
+                value={productData.productDescription}
+                onChangeText={productData.setProductDescription}
               />
 
               <View style={{ flexDirection: 'row', gap: 20 }}>
                 <CheckRadioInput
-                  productStateChange={() => setProductIsNew(true)}
+                  productStateChange={() => productData.setProductIsNew(true)}
                   inputRadioLabel="Produto novo"
-                  checked={productIsNew}
+                  checked={productData.productIsNew}
                 />
                 <CheckRadioInput
-                  productStateChange={() => setProductIsNew(false)}
+                  productStateChange={() => productData.setProductIsNew(false)}
                   inputRadioLabel="Produto usado"
-                  checked={!productIsNew}
+                  checked={!productData.productIsNew}
                 />
               </View>
             </View>
@@ -250,15 +183,17 @@ export const AdEdit = () => {
               <Input.Root
                 placeholder="Valor de produto"
                 keyboardType="numeric"
-                value={productValue}
-                onChangeText={setProductValue}
+                value={productData.productValue}
+                onChangeText={productData.setProductValue}
               />
 
               <ProductCondition>
                 <Text text="Aceita troca?" size="md" font="bold" color="700" />
                 <Switch
-                  switchEnabled={acceptTrade}
-                  onPress={() => setAcceptTrade(!acceptTrade)}
+                  switchEnabled={productData.acceptTrade}
+                  onPress={() =>
+                    productData.setAcceptTrade(!productData.acceptTrade)
+                  }
                 />
               </ProductCondition>
 
@@ -274,13 +209,14 @@ export const AdEdit = () => {
                   productAcceptPayments={() =>
                     updateProductsPayments({
                       paymentType: 'Boleto',
-                      productAcceptPayments,
-                      setProductAcceptPayments
+                      productAcceptPayments: productData.productAcceptPayments,
+                      setProductAcceptPayments:
+                        productData.setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
                     paymentType: 'Boleto',
-                    productAcceptPayments
+                    productAcceptPayments: productData.productAcceptPayments
                   })}
                 />
                 <CheckboxInput
@@ -288,13 +224,14 @@ export const AdEdit = () => {
                   productAcceptPayments={() =>
                     updateProductsPayments({
                       paymentType: 'pix',
-                      productAcceptPayments,
-                      setProductAcceptPayments
+                      productAcceptPayments: productData.productAcceptPayments,
+                      setProductAcceptPayments:
+                        productData.setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
                     paymentType: 'pix',
-                    productAcceptPayments
+                    productAcceptPayments: productData.productAcceptPayments
                   })}
                 />
                 <CheckboxInput
@@ -302,13 +239,14 @@ export const AdEdit = () => {
                   productAcceptPayments={() =>
                     updateProductsPayments({
                       paymentType: 'cash',
-                      productAcceptPayments,
-                      setProductAcceptPayments
+                      productAcceptPayments: productData.productAcceptPayments,
+                      setProductAcceptPayments:
+                        productData.setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
                     paymentType: 'cash',
-                    productAcceptPayments
+                    productAcceptPayments: productData.productAcceptPayments
                   })}
                 />
                 <CheckboxInput
@@ -316,13 +254,14 @@ export const AdEdit = () => {
                   productAcceptPayments={() =>
                     updateProductsPayments({
                       paymentType: 'card',
-                      productAcceptPayments,
-                      setProductAcceptPayments
+                      productAcceptPayments: productData.productAcceptPayments,
+                      setProductAcceptPayments:
+                        productData.setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
                     paymentType: 'card',
-                    productAcceptPayments
+                    productAcceptPayments: productData.productAcceptPayments
                   })}
                 />
                 <CheckboxInput
@@ -330,13 +269,14 @@ export const AdEdit = () => {
                   productAcceptPayments={() =>
                     updateProductsPayments({
                       paymentType: 'deposit',
-                      productAcceptPayments,
-                      setProductAcceptPayments
+                      productAcceptPayments: productData.productAcceptPayments,
+                      setProductAcceptPayments:
+                        productData.setProductAcceptPayments
                     })
                   }
                   checked={productPaymentChecked({
                     paymentType: 'deposit',
-                    productAcceptPayments
+                    productAcceptPayments: productData.productAcceptPayments
                   })}
                 />
               </View>
@@ -346,7 +286,10 @@ export const AdEdit = () => {
             <Button.Root type="PRIMARY">
               <Text color="600" font="bold" size="md" text="Cancelar" />
             </Button.Root>
-            <Button.Root type="SECONDARY" onPress={handleAdUpdate}>
+            <Button.Root
+              type="SECONDARY"
+              onPress={() => handleAdUpdate(productId, product)}
+            >
               <Text color="100" font="bold" size="md" text="Avançar" />
             </Button.Root>
           </Styled.ButtonSection>
