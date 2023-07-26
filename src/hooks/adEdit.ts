@@ -18,10 +18,7 @@ async function handleProductPhotoSelect({
   images,
   setImages
 }: UseHandleProductPhotoSelect) {
-  if (images.length === 3) {
-    // exibir alerta com mensagem de aviso de quantidade de imgs atingida
-    return
-  }
+  if (images.length === 3) return
 
   const { assets, canceled } = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
