@@ -15,7 +15,12 @@ import { api } from '@services/axios'
 import { apiServices } from '@services/api'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
-import { useFetchUserStorageData, useFetcheAppProducts } from '@hooks/home'
+import {
+  UseHandleApplyFilters,
+  handleApplyFilters,
+  useFetchUserStorageData,
+  useFetcheAppProducts
+} from '@hooks/home'
 import { AdProductByFilterDTO } from '@dtos/product'
 
 import { Card } from '@components/card'
@@ -50,27 +55,21 @@ export const Home = () => {
     AdProductByFilterDTO[]
   >([])
 
+  const filters: UseHandleApplyFilters = {
+    accept_trade: switchEnabled,
+    is_new: productIsNew === 'new',
+    query: adQueryText,
+    payment_methods: productAcceptPayments,
+    setIsProductsByFilters,
+    setProductsByFilters
+  }
+
   function handleProductDetails(productId: string) {
     stackNavigation.navigate('adDetails', { id: productId })
   }
 
   function handleAdCreate() {
     stackNavigation.navigate('adCreate')
-  }
-
-  async function handleApplyFilters(): Promise<void> {
-    setIsProductsByFilters(true)
-    const is_new = productIsNew === 'new'
-    const accept_trade = switchEnabled
-
-    const response = await apiServices.fetchProductsByFilter({
-      is_new,
-      accept_trade,
-      payment_methods: productAcceptPayments,
-      query: adQueryText
-    })
-
-    setProductsByFilters(response)
   }
 
   return (
@@ -147,7 +146,7 @@ export const Home = () => {
                 style={{ flex: 1, color: colors.gray[700], height: 21 }}
                 placeholderTextColor={colors.gray[400]}
               />
-              <Styled.SearchAdIcon onPress={handleApplyFilters}>
+              <Styled.SearchAdIcon onPress={() => handleApplyFilters(filters)}>
                 <MagnifyingGlass size={20} color={colors.gray[600]} />
               </Styled.SearchAdIcon>
               <Pressable onPress={() => setFiltersVisible(true)}>
@@ -369,7 +368,10 @@ export const Home = () => {
                     size="md"
                   />
                 </Button.Root>
-                <Button.Root type="SECONDARY" onPress={handleApplyFilters}>
+                <Button.Root
+                  type="SECONDARY"
+                  onPress={() => handleApplyFilters(filters)}
+                >
                   <Text
                     text="Aplicar filtros"
                     color="100"

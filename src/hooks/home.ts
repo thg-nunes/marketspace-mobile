@@ -5,8 +5,17 @@ import { api } from '@services/axios'
 import { apiServices } from '@services/api'
 
 import { UserDTO } from '@dtos/user'
-import { AdProductDTO } from '@dtos/product'
+import { AdProductByFilterDTO, AdProductDTO } from '@dtos/product'
 import { userDataFetch } from '@utils/storage/user'
+
+export type UseHandleApplyFilters = {
+  setIsProductsByFilters: (value: boolean) => void
+  setProductsByFilters: (value: AdProductByFilterDTO[]) => void
+  is_new: boolean
+  accept_trade: boolean
+  query: string
+  payment_methods: string[]
+}
 
 const useFetchUserStorageData = () => {
   const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
@@ -46,4 +55,16 @@ const useFetcheAppProducts = (): AdProductDTO[] => {
   return appProducts
 }
 
-export { useFetchUserStorageData, useFetcheAppProducts }
+async function handleApplyFilters(props: UseHandleApplyFilters): Promise<void> {
+  props.setIsProductsByFilters(true)
+  const response = await apiServices.fetchProductsByFilter({
+    is_new: props.is_new,
+    accept_trade: props.accept_trade,
+    payment_methods: props.payment_methods,
+    query: props.query
+  })
+
+  props.setProductsByFilters(response)
+}
+
+export { useFetchUserStorageData, useFetcheAppProducts, handleApplyFilters }
