@@ -5,8 +5,8 @@ import { useTheme } from 'styled-components'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { userServices } from '@services/api/user'
 import { AdProductDTO } from '@dtos/product'
+import { handleFetchUserAds } from '@hooks/myAds'
 
 import { Text } from '@components/text'
 import { Card } from '@components/card'
@@ -31,37 +31,9 @@ export const MyAds = () => {
     navigate('adCreate')
   }
 
-  async function handleFetchUserAds(adStatus: string): Promise<void> {
-    try {
-      setIsFetchingProducts(true)
-      const response = await userServices.fetchMyProducts()
-
-      if (adStatus === 'Todos') {
-        const allProducts = response.filter((product) => product)
-
-        return setUserProducts(allProducts)
-      }
-
-      if (adStatus === 'Ativos') {
-        const activeProducts = response.filter((product) => product.is_active)
-        return setUserProducts(activeProducts)
-      }
-
-      if (adStatus === 'Inativos') {
-        const inactiveProducts = response.filter(
-          (product) => !product.is_active
-        )
-        return setUserProducts(inactiveProducts)
-      }
-    } catch (error) {
-    } finally {
-      setIsFetchingProducts(false)
-    }
-  }
-
   useFocusEffect(
     useCallback(() => {
-      handleFetchUserAds(adStatus)
+      handleFetchUserAds(adStatus, setIsFetchingProducts, setUserProducts)
     }, [adStatus])
   )
 

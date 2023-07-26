@@ -1,0 +1,34 @@
+import { AdProductDTO } from '@dtos/product'
+import { userServices } from '@services/api/user'
+
+async function handleFetchUserAds(
+  adStatus: string,
+  setIsFetchingProducts: (value: boolean) => void,
+  setUserProducts: (value: AdProductDTO[]) => void
+): Promise<void> {
+  try {
+    setIsFetchingProducts(true)
+    const response = await userServices.fetchMyProducts()
+
+    if (adStatus === 'Todos') {
+      const allProducts = response.filter((product) => product)
+
+      return setUserProducts(allProducts)
+    }
+
+    if (adStatus === 'Ativos') {
+      const activeProducts = response.filter((product) => product.is_active)
+      return setUserProducts(activeProducts)
+    }
+
+    if (adStatus === 'Inativos') {
+      const inactiveProducts = response.filter((product) => !product.is_active)
+      return setUserProducts(inactiveProducts)
+    }
+  } catch (error) {
+  } finally {
+    setIsFetchingProducts(false)
+  }
+}
+
+export { handleFetchUserAds }
