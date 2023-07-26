@@ -370,7 +370,10 @@ export const Home = () => {
                 </Button.Root>
                 <Button.Root
                   type="SECONDARY"
-                  onPress={() => handleApplyFilters(filters)}
+                  onPress={() => {
+                    handleApplyFilters(filters)
+                    setFiltersVisible(false)
+                  }}
                 >
                   <Text
                     text="Aplicar filtros"
