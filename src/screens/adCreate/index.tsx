@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import * as ImagePicker from 'expo-image-picker'
 import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -8,6 +7,9 @@ import {
   productPaymentChecked,
   updateProductsPayments
 } from '@utils/screens/adCreate'
+
+import { handleAdPreview } from '@hooks/adCreate'
+import { handleProductPhotoSelect, handleRemoveImage } from '@hooks/adEdit'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -18,12 +20,9 @@ import { CheckRadioInput } from '@components/radioCheckbox'
 import { ProductCondition } from '@screens/home/styled'
 
 import * as Styled from './styled'
-import { myToast } from '@utils/toast'
-import { theme } from '../../theme'
-import { XCircle } from 'phosphor-react-native'
 
 export const AdCreate = () => {
-  const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const stack = useNavigation<NativeStackRoutesScreenProps>()
 
   const [images, setImages] = useState<string[]>([])
   const [acceptTrade, setAcceptTrade] = useState(false)
@@ -34,66 +33,19 @@ export const AdCreate = () => {
     []
   )
   const [productDescription, setProductDescription] = useState('')
-
-  async function handleProductPhotoSelect() {
-    if (images.length === 3) {
-      // exibir alerta com mensagem de aviso de quantidade de imgs atingida
-      return
-    }
-
-    const { assets, canceled } = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      selectionLimit: 3,
-      quality: 1,
-      aspect: [4, 4]
-    })
-
-    if (canceled) return
-
-    const imagesUri = assets.map((image) => image.uri)
-    setImages((prevState) => [...prevState, ...imagesUri])
-  }
-
-  function handleAdPreview() {
-    if (images.length === 0) {
-      myToast({
-        message: 'Pelo menos 1 foto do produto é necessária.',
-        background: theme.colors.red.light
-      })
-      return
-    }
-
-    if (productAcceptPayments.length === 0) {
-      myToast({
-        message: 'Pelo menos 1 meio de pagamento é necessário.',
-        background: theme.colors.red.light
-      })
-      return
-    }
-
-    navigate('adPreview', {
-      images,
-      product: {
-        name: productTitle,
-        is_new: productIsNew,
-        price: parseInt(productValue),
-        accept_trade: acceptTrade,
-        description: productDescription,
-        payment_methods: productAcceptPayments
-      }
-    })
-  }
-
-  function handleRemoveImage(imageUri: string): void {
-    const imagesUri = images.filter((image) => image !== imageUri)
-    setImages(imagesUri)
+  const product = {
+    name: productTitle,
+    is_new: productIsNew,
+    price: parseInt(productValue),
+    accept_trade: acceptTrade,
+    description: productDescription,
+    payment_methods: productAcceptPayments
   }
 
   return (
     <Styled.Container>
       <Styled.Header>
-        <Pressable onPress={goBack}>
+        <Pressable onPress={stack.goBack}>
           <Styled.GobackIcon />
         </Pressable>
         <Text
@@ -134,7 +86,11 @@ export const AdCreate = () => {
                         uri: item
                       }}
                     >
-                      <Pressable onPress={() => handleRemoveImage(item)}>
+                      <Pressable
+                        onPress={() =>
+                          handleRemoveImage(item, { images, setImages })
+                        }
+                      >
                         <Styled.RemoveImageIcons />
                       </Pressable>
                     </Styled.ProductPhotoSelected>
@@ -146,7 +102,9 @@ export const AdCreate = () => {
               {images.length < 3 && (
                 <Styled.ProductPhotoSelector
                   activeOpacity={0.8}
-                  onPress={handleProductPhotoSelect}
+                  onPress={() =>
+                    handleProductPhotoSelect({ images, setImages })
+                  }
                 >
                   <Styled.PlusIcon />
                 </Styled.ProductPhotoSelector>
@@ -308,7 +266,12 @@ export const AdCreate = () => {
           <Button.Root type="PRIMARY">
             <Text color="600" font="bold" size="md" text="Cancelar" />
           </Button.Root>
-          <Button.Root type="SECONDARY" onPress={handleAdPreview}>
+          <Button.Root
+            type="SECONDARY"
+            onPress={() =>
+              handleAdPreview(images, productAcceptPayments, stack, product)
+            }
+          >
             <Text color="100" font="bold" size="md" text="Avançar" />
           </Button.Root>
         </Styled.ButtonSection>
