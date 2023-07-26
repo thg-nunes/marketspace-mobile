@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons'
 import styled, { css } from 'styled-components/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Plus } from 'phosphor-react-native'
+import { Plus, XCircle } from 'phosphor-react-native'
 
 export const Container = styled(SafeAreaView)`
   ${({ theme }) => css`
@@ -34,11 +34,14 @@ export const ProductPhotoSelector = styled.TouchableOpacity`
   background: ${({ theme }) => theme.colors.gray[300]};
 `
 
-export const ProductPhotoSelected = styled.Image`
+export const ProductPhotoSelected = styled.ImageBackground`
   width: 100px;
   height: 100px;
 
-  border-width: 1px;
+  padding: 4px;
+  align-items: flex-end;
+
+  overflow: hidden;
   border-radius: 6px;
 `
 
@@ -56,3 +59,9 @@ export const ButtonSection = styled.View`
     background: ${theme.colors.gray[100]};
   `}
 `
+
+export const RemoveImageIcons = styled(XCircle).attrs(({ theme }) => ({
+  size: 16,
+  weight: 'fill',
+  color: theme.colors.gray[600]
+}))``

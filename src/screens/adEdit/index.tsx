@@ -36,7 +36,7 @@ import {
 } from '@utils/screens/adEdit'
 
 export const AdEdit = () => {
-  const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const { params } = useRoute()
   const { productId } = params as { productId: string }
 
@@ -73,8 +73,9 @@ export const AdEdit = () => {
     setImages((prevState) => [...prevState, ...imagesUri])
   }
 
-  function handleAdPreview() {
-    navigate('adPreview')
+  function handleRemoveImage(imageUri: string): void {
+    const imagesUri = images.filter((image) => image !== imageUri)
+    setImages(imagesUri)
   }
 
   useFocusEffect(
@@ -85,8 +86,10 @@ export const AdEdit = () => {
         const payment_methods = response.payment_methods.map(
           (paymentMethod) => paymentMethod.key
         )
+        const imagesUri = response.product_images.map((image) => image.path)
 
         setProduct(response)
+        setImages(imagesUri)
         setProductTitle(response.name)
         setProductDescription(response.description)
         setProductIsNew(response.is_new)
@@ -157,22 +160,26 @@ export const AdEdit = () => {
 
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <FlatList
-                  data={product.product_images}
+                  data={images}
                   style={{
-                    maxWidth: product.product_images.length * 100
+                    maxWidth: images.length * 100
                   }}
                   contentContainerStyle={{ gap: 8, paddingRight: 15 }}
                   renderItem={({ item }) => (
                     <Styled.ProductPhotoSelected
                       source={{
-                        uri: `${api.defaults.baseURL}/images/${item.path}`
+                        uri: `${api.defaults.baseURL}/images/${item}`
                       }}
-                    />
+                    >
+                      <Pressable onPress={() => handleRemoveImage(item)}>
+                        <Styled.RemoveImageIcons />
+                      </Pressable>
+                    </Styled.ProductPhotoSelected>
                   )}
                   horizontal
                   showsHorizontalScrollIndicator={false}
                 />
-                {product.product_images.length < 3 && (
+                {images.length < 3 && (
                   <Styled.ProductPhotoSelector
                     activeOpacity={0.8}
                     onPress={handleProductPhotoSelect}

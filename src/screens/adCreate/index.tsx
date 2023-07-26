@@ -20,6 +20,7 @@ import { ProductCondition } from '@screens/home/styled'
 import * as Styled from './styled'
 import { myToast } from '@utils/toast'
 import { theme } from '../../theme'
+import { XCircle } from 'phosphor-react-native'
 
 export const AdCreate = () => {
   const { navigate, goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -84,6 +85,11 @@ export const AdCreate = () => {
     })
   }
 
+  function handleRemoveImage(imageUri: string): void {
+    const imagesUri = images.filter((image) => image !== imageUri)
+    setImages(imagesUri)
+  }
+
   return (
     <Styled.Container>
       <Styled.Header>
@@ -127,7 +133,11 @@ export const AdCreate = () => {
                       source={{
                         uri: item
                       }}
-                    />
+                    >
+                      <Pressable onPress={() => handleRemoveImage(item)}>
+                        <Styled.RemoveImageIcons />
+                      </Pressable>
+                    </Styled.ProductPhotoSelected>
                   )}
                   horizontal
                   showsHorizontalScrollIndicator={false}
