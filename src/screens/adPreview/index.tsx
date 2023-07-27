@@ -113,7 +113,7 @@ export const AdPreview = () => {
           backgroundColor: colors.gray[200]
         }}
       >
-        <View>
+        <View style={{ flex: 1 }}>
           <RowCenterItems>
             <UserPhoto.Root
               size="sm"
