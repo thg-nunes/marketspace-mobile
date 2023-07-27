@@ -13,6 +13,7 @@ type ApiServices = {
     product_id: string,
     product: ProductDTOS.ProductDTO
   ) => Promise<void>
+  deleteProduct: (product_id: string) => Promise<void>
   updataProductVisibility: ({
     id,
     is_active
@@ -92,6 +93,13 @@ const apiServices: ApiServices = {
   ): Promise<void> => {
     try {
       await api.put(`/products/${product_id}`, product)
+    } catch (error) {
+      throw error
+    }
+  },
+  deleteProduct: async (product_id: string): Promise<void> => {
+    try {
+      await api.delete(`/products/${product_id}`)
     } catch (error) {
       throw error
     }
