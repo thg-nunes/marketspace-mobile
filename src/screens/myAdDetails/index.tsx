@@ -35,7 +35,8 @@ import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
 import {
   handleUpdateProductVisibility,
-  courselFlatlistImage
+  courselFlatlistImage,
+  handleAdDelete
 } from '@hooks/myAdDetails'
 
 export const MyAdDetails = () => {
@@ -270,7 +271,11 @@ export const MyAdDetails = () => {
                   />
                 </Button.Root>
 
-                <Button.Root type="PRIMARY" style={{ maxWidth: '100%' }}>
+                <Button.Root
+                  type="PRIMARY"
+                  style={{ maxWidth: '100%' }}
+                  onPress={() => handleAdDelete(id, goBack)}
+                >
                   <Button.Icon
                     Icon={TrashSimple}
                     iconProps={{
