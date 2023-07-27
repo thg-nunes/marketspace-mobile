@@ -8,7 +8,7 @@ import { AppError } from '@utils/screens/appError'
 import { userTokenFetch, userTokenUpdate } from '@utils/storage/token'
 import { userSignOut } from '@utils/storage/user'
 
-const baseURL = 'http://192.168.2.106:3333' // process.env.API_ENDPOINT
+const baseURL = 'http://192.168.2.102:3333' // process.env.API_ENDPOINT
 
 type APIInstance = AxiosInstance & {
   registerInterceptTokenManager: (signOut: () => void) => () => void
@@ -28,9 +28,20 @@ const api = axios.create({
 }) as APIInstance
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response
+  },
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
+      const errorResponse = error.response.data as AppError
+
+      if (
+        errorResponse.message === 'Este e-mail já está em uso.' ||
+        errorResponse.message === 'Este telefone já está em uso.'
+      ) {
+        return Promise.reject(new AppError(errorResponse))
+      }
+
       const { refresh_token } = await userTokenFetch()
 
       if (!refresh_token) {
