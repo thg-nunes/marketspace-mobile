@@ -53,7 +53,12 @@ export const MyAds = () => {
       </Styled.Header>
 
       <Styled.MyAdsQuantity>
-        <Text text={`9 anúncios`} color="600" font="regular" size="md" />
+        <Text
+          text={`${userProducts.length} anúncios`}
+          color="600"
+          font="regular"
+          size="md"
+        />
         <Select
           items={['Todos', 'Ativos', 'Inativos']}
           isOpen={selectIsOpen}
