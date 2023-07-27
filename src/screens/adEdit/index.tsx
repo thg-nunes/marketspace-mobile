@@ -148,7 +148,9 @@ export const AdEdit = () => {
               <Text font="bold" size="lg" color="600" text="Sobre o produto" />
               <Input.Root
                 placeholder="Descrição do produto"
-                numberOfLines={3}
+                numberOfLines={10}
+                multiline
+                maxLength={400}
                 inputHeight={136}
                 style={{
                   textAlignVertical: 'top',
@@ -288,7 +290,10 @@ export const AdEdit = () => {
             </Button.Root>
             <Button.Root
               type="SECONDARY"
-              onPress={() => handleAdUpdate(productId, product)}
+              onPress={() => {
+                handleAdUpdate(productId, product)
+                setTimeout(() => goBack(), 750)
+              }}
             >
               <Text color="100" font="bold" size="md" text="Avançar" />
             </Button.Root>
