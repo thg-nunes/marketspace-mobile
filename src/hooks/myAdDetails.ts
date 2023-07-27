@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { ViewToken } from 'react-native'
-import { useTheme } from 'styled-components/native'
 
 import { apiServices } from '@services/api'
 import { myToast } from '@utils/toast'
@@ -12,8 +11,6 @@ async function handleUpdateProductVisibility(
   { id, is_active }: UpdataProductVisibility,
   goBack: () => void
 ): Promise<void> {
-  const { colors } = useTheme()
-
   try {
     await apiServices.updataProductVisibility({
       id,
@@ -22,11 +19,18 @@ async function handleUpdateProductVisibility(
 
     myToast({
       message: 'Produto atualizado com sucesso.',
-      background: colors.green.dark
+      background: theme.colors.green.dark
     })
 
-    goBack()
-  } catch (error) {}
+    setTimeout(() => goBack(), 750)
+  } catch (error) {
+    if (error instanceof AppError) {
+      return myToast({
+        message: error.message,
+        background: theme.colors.red.light
+      })
+    }
+  }
 }
 
 const courselFlatlistImage = (setActiveImage: (value: number) => void) => {
