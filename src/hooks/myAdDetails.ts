@@ -5,6 +5,8 @@ import { useTheme } from 'styled-components/native'
 import { apiServices } from '@services/api'
 import { myToast } from '@utils/toast'
 import { UpdataProductVisibility } from '@dtos/product'
+import { AppError } from '@utils/screens/appError'
+import { theme } from '../theme'
 
 async function handleUpdateProductVisibility(
   { id, is_active }: UpdataProductVisibility,
@@ -48,4 +50,27 @@ const courselFlatlistImage = (setActiveImage: (value: number) => void) => {
   return viewabilityConfigCallbackPair
 }
 
-export { handleUpdateProductVisibility, courselFlatlistImage }
+const handleAdDelete = async (
+  product_id: string,
+  goBack: () => void
+): Promise<void> => {
+  try {
+    await apiServices.deleteProduct(product_id)
+
+    myToast({
+      message: 'Anúncio deletado com sucesso',
+      background: theme.colors.green.dark
+    })
+
+    setTimeout(() => goBack(), 750)
+  } catch (error) {
+    if (error instanceof AppError) {
+      return myToast({
+        message: error.message,
+        background: theme.colors.red.light
+      })
+    }
+  }
+}
+
+export { handleUpdateProductVisibility, courselFlatlistImage, handleAdDelete }
