@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { screenwidth } from '../../../App'
+import { screenwidth } from '@screens/login'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'

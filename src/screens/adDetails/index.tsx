@@ -23,7 +23,7 @@ import {
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
-import { screenwidth } from '../../../App'
+import { screenwidth } from '@screens/login'
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
 import { Button } from '@components/button'

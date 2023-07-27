@@ -1,6 +1,12 @@
 import { Controller } from 'react-hook-form'
 import { useTheme } from 'styled-components/native'
-import { ActivityIndicator, Image, ScrollView, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
+  View
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import Logo from '@assets/logo/logo.png'
@@ -13,6 +19,8 @@ import { usePasswordControls } from '@utils/screens/register'
 import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
+
+export const screenwidth = Dimensions.get('window').width.toFixed(2)
 
 import * as Styled from './styled'
 

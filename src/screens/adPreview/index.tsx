@@ -17,7 +17,7 @@ import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { ImageCounter, ImageListContainer } from '@screens/adDetails/styled'
 
-import { screenwidth } from '../../../App'
+import { screenwidth } from '@screens/login'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
 import {
