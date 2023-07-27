@@ -136,11 +136,13 @@ export const AdCreate = () => {
             <Text font="bold" size="lg" color="600" text="Sobre o produto" />
             <Input.Root
               placeholder="Descrição do produto"
-              numberOfLines={3}
+              numberOfLines={10}
               inputHeight={136}
+              multiline
+              maxLength={500}
               style={{
+                height: '100%',
                 textAlignVertical: 'top',
-                height: 136,
                 paddingVertical: 12
               }}
               onChangeText={setProductDescription}
