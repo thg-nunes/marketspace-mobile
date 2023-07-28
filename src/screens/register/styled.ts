@@ -34,7 +34,7 @@ export const FormSection = styled.View`
   margin-bottom: 24px;
 `
 
-export const RegisterSection = styled.View`
+export const GoSignSection = styled.View`
   align-items: center;
   justify-content: center;
 
