@@ -19,7 +19,8 @@ export type UseHandleApplyFilters = {
 
 const useFetchUserStorageData = () => {
   const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
-  const [userProducts, setUserProducts] = useState('')
+  const [userActiveProductsQuantity, setUserActiveProductsQuantity] =
+    useState('')
 
   async function fetchUserStorageData() {
     const userData = await userDataFetch()
@@ -28,7 +29,7 @@ const useFetchUserStorageData = () => {
 
   async function fetcheUserProducts() {
     const response = await api.get<[]>('/users/products')
-    setUserProducts(String(response.data.length))
+    setUserActiveProductsQuantity(String(response.data.length))
   }
 
   useFocusEffect(
@@ -38,7 +39,7 @@ const useFetchUserStorageData = () => {
     }, [])
   )
 
-  return { userData, userProducts }
+  return { userData, userActiveProductsQuantity }
 }
 
 const useFetcheAppProducts = (): AdProductDTO[] => {
