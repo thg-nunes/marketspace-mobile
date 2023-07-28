@@ -29,6 +29,7 @@ import { Header } from './header'
 import { UserActiveAdsInfo } from './userAdsInfo'
 import { FilterInputSection } from './fiilterInputSection'
 import { ProductsList } from './productsList'
+import { CheckBoxAndLaybel } from '@components/paymentTypes/checkBoxAndLabel'
 
 export const Home = () => {
   const appTheme = useTheme()
@@ -170,84 +171,10 @@ export const Home = () => {
                 />
               </Styled.ProductCondition>
 
-              <View style={{ width: '100%', gap: 12 }}>
-                <Text
-                  text="Meios de pagamento aceitos"
-                  size="md"
-                  font="bold"
-                  color="700"
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Boleto"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'boleto',
-                      productAcceptPayments,
-                      setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'boleto',
-                    productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Pix"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'pix',
-                      productAcceptPayments,
-                      setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'pix',
-                    productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Dinheiro"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'cash',
-                      productAcceptPayments,
-                      setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'cash',
-                    productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Cartão de Crédito"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'card',
-                      productAcceptPayments,
-                      setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'card',
-                    productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Depósito Bancário"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'deposit',
-                      productAcceptPayments,
-                      setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'deposit',
-                    productAcceptPayments
-                  })}
-                />
-              </View>
+              <CheckBoxAndLaybel
+                productAcceptPayments={productAcceptPayments}
+                setProductAcceptPayments={setProductAcceptPayments}
+              />
 
               <View style={{ gap: 12, flexDirection: 'row' }}>
                 <Button.Root
