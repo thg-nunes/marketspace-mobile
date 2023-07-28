@@ -1,35 +1,25 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Modal, Pressable } from 'react-native'
-import { X } from 'phosphor-react-native'
+import { View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import {
   UseHandleApplyFilters,
-  handleApplyFilters,
   useFetchUserStorageData,
   useFetcheAppProducts
 } from '@hooks/home'
 import { AdProductByFilterDTO } from '@dtos/product'
 
 import { Text } from '@components/text'
-import { Button } from '@components/button'
-import { Switch } from '@components/switch'
-import { CheckboxInput } from '@components/checkBox'
-import { Tag as TagConponent } from '@components/tag'
-
-import * as Styled from './styled'
-import {
-  productPaymentChecked,
-  updateProductsPayments
-} from '@utils/screens/adCreate'
 import { Header } from './header'
+import { ProductsList } from './productsList'
+import { FiltersModal } from './filtersModal'
 import { UserActiveAdsInfo } from './userAdsInfo'
 import { FilterInputSection } from './fiilterInputSection'
-import { ProductsList } from './productsList'
-import { CheckBoxAndLaybel } from '@components/paymentTypes/checkBoxAndLabel'
+
+import * as Styled from './styled'
 
 export const Home = () => {
   const appTheme = useTheme()
@@ -107,112 +97,18 @@ export const Home = () => {
       />
 
       {filtersVisible && (
-        <Modal animationType="slide" transparent>
-          <Styled.FilterContainer>
-            <Styled.FiltersModalBackGround />
-            <Styled.FiltersContent>
-              <Styled.Divider />
-              <Styled.FilterHeader>
-                <Text
-                  text="Filtrar anúncios"
-                  size="xl"
-                  font="bold"
-                  color="700"
-                />
-                <Pressable onPress={() => setFiltersVisible(false)}>
-                  <X size={24} color={appTheme.colors.gray[400]} />
-                </Pressable>
-              </Styled.FilterHeader>
-
-              <Styled.ProductCondition>
-                <Text text="Condição" size="md" font="bold" color="700" />
-                <View style={{ flexDirection: 'row', gap: 8 }}>
-                  <TagConponent.Root
-                    onPress={() => setProductIsNew('new')}
-                    hasTagIcon={productIsNew === 'new'}
-                    size="lg"
-                    type={productIsNew === 'new' ? 'BLUE' : 'GRAY.300'}
-                  >
-                    <Text
-                      text="NOVO"
-                      color={productIsNew === 'new' ? '100' : '500'}
-                      font="bold"
-                      size="sm"
-                    />
-                    {productIsNew === 'new' && (
-                      <TagConponent.Icon onPress={() => setProductIsNew('')} />
-                    )}
-                  </TagConponent.Root>
-
-                  <TagConponent.Root
-                    onPress={() => setProductIsNew('used')}
-                    hasTagIcon={productIsNew === 'used'}
-                    size="lg"
-                    type={productIsNew === 'used' ? 'BLUE' : 'GRAY.300'}
-                  >
-                    <Text
-                      text="USADO"
-                      color={productIsNew === 'used' ? '100' : '500'}
-                      font="bold"
-                      size="sm"
-                    />
-                    {productIsNew === 'used' && (
-                      <TagConponent.Icon onPress={() => setProductIsNew('')} />
-                    )}
-                  </TagConponent.Root>
-                </View>
-              </Styled.ProductCondition>
-
-              <Styled.ProductCondition>
-                <Text text="Aceita troca?" size="md" font="bold" color="700" />
-                <Switch
-                  switchEnabled={switchEnabled}
-                  onPress={() => setSwitchEnabled(!switchEnabled)}
-                />
-              </Styled.ProductCondition>
-
-              <CheckBoxAndLaybel
-                productAcceptPayments={productAcceptPayments}
-                setProductAcceptPayments={setProductAcceptPayments}
-              />
-
-              <View style={{ gap: 12, flexDirection: 'row' }}>
-                <Button.Root
-                  type="PRIMARY"
-                  onPress={() => {
-                    setProductAcceptPayments([])
-                    setProductIsNew('')
-                    setFiltersVisible(false)
-                    setSwitchEnabled(false)
-                    setIsProductsByFilters(false)
-                  }}
-                >
-                  <Text
-                    text="Resetar filtros"
-                    color="600"
-                    font="bold"
-                    size="md"
-                  />
-                </Button.Root>
-                <Button.Root
-                  type="SECONDARY"
-                  onPress={() => {
-                    handleApplyFilters(filters)
-                    setFiltersVisible(false)
-                    setIsProductsByFilters(true)
-                  }}
-                >
-                  <Text
-                    text="Aplicar filtros"
-                    color="100"
-                    font="bold"
-                    size="md"
-                  />
-                </Button.Root>
-              </View>
-            </Styled.FiltersContent>
-          </Styled.FilterContainer>
-        </Modal>
+        <FiltersModal
+          appTheme={appTheme}
+          filters={filters}
+          productAcceptPayments={productAcceptPayments}
+          productIsNew={productIsNew}
+          setFiltersVisible={setFiltersVisible}
+          setIsProductsByFilters={setIsProductsByFilters}
+          setProductAcceptPayments={setProductAcceptPayments}
+          setProductIsNew={setProductIsNew}
+          setSwitchEnabled={setSwitchEnabled}
+          switchEnabled={switchEnabled}
+        />
       )}
     </Styled.Container>
   )
