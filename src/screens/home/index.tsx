@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, TextInput, Modal, Pressable, FlatList } from 'react-native'
-import { MagnifyingGlass, Sliders, X } from 'phosphor-react-native'
+import { View, Modal, Pressable, FlatList } from 'react-native'
+import { X } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
@@ -28,6 +28,7 @@ import {
 } from '@utils/screens/adCreate'
 import { Header } from './header'
 import { UserActiveAdsInfo } from './userAdsInfo'
+import { FilterInputSection } from './fiilterInputSection'
 
 export const Home = () => {
   const appTheme = useTheme()
@@ -91,24 +92,12 @@ export const Home = () => {
               color="500"
             />
 
-            <Styled.FilterInputSection>
-              <TextInput
-                placeholder="Buscar anúncio"
-                onChangeText={setAdQueryText}
-                style={{
-                  flex: 1,
-                  color: appTheme.colors.gray[700],
-                  height: 21
-                }}
-                placeholderTextColor={appTheme.colors.gray[400]}
-              />
-              <Styled.SearchAdIcon onPress={() => handleApplyFilters(filters)}>
-                <MagnifyingGlass size={20} color={appTheme.colors.gray[600]} />
-              </Styled.SearchAdIcon>
-              <Pressable onPress={() => setFiltersVisible(true)}>
-                <Sliders size={20} color={appTheme.colors.gray[600]} />
-              </Pressable>
-            </Styled.FilterInputSection>
+            <FilterInputSection
+              filters={filters}
+              appTheme={appTheme}
+              setAdQueryText={setAdQueryText}
+              setFiltersVisible={setFiltersVisible}
+            />
           </View>
         </Styled.ProductsAdsContainer>
       </View>
