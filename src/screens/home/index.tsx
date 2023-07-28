@@ -1,17 +1,9 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, TextInput, Modal, Pressable, FlatList } from 'react-native'
-import {
-  ArrowRight,
-  MagnifyingGlass,
-  Plus,
-  Sliders,
-  Tag,
-  X
-} from 'phosphor-react-native'
+import { MagnifyingGlass, Sliders, X } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
-import { api } from '@services/axios'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import {
@@ -26,7 +18,6 @@ import { Card } from '@components/card'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
 import { Switch } from '@components/switch'
-import { UserInfo } from '@components/userInfo'
 import { CheckboxInput } from '@components/checkBox'
 import { Tag as TagConponent } from '@components/tag'
 
@@ -36,6 +27,7 @@ import {
   updateProductsPayments
 } from '@utils/screens/adCreate'
 import { Header } from './header'
+import { UserActiveAdsInfo } from './userAdsInfo'
 
 export const Home = () => {
   const appTheme = useTheme()
@@ -48,7 +40,7 @@ export const Home = () => {
     []
   )
   const [filtersVisible, setFiltersVisible] = useState(false)
-  const { userData, userProducts } = useFetchUserStorageData()
+  const { userData, userActiveProductsQuantity } = useFetchUserStorageData()
   const appProducts = useFetcheAppProducts()
   const [isProductsByFilters, setIsProductsByFilters] = useState(false)
   const [productsByFilters, setProductsByFilters] = useState<
@@ -85,28 +77,11 @@ export const Home = () => {
             color="500"
           />
 
-          <Styled.ProductsAdsContent>
-            <Styled.ProductsAdsBackground />
-            <Styled.ActiveProducts>
-              <Tag size={22} color={appTheme.colors.blue.dark} />
-              <View>
-                <Text text={userProducts} size="lg" font="bold" color="700" />
-                <Text
-                  text="anúncios ativos"
-                  size="lg"
-                  font="regular"
-                  color="700"
-                />
-              </View>
-            </Styled.ActiveProducts>
-
-            <Styled.LinkContainer>
-              <Pressable onPress={() => bottomNavigation.navigate('myAds')}>
-                <Styled.LinkText>Meus anúncios</Styled.LinkText>
-              </Pressable>
-              <ArrowRight size={16} />
-            </Styled.LinkContainer>
-          </Styled.ProductsAdsContent>
+          <UserActiveAdsInfo
+            appTheme={appTheme}
+            bottomNavigation={bottomNavigation}
+            userActiveProductsQuantity={userActiveProductsQuantity}
+          />
 
           <View style={{ gap: 12 }}>
             <Text
