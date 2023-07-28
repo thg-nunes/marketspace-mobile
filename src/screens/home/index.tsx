@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Modal, Pressable, FlatList } from 'react-native'
+import { View, Modal, Pressable } from 'react-native'
 import { X } from 'phosphor-react-native'
 import { useTheme } from 'styled-components/native'
 
@@ -14,7 +14,6 @@ import {
 } from '@hooks/home'
 import { AdProductByFilterDTO } from '@dtos/product'
 
-import { Card } from '@components/card'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
 import { Switch } from '@components/switch'
@@ -29,6 +28,7 @@ import {
 import { Header } from './header'
 import { UserActiveAdsInfo } from './userAdsInfo'
 import { FilterInputSection } from './fiilterInputSection'
+import { ProductsList } from './productsList'
 
 export const Home = () => {
   const appTheme = useTheme()
@@ -55,10 +55,6 @@ export const Home = () => {
     payment_methods: productAcceptPayments,
     setIsProductsByFilters,
     setProductsByFilters
-  }
-
-  function handleProductDetails(productId: string) {
-    stackNavigation.navigate('adDetails', { id: productId })
   }
 
   return (
@@ -102,55 +98,12 @@ export const Home = () => {
         </Styled.ProductsAdsContainer>
       </View>
 
-      {!isProductsByFilters && (
-        <FlatList
-          data={appProducts}
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-          }}
-          renderItem={({ item }) => (
-            <Pressable onPress={() => handleProductDetails(item.id)}>
-              <Card
-                productActive={item.is_active}
-                productType={item.is_new ? 'NEW' : 'USED'}
-                productData={item}
-              />
-            </Pressable>
-          )}
-        />
-      )}
-
-      {isProductsByFilters && (
-        <FlatList
-          data={productsByFilters}
-          style={{ flex: 1 }}
-          contentContainerStyle={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-          }}
-          renderItem={({ item }) => (
-            <Pressable onPress={() => handleProductDetails(item.id)}>
-              <Card
-                productActive
-                productType={item.is_new ? 'NEW' : 'USED'}
-                productData={item}
-              />
-            </Pressable>
-          )}
-          ListEmptyComponent={() => (
-            <View style={{ flex: 1, alignItems: 'center' }}>
-              <Text
-                color="500"
-                font="bold"
-                size="md"
-                text="Sem produtos para a combinação de filtros feita."
-              />
-            </View>
-          )}
-        />
-      )}
+      <ProductsList
+        appProducts={appProducts}
+        stackNavigation={stackNavigation}
+        productsByFilters={productsByFilters}
+        isProductsByFilters={isProductsByFilters}
+      />
 
       {filtersVisible && (
         <Modal animationType="slide" transparent>
@@ -302,6 +255,7 @@ export const Home = () => {
                   onPress={() => {
                     setProductAcceptPayments([])
                     setProductIsNew('')
+                    setFiltersVisible(false)
                     setSwitchEnabled(false)
                     setIsProductsByFilters(false)
                   }}
@@ -318,6 +272,7 @@ export const Home = () => {
                   onPress={() => {
                     handleApplyFilters(filters)
                     setFiltersVisible(false)
+                    setIsProductsByFilters(true)
                   }}
                 >
                   <Text
