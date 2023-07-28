@@ -8,7 +8,7 @@ import { AppError } from '@utils/screens/appError'
 import { userTokenFetch, userTokenUpdate } from '@utils/storage/token'
 import { userSignOut } from '@utils/storage/user'
 
-const baseURL = 'http://192.168.2.102:3333' // process.env.API_ENDPOINT
+const baseURL = process.env.API_ENDPOINT
 
 type APIInstance = AxiosInstance & {
   registerInterceptTokenManager: (signOut: () => void) => () => void
