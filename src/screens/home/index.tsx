@@ -12,7 +12,6 @@ import {
 import { useTheme } from 'styled-components/native'
 
 import { api } from '@services/axios'
-import { apiServices } from '@services/api'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import {
@@ -36,9 +35,10 @@ import {
   productPaymentChecked,
   updateProductsPayments
 } from '@utils/screens/adCreate'
+import { Header } from './header'
 
 export const Home = () => {
-  const { colors } = useTheme()
+  const appTheme = useTheme()
   const stackNavigation = useNavigation<NativeStackRoutesScreenProps>()
   const bottomNavigation = useNavigation<BottomTabRoutesScreenProps>()
   const [adQueryText, setAdQueryText] = useState('')
@@ -68,37 +68,14 @@ export const Home = () => {
     stackNavigation.navigate('adDetails', { id: productId })
   }
 
-  function handleAdCreate() {
-    stackNavigation.navigate('adCreate')
-  }
-
   return (
     <Styled.Container>
       <View style={{ marginTop: 20 }}>
-        <Styled.HomeHeader>
-          <UserInfo
-            photSize="md"
-            uri={`${api.defaults.baseURL}/images/${userData.avatar}`}
-          >
-            <View>
-              <Text text="Boas Vindas," size="lg" font="regular" color="700" />
-              <Text text={userData.name} size="lg" font="bold" color="700" />
-            </View>
-          </UserInfo>
-
-          <View>
-            <Button.Root type="SECONDARY" onPress={handleAdCreate}>
-              <Button.Icon
-                Icon={Plus}
-                iconProps={{
-                  size: 16,
-                  color: colors.gray[100]
-                }}
-              />
-              <Text text="Criar anúncio" color="100" font="bold" size="md" />
-            </Button.Root>
-          </View>
-        </Styled.HomeHeader>
+        <Header
+          appTheme={appTheme}
+          stackNavigation={stackNavigation}
+          userData={userData}
+        />
 
         <Styled.ProductsAdsContainer>
           <Text
@@ -111,7 +88,7 @@ export const Home = () => {
           <Styled.ProductsAdsContent>
             <Styled.ProductsAdsBackground />
             <Styled.ActiveProducts>
-              <Tag size={22} color={colors.blue.dark} />
+              <Tag size={22} color={appTheme.colors.blue.dark} />
               <View>
                 <Text text={userProducts} size="lg" font="bold" color="700" />
                 <Text
@@ -143,14 +120,18 @@ export const Home = () => {
               <TextInput
                 placeholder="Buscar anúncio"
                 onChangeText={setAdQueryText}
-                style={{ flex: 1, color: colors.gray[700], height: 21 }}
-                placeholderTextColor={colors.gray[400]}
+                style={{
+                  flex: 1,
+                  color: appTheme.colors.gray[700],
+                  height: 21
+                }}
+                placeholderTextColor={appTheme.colors.gray[400]}
               />
               <Styled.SearchAdIcon onPress={() => handleApplyFilters(filters)}>
-                <MagnifyingGlass size={20} color={colors.gray[600]} />
+                <MagnifyingGlass size={20} color={appTheme.colors.gray[600]} />
               </Styled.SearchAdIcon>
               <Pressable onPress={() => setFiltersVisible(true)}>
-                <Sliders size={20} color={colors.gray[600]} />
+                <Sliders size={20} color={appTheme.colors.gray[600]} />
               </Pressable>
             </Styled.FilterInputSection>
           </View>
@@ -221,7 +202,7 @@ export const Home = () => {
                   color="700"
                 />
                 <Pressable onPress={() => setFiltersVisible(false)}>
-                  <X size={24} color={colors.gray[400]} />
+                  <X size={24} color={appTheme.colors.gray[400]} />
                 </Pressable>
               </Styled.FilterHeader>
 
