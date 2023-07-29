@@ -8,25 +8,18 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { apiServices } from '@services/api'
-import { myToast } from '@utils/toast'
-import { AppError } from '@utils/screens/appError'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
 import { Switch } from '@components/switch'
-import { CheckboxInput } from '@components/checkBox'
+import { PaymentTypes } from '@components/paymentTypes'
 import { CheckRadioInput } from '@components/radioCheckbox'
 import { ProductCondition } from '@screens/home/styled'
 
 import { theme } from '../../theme'
 import * as Styled from './styled'
 import { api } from '@services/axios'
-import {
-  productPaymentChecked,
-  updateProductsPayments
-} from '@utils/screens/adEdit'
 import {
   fetchProductDetails,
   handleAdUpdate,
@@ -199,89 +192,10 @@ export const AdEdit = () => {
                 />
               </ProductCondition>
 
-              <View style={{ width: '100%', gap: 12, marginBottom: 25 }}>
-                <Text
-                  text="Meios de pagamento:"
-                  size="md"
-                  font="bold"
-                  color="700"
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Boleto"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'Boleto',
-                      productAcceptPayments: productData.productAcceptPayments,
-                      setProductAcceptPayments:
-                        productData.setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'Boleto',
-                    productAcceptPayments: productData.productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Pix"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'pix',
-                      productAcceptPayments: productData.productAcceptPayments,
-                      setProductAcceptPayments:
-                        productData.setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'pix',
-                    productAcceptPayments: productData.productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Dinheiro"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'cash',
-                      productAcceptPayments: productData.productAcceptPayments,
-                      setProductAcceptPayments:
-                        productData.setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'cash',
-                    productAcceptPayments: productData.productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Cartão de Crédito"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'card',
-                      productAcceptPayments: productData.productAcceptPayments,
-                      setProductAcceptPayments:
-                        productData.setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'card',
-                    productAcceptPayments: productData.productAcceptPayments
-                  })}
-                />
-                <CheckboxInput
-                  checkboxInputLabel="Depósito Bancário"
-                  productAcceptPayments={() =>
-                    updateProductsPayments({
-                      paymentType: 'deposit',
-                      productAcceptPayments: productData.productAcceptPayments,
-                      setProductAcceptPayments:
-                        productData.setProductAcceptPayments
-                    })
-                  }
-                  checked={productPaymentChecked({
-                    paymentType: 'deposit',
-                    productAcceptPayments: productData.productAcceptPayments
-                  })}
-                />
-              </View>
+              <PaymentTypes.CheckBox
+                productAcceptPayments={productData.productAcceptPayments}
+                setProductAcceptPayments={productData.setProductAcceptPayments}
+              />
             </View>
           </View>
           <Styled.ButtonSection>
