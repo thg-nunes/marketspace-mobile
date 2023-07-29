@@ -3,6 +3,7 @@ import { FlatList, Pressable, ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { ProductCondition } from '@screens/home/styled'
 import {
   productPaymentChecked,
   updateProductsPayments
@@ -16,8 +17,8 @@ import { Input } from '@components/input'
 import { Button } from '@components/button'
 import { Switch } from '@components/switch'
 import { CheckboxInput } from '@components/checkBox'
+import { ScreenHeader } from '@components/screensHeader'
 import { CheckRadioInput } from '@components/radioCheckbox'
-import { ProductCondition } from '@screens/home/styled'
 
 import * as Styled from './styled'
 
@@ -44,32 +45,24 @@ export const AdCreate = () => {
 
   return (
     <Styled.Container>
-      <Styled.Header>
-        <Pressable onPress={stack.goBack}>
+      <ScreenHeader.Root mt={20} mb={20} pr={24} pl={24}>
+        <ScreenHeader.Icon onPress={stack.goBack}>
           <Styled.GobackIcon />
-        </Pressable>
-        <Text
-          color="700"
-          size="xl"
-          font="bold"
-          text="Criar anúncio"
-          style={{ flex: 1, textAlign: 'center' }}
-        />
-      </Styled.Header>
+        </ScreenHeader.Icon>
+        <ScreenHeader.Text text="Criar anúncio" />
+      </ScreenHeader.Root>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ paddingHorizontal: 24 }}>
           <View style={{ gap: 16 }}>
-            <View style={{ gap: 16 }}>
-              <View style={{ gap: 4 }}>
-                <Text text="Imagens" color="700" font="bold" size="lg" />
-                <Text
-                  text="Escolha até 3 imagens para mostrar o quando o seu produto é incrível!"
-                  color="700"
-                  font="regular"
-                  size="md"
-                />
-              </View>
+            <View style={{ gap: 4 }}>
+              <Text text="Imagens" color="700" font="bold" size="lg" />
+              <Text
+                text="Escolha até 3 imagens para mostrar o quando o seu produto é incrível!"
+                color="700"
+                font="regular"
+                size="md"
+              />
             </View>
 
             <View style={{ flexDirection: 'row', gap: 8 }}>

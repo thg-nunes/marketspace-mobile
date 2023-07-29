@@ -10,13 +10,6 @@ export const Container = styled(SafeAreaView)`
   `}
 `
 
-export const Header = styled.View`
-  margin: 20px 24px;
-  gap: 8px;
-  align-items: center;
-  flex-direction: row;
-`
-
 export const GobackIcon = styled(AntDesign).attrs(({ theme }) => ({
   name: 'arrowleft',
   size: 24,
