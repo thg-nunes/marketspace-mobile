@@ -18,14 +18,12 @@ import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
-import { Bank, Barcode, CreditCard, Money, QrCode } from 'phosphor-react-native'
-import { PaymentMethod } from '@components/paymentMethod'
 import { apiServices } from '@services/api'
 import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
-import { returnsPaymentMethod } from '@utils/screens/adDetails'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
 import { ButtonsActionSection } from './buttonsActionSection'
+import { IconAndLabel } from '@components/paymentTypes/iconAndLabel'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
@@ -168,63 +166,7 @@ export const MyAdDetails = () => {
                 />
               </Styled.RowCenterItems>
 
-              <Styled.PaymentMethodsContainer>
-                <Text
-                  text="Meios de pagamento:"
-                  size="md"
-                  font="bold"
-                  color="700"
-                />
-                {returnsPaymentMethod(
-                  productDetails.payment_methods,
-                  'boleto'
-                ) && (
-                  <PaymentMethod.Root>
-                    <PaymentMethod.Icon Icon={Barcode} />
-                    <PaymentMethod.Type type="Boleto" />
-                  </PaymentMethod.Root>
-                )}
-
-                {returnsPaymentMethod(
-                  productDetails.payment_methods,
-                  'pix'
-                ) && (
-                  <PaymentMethod.Root>
-                    <PaymentMethod.Icon Icon={QrCode} />
-                    <PaymentMethod.Type type="Pix" />
-                  </PaymentMethod.Root>
-                )}
-
-                {returnsPaymentMethod(
-                  productDetails.payment_methods,
-                  'cash'
-                ) && (
-                  <PaymentMethod.Root>
-                    <PaymentMethod.Icon Icon={Money} />
-                    <PaymentMethod.Type type="Dinheiro" />
-                  </PaymentMethod.Root>
-                )}
-
-                {returnsPaymentMethod(
-                  productDetails.payment_methods,
-                  'card'
-                ) && (
-                  <PaymentMethod.Root>
-                    <PaymentMethod.Icon Icon={CreditCard} />
-                    <PaymentMethod.Type type="Cartão de Crédito" />
-                  </PaymentMethod.Root>
-                )}
-
-                {returnsPaymentMethod(
-                  productDetails.payment_methods,
-                  'deposit'
-                ) && (
-                  <PaymentMethod.Root>
-                    <PaymentMethod.Icon Icon={Bank} />
-                    <PaymentMethod.Type type="Depósito Bancário" />
-                  </PaymentMethod.Root>
-                )}
-              </Styled.PaymentMethodsContainer>
+              <IconAndLabel payment_methods={productDetails.payment_methods} />
 
               <ButtonsActionSection
                 ad_id={id}

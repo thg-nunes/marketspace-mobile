@@ -96,13 +96,3 @@ export const AdContent = styled.View`
   padding-left: 24px;
   padding-right: 24px;
 `
-
-export const PaymentMethodsContainer = styled.View`
-  flex: 1;
-  gap: 12px;
-  margin-top: 16px;
-
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 26px;
-`
