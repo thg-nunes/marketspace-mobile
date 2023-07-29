@@ -40,7 +40,7 @@ export const MyAds = () => {
 
   return (
     <Styled.Container>
-      <ScreenHeader.Root>
+      <ScreenHeader.Root mb={32}>
         <ScreenHeader.Text text="Meus anúncios" />
         <ScreenHeader.Icon onPress={handleAdCreate}>
           <Plus size={24} color={colors.gray[700]} />

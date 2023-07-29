@@ -37,6 +37,7 @@ import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
 import { handleCallUser } from '@hooks/adDetails'
+import { ScreenHeader } from '@components/screensHeader'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -64,10 +65,11 @@ export const AdDetails = () => {
     <Styled.Container>
       {productDetails.id ? (
         <>
-          <Styled.GobackButton onPress={goBack}>
-            <Styled.GobackIcon />
-          </Styled.GobackButton>
-
+          <ScreenHeader.Root mb={12} mt={20} pl={24} pr={24}>
+            <ScreenHeader.Icon onPress={goBack}>
+              <Styled.GobackIcon />
+            </ScreenHeader.Icon>
+          </ScreenHeader.Root>
           <Styled.ImageListContainer>
             <FlatList
               data={productDetails.product_images}

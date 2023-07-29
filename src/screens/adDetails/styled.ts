@@ -9,12 +9,6 @@ export const Container = styled(SafeAreaView)`
   `}
 `
 
-export const GobackButton = styled.Pressable`
-  width: 28px;
-  max-width: 28px;
-  margin: 12px 24px;
-`
-
 export const GobackIcon = styled(AntDesign).attrs(({ theme }) => ({
   name: 'arrowleft',
   size: 24,
