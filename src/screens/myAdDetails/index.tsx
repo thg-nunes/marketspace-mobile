@@ -16,7 +16,7 @@ import {
   useFetchProductDetails
 } from '@hooks/myAdDetails'
 import { ButtonsActionSection } from './buttonsActionSection'
-import { IconAndLabel } from '@components/paymentTypes/iconAndLabel'
+import { PaymentTypes } from '@components/paymentTypes'
 import { AdImageCoursel } from './adImageCoursel'
 
 export const MyAdDetails = () => {
@@ -105,7 +105,9 @@ export const MyAdDetails = () => {
                 />
               </Styled.RowCenterItems>
 
-              <IconAndLabel payment_methods={productDetails.payment_methods} />
+              <PaymentTypes.Icons
+                payment_methods={productDetails.payment_methods}
+              />
 
               <ButtonsActionSection
                 ad_id={id}

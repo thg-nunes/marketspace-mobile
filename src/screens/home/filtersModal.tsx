@@ -8,7 +8,7 @@ import { Text } from '@components/text'
 import { Tag } from '@components/tag'
 import { Switch } from '@components/switch'
 import { Button } from '@components/button'
-import { CheckBoxAndLaybel } from '@components/paymentTypes/checkBoxAndLabel'
+import { PaymentTypes } from '@components/paymentTypes'
 
 import * as Styled from './styled'
 
@@ -97,7 +97,7 @@ export const FiltersModal = ({
             />
           </Styled.ProductCondition>
 
-          <CheckBoxAndLaybel
+          <PaymentTypes.CheckBox
             productAcceptPayments={productAcceptPayments}
             setProductAcceptPayments={setProductAcceptPayments}
           />
