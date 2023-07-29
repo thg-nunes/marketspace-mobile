@@ -1,10 +1,12 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ViewToken } from 'react-native'
 
 import { apiServices } from '@services/api'
+import { AdProductDetailsDTO, UpdataProductVisibility } from '@dtos/product'
+
 import { myToast } from '@utils/toast'
-import { UpdataProductVisibility } from '@dtos/product'
 import { AppError } from '@utils/screens/appError'
+
 import { theme } from '../theme'
 
 async function handleUpdateProductVisibility(
@@ -77,4 +79,27 @@ const handleAdDelete = async (
   }
 }
 
-export { handleUpdateProductVisibility, courselFlatlistImage, handleAdDelete }
+const useFetchProductDetails = (
+  product_id: string
+): { productDetails: AdProductDetailsDTO } => {
+  const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
+    {} as AdProductDetailsDTO
+  )
+
+  useEffect(() => {
+    async function fetchProductDetails(product_id: string) {
+      const response = await apiServices.fetchProductDetails(product_id)
+      setProductDetails(response)
+    }
+
+    fetchProductDetails(product_id)
+  }, [product_id])
+
+  return { productDetails }
+}
+export {
+  useFetchProductDetails,
+  handleUpdateProductVisibility,
+  courselFlatlistImage,
+  handleAdDelete
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native'
@@ -10,10 +10,11 @@ import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
-import { apiServices } from '@services/api'
-import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
-import { courselFlatlistImage } from '@hooks/myAdDetails'
+import {
+  courselFlatlistImage,
+  useFetchProductDetails
+} from '@hooks/myAdDetails'
 import { ButtonsActionSection } from './buttonsActionSection'
 import { IconAndLabel } from '@components/paymentTypes/iconAndLabel'
 import { AdImageCoursel } from './adImageCoursel'
@@ -24,19 +25,8 @@ export const MyAdDetails = () => {
   const stack = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
   const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
-  const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
-    {} as AdProductDetailsDTO
-  )
+  const { productDetails } = useFetchProductDetails(id)
   const appTheme = useTheme()
-
-  useEffect(() => {
-    async function fetchProductDetails(id: string) {
-      const response = await apiServices.fetchProductDetails(id)
-      setProductDetails(response)
-    }
-
-    fetchProductDetails(id)
-  }, [id])
 
   return (
     <Styled.Container>
