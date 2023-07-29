@@ -18,37 +18,25 @@ import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
 
 import * as Styled from './styled'
-import {
-  Bank,
-  Barcode,
-  CreditCard,
-  Money,
-  Power,
-  QrCode,
-  TrashSimple
-} from 'phosphor-react-native'
-import { Button } from '@components/button'
+import { Bank, Barcode, CreditCard, Money, QrCode } from 'phosphor-react-native'
 import { PaymentMethod } from '@components/paymentMethod'
 import { apiServices } from '@services/api'
 import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
-import {
-  handleUpdateProductVisibility,
-  courselFlatlistImage,
-  handleAdDelete
-} from '@hooks/myAdDetails'
+import { courselFlatlistImage } from '@hooks/myAdDetails'
+import { ButtonsActionSection } from './buttonsActionSection'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
   const { id } = params as { id: string }
-  const { goBack, navigate } = useNavigation<NativeStackRoutesScreenProps>()
+  const stack = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
   const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
     {} as AdProductDetailsDTO
   )
-  const { colors } = useTheme()
+  const appTheme = useTheme()
 
   useEffect(() => {
     async function fetchProductDetails(id: string) {
@@ -62,8 +50,8 @@ export const MyAdDetails = () => {
   return (
     <Styled.Container>
       <Styled.Header>
-        <Styled.GobackIcon onPress={goBack} />
-        <Pressable onPress={() => navigate('adEdit', { productId: id })}>
+        <Styled.GobackIcon onPress={stack.goBack} />
+        <Pressable onPress={() => stack.navigate('adEdit', { productId: id })}>
           <Styled.EditAdIcon />
         </Pressable>
       </Styled.Header>
@@ -238,64 +226,17 @@ export const MyAdDetails = () => {
                 )}
               </Styled.PaymentMethodsContainer>
 
-              <Styled.ColumnCenterItems>
-                <Button.Root
-                  type={productDetails.is_active ? 'SECONDARY' : 'TERTIARY'}
-                  style={{ maxWidth: '100%' }}
-                  onPress={() =>
-                    handleUpdateProductVisibility(
-                      {
-                        id: productDetails.id,
-                        is_active: !productDetails.is_active
-                      },
-                      goBack
-                    )
-                  }
-                >
-                  <Button.Icon
-                    Icon={Power}
-                    iconProps={{
-                      size: 16,
-                      color: 'white'
-                    }}
-                  />
-                  <Text
-                    color="100"
-                    font="bold"
-                    size="md"
-                    text={
-                      productDetails.is_active
-                        ? 'Desativar anúncio'
-                        : 'Reativar anúncio'
-                    }
-                  />
-                </Button.Root>
-
-                <Button.Root
-                  type="PRIMARY"
-                  style={{ maxWidth: '100%' }}
-                  onPress={() => handleAdDelete(id, goBack)}
-                >
-                  <Button.Icon
-                    Icon={TrashSimple}
-                    iconProps={{
-                      size: 16,
-                      color: colors.gray[700]
-                    }}
-                  />
-                  <Text
-                    color="700"
-                    font="bold"
-                    size="md"
-                    text="Excluir anúncio"
-                  />
-                </Button.Root>
-              </Styled.ColumnCenterItems>
+              <ButtonsActionSection
+                ad_id={id}
+                appTheme={appTheme}
+                stack={stack}
+                productDetails={productDetails}
+              />
             </View>
           </ScrollView>
         </>
       ) : (
-        <ActivityIndicator color={colors.blue.light} />
+        <ActivityIndicator color={appTheme.colors.blue.light} />
       )}
     </Styled.Container>
   )
