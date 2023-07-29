@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 
-import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-
-import { Tag } from '@components/tag'
-import { Text } from '@components/text'
-import { UserPhoto } from '@components/userPhoto'
-
-import * as Styled from './styled'
 import { api } from '@services/axios'
+import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 import {
   courselFlatlistImage,
   useFetchProductDetails
 } from '@hooks/myAdDetails'
-import { ButtonsActionSection } from './buttonsActionSection'
+
+import { Tag } from '@components/tag'
+import { Text } from '@components/text'
+import { UserPhoto } from '@components/userPhoto'
 import { PaymentTypes } from '@components/paymentTypes'
+import { ScreenHeader } from '@components/screensHeader'
 import { AdImageCoursel } from './adImageCoursel'
+import { ButtonsActionSection } from './buttonsActionSection'
+
+import * as Styled from './styled'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
@@ -30,12 +31,16 @@ export const MyAdDetails = () => {
 
   return (
     <Styled.Container>
-      <Styled.Header>
-        <Styled.GobackIcon onPress={stack.goBack} />
-        <Pressable onPress={() => stack.navigate('adEdit', { productId: id })}>
+      <ScreenHeader.Root mt={20} mb={12} pl={24} pr={24}>
+        <ScreenHeader.Icon onPress={stack.goBack}>
+          <Styled.GobackIcon />
+        </ScreenHeader.Icon>
+        <ScreenHeader.Icon
+          onPress={() => stack.navigate('adEdit', { productId: id })}
+        >
           <Styled.EditAdIcon />
-        </Pressable>
-      </Styled.Header>
+        </ScreenHeader.Icon>
+      </ScreenHeader.Root>
 
       {productDetails.id ? (
         <>
