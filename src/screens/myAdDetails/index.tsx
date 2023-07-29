@@ -1,17 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  View
-} from 'react-native'
+import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { screenwidth } from '@screens/login'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
@@ -24,6 +16,7 @@ import { api } from '@services/axios'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
 import { ButtonsActionSection } from './buttonsActionSection'
 import { IconAndLabel } from '@components/paymentTypes/iconAndLabel'
+import { AdImageCoursel } from './adImageCoursel'
 
 export const MyAdDetails = () => {
   const { params } = useRoute()
@@ -56,55 +49,11 @@ export const MyAdDetails = () => {
 
       {productDetails.id ? (
         <>
-          <Styled.ImageListContainer>
-            {!productDetails.is_active && (
-              <Styled.InactiveAd>
-                <Text
-                  size="md"
-                  font="bold"
-                  color="100"
-                  text="Anúncio desativado"
-                  style={{ zIndex: 4 }}
-                />
-              </Styled.InactiveAd>
-            )}
-            <FlatList
-              data={productDetails.product_images}
-              horizontal
-              pagingEnabled
-              renderItem={({ item }) => (
-                <Image
-                  source={{
-                    uri: `${api.defaults.baseURL}/images/${item.path}`
-                  }}
-                  style={{ width: parseFloat(screenwidth), height: 280 }}
-                />
-              )}
-              keyExtractor={(item) => item.path}
-              viewabilityConfigCallbackPairs={
-                viewabilityConfigCallbackPairs.current
-              }
-              showsHorizontalScrollIndicator={false}
-            />
-
-            <View
-              style={{
-                width: 375,
-                flexDirection: 'row',
-                position: 'absolute',
-                marginBottom: 2,
-                bottom: 0,
-                gap: 4
-              }}
-            >
-              {productDetails.product_images.map((image, index) => (
-                <Styled.ImageCounter
-                  key={image.path}
-                  isActive={index === activeImage}
-                />
-              ))}
-            </View>
-          </Styled.ImageListContainer>
+          <AdImageCoursel
+            activeImage={activeImage}
+            productDetails={productDetails}
+            viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
+          />
 
           <ScrollView
             contentContainerStyle={{
