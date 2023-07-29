@@ -1,32 +1,21 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  Pressable,
-  ScrollView,
-  View
-} from 'react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-import { api } from '@services/axios'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import {
-  fetchProductDetails,
-  handleAdUpdate,
-  handleProductPhotoSelect,
-  handleRemoveImage
-} from '@hooks/adEdit'
+import { fetchProductDetails, handleAdUpdate } from '@hooks/adEdit'
+import { ProductCondition } from '@screens/home/styled'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
 import { Button } from '@components/button'
 import { Switch } from '@components/switch'
+import { SelectedImages } from './selectedImages'
 import { PaymentTypes } from '@components/paymentTypes'
 import { CheckRadioInput } from '@components/radioCheckbox'
 import { ScreenHeader } from '@components/screensHeader'
 
 import { theme } from '../../theme'
 import * as Styled from './styled'
-import { ProductCondition } from '@screens/home/styled'
 
 export const AdEdit = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -55,60 +44,17 @@ export const AdEdit = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ paddingHorizontal: 24 }}>
             <View style={{ gap: 16 }}>
-              <View style={{ gap: 16 }}>
-                <View style={{ gap: 4 }}>
-                  <Text text="Imagens" color="700" font="bold" size="lg" />
-                  <Text
-                    text="Escolha até 3 imagens para mostrar o quando o seu produto é incrível!"
-                    color="700"
-                    font="regular"
-                    size="md"
-                  />
-                </View>
+              <View style={{ gap: 4 }}>
+                <Text text="Imagens" color="700" font="bold" size="lg" />
+                <Text
+                  text="Escolha até 3 imagens para mostrar o quando o seu produto é incrível!"
+                  color="700"
+                  font="regular"
+                  size="md"
+                />
               </View>
 
-              <View style={{ flexDirection: 'row', gap: 8 }}>
-                <FlatList
-                  data={productData.images}
-                  style={{
-                    maxWidth: productData.images.length * 100
-                  }}
-                  contentContainerStyle={{ gap: 8, paddingRight: 15 }}
-                  renderItem={({ item }) => (
-                    <Styled.ProductPhotoSelected
-                      source={{
-                        uri: `${api.defaults.baseURL}/images/${item}`
-                      }}
-                    >
-                      <Pressable
-                        onPress={() =>
-                          handleRemoveImage(item, {
-                            images: productData.images,
-                            setImages: productData.setImages
-                          })
-                        }
-                      >
-                        <Styled.RemoveImageIcons />
-                      </Pressable>
-                    </Styled.ProductPhotoSelected>
-                  )}
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                />
-                {productData.images.length < 3 && (
-                  <Styled.ProductPhotoSelector
-                    activeOpacity={0.8}
-                    onPress={() =>
-                      handleProductPhotoSelect({
-                        images: productData.images,
-                        setImages: productData.setImages
-                      })
-                    }
-                  >
-                    <Styled.PlusIcon />
-                  </Styled.ProductPhotoSelector>
-                )}
-              </View>
+              <SelectedImages productData={productData} />
             </View>
 
             <View
