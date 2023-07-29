@@ -7,7 +7,14 @@ import {
 } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
+import { api } from '@services/axios'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import {
+  fetchProductDetails,
+  handleAdUpdate,
+  handleProductPhotoSelect,
+  handleRemoveImage
+} from '@hooks/adEdit'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'
@@ -15,17 +22,11 @@ import { Button } from '@components/button'
 import { Switch } from '@components/switch'
 import { PaymentTypes } from '@components/paymentTypes'
 import { CheckRadioInput } from '@components/radioCheckbox'
-import { ProductCondition } from '@screens/home/styled'
+import { ScreenHeader } from '@components/screensHeader'
 
 import { theme } from '../../theme'
 import * as Styled from './styled'
-import { api } from '@services/axios'
-import {
-  fetchProductDetails,
-  handleAdUpdate,
-  handleProductPhotoSelect,
-  handleRemoveImage
-} from '@hooks/adEdit'
+import { ProductCondition } from '@screens/home/styled'
 
 export const AdEdit = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -43,18 +44,12 @@ export const AdEdit = () => {
 
   return (
     <Styled.Container>
-      <Styled.Header>
-        <Pressable onPress={goBack}>
+      <ScreenHeader.Root mt={20} mb={20} pr={24} pl={24}>
+        <ScreenHeader.Icon onPress={goBack}>
           <Styled.GobackIcon />
-        </Pressable>
-        <Text
-          color="700"
-          size="xl"
-          font="bold"
-          text="Editar anúncio"
-          style={{ flex: 1, textAlign: 'center' }}
-        />
-      </Styled.Header>
+        </ScreenHeader.Icon>
+        <ScreenHeader.Text text="Editar anúncio" />
+      </ScreenHeader.Root>
 
       {productData.product.id ? (
         <ScrollView showsVerticalScrollIndicator={false}>
