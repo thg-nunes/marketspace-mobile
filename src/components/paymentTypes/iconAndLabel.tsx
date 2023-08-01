@@ -9,12 +9,16 @@ import { Text } from '@components/text'
 import { PaymentMethod } from '@components/paymentMethod'
 
 type IconAndLabelProps = {
+  pl?: number
   payment_methods: PaymentMethods
 }
 
-export const IconAndLabel = ({ payment_methods }: IconAndLabelProps) => {
+export const IconAndLabel = ({
+  payment_methods,
+  pl = 24
+}: IconAndLabelProps) => {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, paddingLeft: pl ?? 24 }}>
       <Text text="Meios de pagamento:" size="md" font="bold" color="700" />
       {returnsPaymentMethod(payment_methods, 'boleto') && (
         <PaymentMethod.Root>
