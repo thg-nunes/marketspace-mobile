@@ -23,7 +23,6 @@ import {
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
-import { screenwidth } from '@screens/login'
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
@@ -38,6 +37,7 @@ import { returnsPaymentMethod } from '@utils/screens/adDetails'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
 import { handleCallUser } from '@hooks/adDetails'
 import { ScreenHeader } from '@components/screensHeader'
+import { AdImageCoursel } from '@screens/myAdDetails/adImageCoursel'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -70,44 +70,13 @@ export const AdDetails = () => {
               <Styled.GobackIcon />
             </ScreenHeader.Icon>
           </ScreenHeader.Root>
-          <Styled.ImageListContainer>
-            <FlatList
-              data={productDetails.product_images}
-              horizontal
-              pagingEnabled
-              renderItem={({ item }) => (
-                <Image
-                  source={{
-                    uri: `${api.defaults.baseURL}/images/${item.path}`
-                  }}
-                  style={{ width: parseFloat(screenwidth), height: 280 }}
-                />
-              )}
-              keyExtractor={(item) => item.path}
-              viewabilityConfigCallbackPairs={
-                viewabilityConfigCallbackPairs.current
-              }
-              showsHorizontalScrollIndicator={false}
-            />
-
-            <View
-              style={{
-                width: 375,
-                flexDirection: 'row',
-                position: 'absolute',
-                marginBottom: 2,
-                bottom: 0,
-                gap: 4
-              }}
-            >
-              {productDetails.product_images.map((image, index) => (
-                <Styled.ImageCounter
-                  key={image.path}
-                  isActive={index === activeImage}
-                />
-              ))}
-            </View>
-          </Styled.ImageListContainer>
+          <AdImageCoursel
+            activeImage={activeImage}
+            productDetails={productDetails}
+            viewabilityConfigCallbackPairs={
+              viewabilityConfigCallbackPairs.current
+            }
+          />
 
           <ScrollView>
             <View
