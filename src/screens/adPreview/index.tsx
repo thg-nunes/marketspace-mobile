@@ -3,15 +3,7 @@ import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { FlatList, Image, View } from 'react-native'
-import {
-  ArrowLeft,
-  Bank,
-  Barcode,
-  CreditCard,
-  Money,
-  Tag as TagIcon,
-  QrCode
-} from 'phosphor-react-native'
+import { ArrowLeft, Tag as TagIcon } from 'phosphor-react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
@@ -24,7 +16,6 @@ import {
   AdContent,
   Amount,
   AmountIndicator,
-  PaymentMethodsContainer,
   RowCenterItems
 } from '@screens/myAdDetails/styled'
 import { Tag } from '@components/tag'
@@ -36,9 +27,9 @@ import { ProductDTO } from '@dtos/product'
 import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import { useFetchUserStorageData } from '@hooks/home'
 import { api } from '@services/axios'
-import { productPaymentChecked } from '@utils/screens/adCreate'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
 import { handleAdCreate } from '@hooks/adPreview'
+import { PaymentsAcceptedByAd } from './paymentsAcceptedByAd'
 
 export const AdPreview = () => {
   const { colors } = useTheme()
@@ -108,7 +99,6 @@ export const AdPreview = () => {
 
       <ScrollView
         contentContainerStyle={{
-          flex: 1,
           paddingTop: 20,
           backgroundColor: colors.gray[200]
         }}
@@ -163,65 +153,7 @@ export const AdPreview = () => {
             />
           </RowCenterItems>
 
-          <View style={{ flex: 1 }}>
-            <PaymentMethodsContainer>
-              <Text
-                text="Meios de pagamento:"
-                size="md"
-                font="bold"
-                color="700"
-              />
-              {productPaymentChecked({
-                productAcceptPayments: product.payment_methods,
-                paymentType: 'boleto'
-              }) && (
-                <PaymentMethod.Root>
-                  <PaymentMethod.Icon Icon={Barcode} />
-                  <PaymentMethod.Type type="Boleto" />
-                </PaymentMethod.Root>
-              )}
-
-              {productPaymentChecked({
-                productAcceptPayments: product.payment_methods,
-                paymentType: 'pix'
-              }) && (
-                <PaymentMethod.Root>
-                  <PaymentMethod.Icon Icon={QrCode} />
-                  <PaymentMethod.Type type="Pix" />
-                </PaymentMethod.Root>
-              )}
-
-              {productPaymentChecked({
-                productAcceptPayments: product.payment_methods,
-                paymentType: 'cash'
-              }) && (
-                <PaymentMethod.Root>
-                  <PaymentMethod.Icon Icon={Money} />
-                  <PaymentMethod.Type type="Dinheiro" />
-                </PaymentMethod.Root>
-              )}
-
-              {productPaymentChecked({
-                productAcceptPayments: product.payment_methods,
-                paymentType: 'card'
-              }) && (
-                <PaymentMethod.Root>
-                  <PaymentMethod.Icon Icon={CreditCard} />
-                  <PaymentMethod.Type type="Cartão de Crédito" />
-                </PaymentMethod.Root>
-              )}
-
-              {productPaymentChecked({
-                productAcceptPayments: product.payment_methods,
-                paymentType: 'deposit'
-              }) && (
-                <PaymentMethod.Root>
-                  <PaymentMethod.Icon Icon={Bank} />
-                  <PaymentMethod.Type type="Depósito Bancário" />
-                </PaymentMethod.Root>
-              )}
-            </PaymentMethodsContainer>
-          </View>
+          <PaymentsAcceptedByAd product={product} />
         </View>
       </ScrollView>
 
