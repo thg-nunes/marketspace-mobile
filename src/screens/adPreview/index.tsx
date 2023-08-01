@@ -2,14 +2,18 @@ import { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { FlatList, Image, View } from 'react-native'
+import { View } from 'react-native'
 import { ArrowLeft, Tag as TagIcon } from 'phosphor-react-native'
 
+import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { ProductDTO } from '@dtos/product'
+import { api } from '@services/axios'
 
-import { ImageCounter, ImageListContainer } from '@screens/adDetails/styled'
+import { handleAdCreate } from '@hooks/adPreview'
+import { useFetchUserStorageData } from '@hooks/home'
+import { courselFlatlistImage } from '@hooks/myAdDetails'
 
-import { screenwidth } from '@screens/login'
 import { Text } from '@components/text'
 import { Button } from '@components/button'
 import {
@@ -20,16 +24,10 @@ import {
 } from '@screens/myAdDetails/styled'
 import { Tag } from '@components/tag'
 import { UserPhoto } from '@components/userPhoto'
-import { PaymentMethod } from '@components/paymentMethod'
+import { PaymentsAcceptedByAd } from './paymentsAcceptedByAd'
+import { ProductImagesCoursel } from './productImagesCoursel'
 
 import * as Styled from './styled'
-import { ProductDTO } from '@dtos/product'
-import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
-import { useFetchUserStorageData } from '@hooks/home'
-import { api } from '@services/axios'
-import { courselFlatlistImage } from '@hooks/myAdDetails'
-import { handleAdCreate } from '@hooks/adPreview'
-import { PaymentsAcceptedByAd } from './paymentsAcceptedByAd'
 
 export const AdPreview = () => {
   const { colors } = useTheme()
@@ -63,39 +61,11 @@ export const AdPreview = () => {
         />
       </View>
 
-      <ImageListContainer>
-        <FlatList
-          data={images}
-          horizontal
-          pagingEnabled
-          renderItem={({ item }) => (
-            <Image
-              source={{ uri: item }}
-              style={{ width: parseFloat(screenwidth), height: 280 }}
-            />
-          )}
-          keyExtractor={(item) => item}
-          viewabilityConfigCallbackPairs={
-            viewabilityConfigCallbackPairs.current
-          }
-          showsHorizontalScrollIndicator={false}
-        />
-
-        <View
-          style={{
-            width: 375,
-            flexDirection: 'row',
-            position: 'absolute',
-            marginBottom: 2,
-            bottom: 0,
-            gap: 4
-          }}
-        >
-          {images.map((_, index) => (
-            <ImageCounter key={_} isActive={index === activeImage} />
-          ))}
-        </View>
-      </ImageListContainer>
+      <ProductImagesCoursel
+        images={images}
+        activeImage={activeImage}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
+      />
 
       <ScrollView
         contentContainerStyle={{
