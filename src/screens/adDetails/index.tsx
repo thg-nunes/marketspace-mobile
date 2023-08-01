@@ -1,27 +1,23 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useTheme } from 'styled-components'
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute
-} from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { ActivityIndicator, ScrollView, View } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { AdImageCoursel } from '@screens/myAdDetails/adImageCoursel'
+import { api } from '@services/axios'
+
+import { useProductDetails } from '@hooks/adDetails'
+import { courselFlatlistImage } from '@hooks/myAdDetails'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
 import { UserInfo } from '@components/userInfo'
-
-import * as Styled from './styled'
-import { apiServices } from '@services/api'
-import { AdProductDetailsDTO } from '@dtos/product'
-import { api } from '@services/axios'
-import { courselFlatlistImage } from '@hooks/myAdDetails'
-import { ScreenHeader } from '@components/screensHeader'
-import { AdImageCoursel } from '@screens/myAdDetails/adImageCoursel'
 import { ContactSection } from './contactSection'
 import { PaymentTypes } from '@components/paymentTypes'
+import { ScreenHeader } from '@components/screensHeader'
+
+import * as Styled from './styled'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
@@ -29,21 +25,8 @@ export const AdDetails = () => {
   const appTheme = useTheme()
   const { params } = useRoute()
   const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
-  const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
-    {} as AdProductDetailsDTO
-  )
   const { id } = params as { id: string }
-
-  useFocusEffect(
-    useCallback(() => {
-      async function fetchProductDetailsById(id: string) {
-        const response = await apiServices.fetchProductDetails(id)
-        setProductDetails(response)
-      }
-
-      fetchProductDetailsById(id)
-    }, [id])
-  )
+  const { productDetails } = useProductDetails(id)
 
   return (
     <Styled.Container>
