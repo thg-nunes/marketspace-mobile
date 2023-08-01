@@ -5,27 +5,13 @@ import {
   useNavigation,
   useRoute
 } from '@react-navigation/native'
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  ScrollView,
-  View
-} from 'react-native'
-import {
-  Bank,
-  Barcode,
-  CreditCard,
-  Money,
-  QrCode,
-  WhatsappLogo
-} from 'phosphor-react-native'
+import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { Bank, Barcode, CreditCard, Money, QrCode } from 'phosphor-react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
 
 import { Tag } from '@components/tag'
 import { Text } from '@components/text'
-import { Button } from '@components/button'
 import { UserInfo } from '@components/userInfo'
 import { PaymentMethod } from '@components/paymentMethod'
 
@@ -35,14 +21,14 @@ import { AdProductDetailsDTO } from '@dtos/product'
 import { api } from '@services/axios'
 import { returnsPaymentMethod } from '@utils/screens/adDetails'
 import { courselFlatlistImage } from '@hooks/myAdDetails'
-import { handleCallUser } from '@hooks/adDetails'
 import { ScreenHeader } from '@components/screensHeader'
 import { AdImageCoursel } from '@screens/myAdDetails/adImageCoursel'
+import { ContactSection } from './contactSection'
 
 export const AdDetails = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
   const [activeImage, setActiveImage] = useState(0)
-  const { colors } = useTheme()
+  const appTheme = useTheme()
   const { params } = useRoute()
   const viewabilityConfigCallbackPairs = courselFlatlistImage(setActiveImage)
   const [productDetails, setProductDetails] = useState<AdProductDetailsDTO>(
@@ -197,42 +183,15 @@ export const AdDetails = () => {
               </Styled.PaymentMethodsContainer>
             </View>
 
-            <Styled.Contact>
-              <View style={{ flexDirection: 'row' }}>
-                <Styled.AmountIndicator style={{ color: colors.blue.dark }}>
-                  R$
-                </Styled.AmountIndicator>
-                <Styled.Amount style={{ color: colors.blue.dark }}>
-                  {productDetails.price}
-                </Styled.Amount>
-              </View>
-
-              <View>
-                <Button.Root
-                  type="TERTIARY"
-                  onPress={() => handleCallUser(productDetails.user.tel)}
-                >
-                  <Button.Icon
-                    Icon={WhatsappLogo}
-                    iconProps={{
-                      size: 16,
-                      color: 'white',
-                      weight: 'fill'
-                    }}
-                  />
-                  <Text
-                    color="100"
-                    font="bold"
-                    size="md"
-                    text="Entrar em contato"
-                  />
-                </Button.Root>
-              </View>
-            </Styled.Contact>
+            <ContactSection
+              appTheme={appTheme}
+              userTel={productDetails.user.tel}
+              product_price={productDetails.price}
+            />
           </ScrollView>
         </>
       ) : (
-        <ActivityIndicator color={colors.blue.light} />
+        <ActivityIndicator color={appTheme.colors.blue.light} />
       )}
     </Styled.Container>
   )
