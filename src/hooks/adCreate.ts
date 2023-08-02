@@ -17,6 +17,14 @@ function handleAdPreview(
     return
   }
 
+  if (!product.name || !product.description || !product.price) {
+    myToast({
+      message: 'As informações estão incompletas.',
+      background: theme.colors.red.light
+    })
+    return
+  }
+
   if (productAcceptPayments.length === 0) {
     myToast({
       message: 'Pelo menos 1 meio de pagamento é necessário.',
