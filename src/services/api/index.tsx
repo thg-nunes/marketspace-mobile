@@ -6,7 +6,7 @@ type ApiServices = {
   fetchProducts: () => Promise<CardPropsAdapter[]>
   fetchProductsByFilter: (
     params: ProductDTOS.FetchProductsByFilterParams
-  ) => Promise<ProductDTOS.AdProductByFilterDTO[]>
+  ) => Promise<CardPropsAdapter[]>
   fetchProductDetails: (id: string) => Promise<ProductDTOS.AdProductDetailsDTO>
   createProduct: (product: ProductDTOS.ProductDTO) => Promise<string>
   createProductImage: (product_id: string, image: string) => Promise<void>
@@ -80,15 +80,26 @@ const apiServices: ApiServices = {
   },
   fetchProductsByFilter: async (
     params: ProductDTOS.FetchProductsByFilterParams
-  ): Promise<ProductDTOS.AdProductByFilterDTO[]> => {
-    const response = await api.get<ProductDTOS.AdProductByFilterDTO[]>(
+  ): Promise<CardPropsAdapter[]> => {
+    const { data } = await api.get<ProductDTOS.AdProductByFilterDTO[]>(
       '/products',
       {
         params
       }
     )
+    const cardPropsList: CardPropsAdapter[] = data.map((product) => {
+      return {
+        id: product.id,
+        is_active: true,
+        is_new: product.is_new,
+        name: product.name,
+        price: product.price,
+        product_images: product.product_images,
+        user: product.user
+      }
+    })
 
-    return response.data
+    return cardPropsList
   },
   updataProductVisibility: async ({
     id,
