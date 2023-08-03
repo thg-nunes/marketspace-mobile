@@ -6,12 +6,11 @@ import { apiServices } from '@services/api'
 
 import { UserDTO } from '@dtos/user'
 import { CardPropsAdapter } from '@dtos/card'
-import { AdProductByFilterDTO } from '@dtos/product'
 import { userDataFetch } from '@utils/storage/user'
 
 export type UseHandleApplyFilters = {
   setIsProductsByFilters: (value: boolean) => void
-  setProductsByFilters: (value: AdProductByFilterDTO[]) => void
+  setProductsByFilters: (value: CardPropsAdapter[]) => void
   is_new: boolean
   accept_trade: boolean
   query: string

@@ -10,7 +10,7 @@ import {
   useFetchUserStorageData,
   useFetcheAppProducts
 } from '@hooks/home'
-import { AdProductByFilterDTO } from '@dtos/product'
+import { CardPropsAdapter } from '@dtos/card'
 
 import { Text } from '@components/text'
 import { Header } from './header'
@@ -36,7 +36,7 @@ export const Home = () => {
   const appProducts = useFetcheAppProducts()
   const [isProductsByFilters, setIsProductsByFilters] = useState(false)
   const [productsByFilters, setProductsByFilters] = useState<
-    AdProductByFilterDTO[]
+    CardPropsAdapter[]
   >([])
 
   const filters: UseHandleApplyFilters = {
