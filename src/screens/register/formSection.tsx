@@ -9,7 +9,7 @@ import {
   useFormRegister,
   useImageData,
   usePasswordControls
-} from '@utils/screens/register'
+} from '@hooks/register'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'

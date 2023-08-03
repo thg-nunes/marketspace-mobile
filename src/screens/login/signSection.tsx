@@ -4,7 +4,7 @@ import { ActivityIndicator } from 'react-native'
 import { useHandleSignIn } from '@hooks/login'
 
 import { useSigninForm } from '@hooks/login'
-import { usePasswordControls } from '@utils/screens/register'
+import { usePasswordControls } from '@hooks/register'
 
 import { Text } from '@components/text'
 import { Input } from '@components/input'

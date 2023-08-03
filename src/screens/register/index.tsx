@@ -1,26 +1,17 @@
-import { Controller } from 'react-hook-form'
 import { useTheme } from 'styled-components/native'
-import { ActivityIndicator, Image, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import Logo from '@assets/logo/logo.png'
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import {
-  useFormRegister,
-  useImageData,
-  usePasswordControls
-} from '@utils/screens/register'
-import { useHandleSubmitForm, useHandleUserPhotoSelect } from '@hooks/register'
+import { useImageData } from '@hooks/register'
+import { useHandleUserPhotoSelect } from '@hooks/register'
 
-import { Text } from '@components/text'
-import { Input } from '@components/input'
-import { Button } from '@components/button'
+import { GoSignSection } from './goSignSection'
 import { UserPhoto } from '@components/userPhoto'
-
-import * as Styled from './styled'
 import { RegisterLogoSection } from './logoSection'
 import { RegisterFormSection } from './formSection'
-import { GoSignSection } from './goSignSection'
+
+import * as Styled from './styled'
 
 export type FormRegisterProps = {
   name: string
