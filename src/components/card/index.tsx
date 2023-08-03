@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
 import { api } from '@services/axios'
-import { AdProductByFilterDTO } from '@dtos/product'
+import { CardPropsAdapter } from '@dtos/card'
 
 import { Text } from '@components/text'
 import { UserPhoto } from '@components/userPhoto'
@@ -11,7 +11,7 @@ import * as Styled from './styled'
 
 type CardProps = {
   showUserPhoto?: boolean
-  productData: AdProductByFilterDTO
+  productData: CardPropsAdapter
   productType: Styled.ProductState
   productActive: boolean
 }

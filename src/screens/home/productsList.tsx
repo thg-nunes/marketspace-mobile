@@ -1,14 +1,15 @@
 import { FlatList, Pressable, View } from 'react-native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
-import { AdProductByFilterDTO, AdProductDTO } from '@dtos/product'
+import { CardPropsAdapter } from '@dtos/card'
+import { AdProductByFilterDTO } from '@dtos/product'
 
 import { Card } from '@components/card'
 import { Text } from '@components/text'
 
 type ProductsListProps = {
   isProductsByFilters: boolean
-  appProducts?: AdProductDTO[]
+  appProducts?: CardPropsAdapter[]
   productsByFilters?: AdProductByFilterDTO[]
   stackNavigation: NativeStackRoutesScreenProps
 }

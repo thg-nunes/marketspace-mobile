@@ -1,8 +1,9 @@
-import * as ProductDTOS from '@dtos/product'
 import { api } from '@services/axios'
+import { CardPropsAdapter } from '@dtos/card'
+import * as ProductDTOS from '@dtos/product'
 
 type ApiServices = {
-  fetchProducts: () => Promise<ProductDTOS.AdProductDTO[]>
+  fetchProducts: () => Promise<CardPropsAdapter[]>
   fetchProductsByFilter: (
     params: ProductDTOS.FetchProductsByFilterParams
   ) => Promise<ProductDTOS.AdProductByFilterDTO[]>
@@ -21,9 +22,21 @@ type ApiServices = {
 }
 
 const apiServices: ApiServices = {
-  fetchProducts: async (): Promise<any> => {
+  fetchProducts: async (): Promise<CardPropsAdapter[]> => {
     const { data } = await api.get<ProductDTOS.AdProductDTO[]>('/products')
-    return data
+    const cardPropsList: CardPropsAdapter[] = data.map((product) => {
+      return {
+        id: product.id,
+        is_active: product.is_active,
+        is_new: product.is_new,
+        name: product.name,
+        price: product.price,
+        product_images: product.product_images,
+        user: product.user
+      }
+    })
+
+    return cardPropsList
   },
   createProduct: async (product: ProductDTOS.ProductDTO): Promise<string> => {
     const {

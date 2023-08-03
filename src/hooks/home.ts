@@ -5,7 +5,8 @@ import { api } from '@services/axios'
 import { apiServices } from '@services/api'
 
 import { UserDTO } from '@dtos/user'
-import { AdProductByFilterDTO, AdProductDTO } from '@dtos/product'
+import { CardPropsAdapter } from '@dtos/card'
+import { AdProductByFilterDTO } from '@dtos/product'
 import { userDataFetch } from '@utils/storage/user'
 
 export type UseHandleApplyFilters = {
@@ -42,8 +43,8 @@ const useFetchUserStorageData = () => {
   return { userData, userActiveProductsQuantity }
 }
 
-const useFetcheAppProducts = (): AdProductDTO[] => {
-  const [appProducts, setAppProducts] = useState<AdProductDTO[]>([])
+const useFetcheAppProducts = (): CardPropsAdapter[] => {
+  const [appProducts, setAppProducts] = useState<CardPropsAdapter[]>([])
 
   useEffect(() => {
     async function fetcheAppProducts() {
