@@ -88,8 +88,17 @@ const useFetchProductDetails = (
 
   useEffect(() => {
     async function fetchProductDetails(product_id: string) {
-      const response = await apiServices.fetchProductDetails(product_id)
-      setProductDetails(response)
+      try {
+        const response = await apiServices.fetchProductDetails(product_id)
+        setProductDetails(response)
+      } catch (error) {
+        if (error instanceof AppError) {
+          myToast({
+            message: error.message,
+            background: theme.colors.red.light
+          })
+        }
+      }
     }
 
     fetchProductDetails(product_id)

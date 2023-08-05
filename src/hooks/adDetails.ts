@@ -4,6 +4,9 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { apiServices } from '@services/api'
 import { AdProductDetailsDTO } from '@dtos/product'
+import { myToast } from '@utils/toast'
+import { AppError } from '@utils/screens/appError'
+import { theme } from '../theme'
 
 function handleCallUser(user_tel: number) {
   Linking.openURL(`https://wa.me/55${user_tel}`)
@@ -17,8 +20,17 @@ const useProductDetails = (product_id: string) => {
   useFocusEffect(
     useCallback(() => {
       async function fetchProductDetailsById(id: string) {
-        const response = await apiServices.fetchProductDetails(id)
-        setProductDetails(response)
+        try {
+          const response = await apiServices.fetchProductDetails(id)
+          setProductDetails(response)
+        } catch (error) {
+          if (error instanceof AppError) {
+            myToast({
+              message: error.message,
+              background: theme.colors.red.light
+            })
+          }
+        }
       }
 
       fetchProductDetailsById(product_id)

@@ -59,22 +59,32 @@ function fetchProductDetails(productId: string) {
   useFocusEffect(
     useCallback(() => {
       async function fetchProductDetails() {
-        const response = await apiServices.fetchProductDetails(productId)
+        try {
+          const response = await apiServices.fetchProductDetails(productId)
 
-        const payment_methods = response.payment_methods.map(
-          (paymentMethod) => paymentMethod.key
-        )
-        const imagesUri = response.product_images.map((image) => image.path)
+          const payment_methods = response.payment_methods.map(
+            (paymentMethod) => paymentMethod.key
+          )
+          const imagesUri = response.product_images.map((image) => image.path)
 
-        setProduct(response)
-        setImages(imagesUri)
-        setProductTitle(response.name)
-        setProductDescription(response.description)
-        setProductIsNew(response.is_new)
-        setAcceptTrade(response.accept_trade)
-        setProductAcceptPayments(payment_methods)
-        setProductValue(String(response.price))
+          setProduct(response)
+          setImages(imagesUri)
+          setProductTitle(response.name)
+          setProductDescription(response.description)
+          setProductIsNew(response.is_new)
+          setAcceptTrade(response.accept_trade)
+          setProductAcceptPayments(payment_methods)
+          setProductValue(String(response.price))
+        } catch (error) {
+          if (error instanceof AppError) {
+            myToast({
+              message: error.message,
+              background: theme.colors.red.light
+            })
+          }
+        }
       }
+
       fetchProductDetails()
     }, [productId])
   )
