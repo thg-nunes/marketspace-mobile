@@ -69,15 +69,24 @@ const useFetcheAppProducts = (): CardPropsAdapter[] => {
 }
 
 async function handleApplyFilters(props: UseHandleApplyFilters): Promise<void> {
-  props.setIsProductsByFilters(true)
-  const response = await apiServices.fetchProductsByFilter({
-    is_new: props.is_new,
-    accept_trade: props.accept_trade,
-    payment_methods: props.payment_methods,
-    query: props.query
-  })
+  try {
+    props.setIsProductsByFilters(true)
+    const response = await apiServices.fetchProductsByFilter({
+      is_new: props.is_new,
+      accept_trade: props.accept_trade,
+      payment_methods: props.payment_methods,
+      query: props.query
+    })
 
-  props.setProductsByFilters(response)
+    props.setProductsByFilters(response)
+  } catch (error) {
+    if (error instanceof AppError) {
+      myToast({
+        message: error.message,
+        background: theme.colors.red.light
+      })
+    }
+  }
 }
 
 export { useFetchUserStorageData, useFetcheAppProducts, handleApplyFilters }
