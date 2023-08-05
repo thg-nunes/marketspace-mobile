@@ -6,7 +6,10 @@ import { apiServices } from '@services/api'
 
 import { UserDTO } from '@dtos/user'
 import { CardPropsAdapter } from '@dtos/card'
+import { myToast } from '@utils/toast'
+import { AppError } from '@utils/screens/appError'
 import { userDataFetch } from '@utils/storage/user'
+import { theme } from '../theme'
 
 export type UseHandleApplyFilters = {
   setIsProductsByFilters: (value: boolean) => void
@@ -47,8 +50,17 @@ const useFetcheAppProducts = (): CardPropsAdapter[] => {
 
   useEffect(() => {
     async function fetcheAppProducts() {
-      const response = await apiServices.fetchProducts()
-      setAppProducts(response)
+      try {
+        const response = await apiServices.fetchProducts()
+        setAppProducts(response)
+      } catch (error) {
+        if (error instanceof AppError) {
+          myToast({
+            message: error.message,
+            background: theme.colors.red.light
+          })
+        }
+      }
     }
     fetcheAppProducts()
   }, [])
