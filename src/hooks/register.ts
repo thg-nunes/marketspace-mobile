@@ -43,7 +43,12 @@ async function useRegisterUser(data: UseRegisterUserParams) {
 
     await userServices.register(formData)
   } catch (error) {
-    throw error
+    if (error instanceof AppError) {
+      myToast({
+        message: error.message,
+        background: theme.colors.red.light
+      })
+    }
   }
 }
 
