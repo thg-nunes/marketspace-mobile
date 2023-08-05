@@ -1,5 +1,8 @@
 import { AdProductDTO } from '@dtos/product'
 import { userServices } from '@services/api/user'
+import { AppError } from '@utils/screens/appError'
+import { myToast } from '@utils/toast'
+import { theme } from 'src/theme'
 
 async function handleFetchUserAds(
   adStatus: string,
@@ -26,6 +29,12 @@ async function handleFetchUserAds(
       return setUserProducts(inactiveProducts)
     }
   } catch (error) {
+    if (error instanceof AppError) {
+      myToast({
+        message: error.message,
+        background: theme.colors.red.light
+      })
+    }
   } finally {
     setIsFetchingProducts(false)
   }
