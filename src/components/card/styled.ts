@@ -13,8 +13,9 @@ export const ProdutAdsContainer = styled.ImageBackground`
 
   padding: 4px 3px;
 
-  width: 153px;
-  height: 100px;
+  flex: 1;
+  min-height: 143px;
+  max-height: 143px;
 
   border-radius: 6px;
   overflow: hidden;

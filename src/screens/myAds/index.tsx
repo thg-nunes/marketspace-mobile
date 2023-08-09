@@ -72,8 +72,12 @@ export const MyAds = () => {
             flexDirection: 'column'
           }}
           numColumns={2}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
           renderItem={({ item }) => (
-            <Pressable onPress={() => handleMyAdDetails(item.id)}>
+            <Pressable
+              style={{ width: '47%', marginBottom: 24 }}
+              onPress={() => handleMyAdDetails(item.id)}
+            >
               <Card
                 productData={item}
                 showUserPhoto={false}

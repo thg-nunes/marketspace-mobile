@@ -2,7 +2,7 @@ import { AdProductDTO } from '@dtos/product'
 import { userServices } from '@services/api/user'
 import { AppError } from '@utils/screens/appError'
 import { myToast } from '@utils/toast'
-import { theme } from 'src/theme'
+import { theme } from '../theme'
 
 async function handleFetchUserAds(
   adStatus: string,

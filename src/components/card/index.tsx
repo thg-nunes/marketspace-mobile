@@ -25,7 +25,7 @@ export const Card = ({
   const product_type = productData?.is_new ? 'Novo' : 'Usado'
 
   return (
-    <View>
+    <>
       <Styled.ProdutAdsContainer
         source={{
           uri: `${api.defaults.baseURL}/images/${productData?.product_images[0].path}`
@@ -42,7 +42,7 @@ export const Card = ({
           {product_type}
         </Styled.ProductState>
       </Styled.ProdutAdsContainer>
-      <View>
+      <View style={{ marginTop: 4, paddingHorizontal: 2 }}>
         <Text
           text={productData?.name}
           color={productActive ? '600' : '400'}
@@ -70,6 +70,6 @@ export const Card = ({
           />
         </View>
       </View>
-    </View>
+    </>
   )
 }
