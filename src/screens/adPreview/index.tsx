@@ -69,6 +69,7 @@ export const AdPreview = () => {
 
       <ScrollView
         contentContainerStyle={{
+          flex: 1,
           paddingTop: 20,
           backgroundColor: colors.gray[200]
         }}
