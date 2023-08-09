@@ -2,6 +2,7 @@ import { ActivityIndicator, ScrollView, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { NativeStackRoutesScreenProps } from '@routes/nativeStack.routes'
+import { BottomTabRoutesScreenProps } from '@routes/bottomTabs.routes'
 import { fetchProductDetails, handleAdUpdate } from '@hooks/adEdit'
 import { ProductCondition } from '@screens/home/styled'
 
@@ -19,6 +20,7 @@ import * as Styled from './styled'
 
 export const AdEdit = () => {
   const { goBack } = useNavigation<NativeStackRoutesScreenProps>()
+  const bottomTab = useNavigation<BottomTabRoutesScreenProps>()
   const { params } = useRoute()
   const { productId } = params as { productId: string }
   const productData = fetchProductDetails(productId)
@@ -75,11 +77,11 @@ export const AdEdit = () => {
             <View
               style={{
                 gap: 16,
+                marginTop: 16,
                 marginBottom: 32,
                 flex: 1
               }}
             >
-              <Text font="bold" size="lg" color="600" text="Sobre o produto" />
               <Input.Root
                 placeholder="Descrição do produto"
                 numberOfLines={10}
@@ -112,7 +114,8 @@ export const AdEdit = () => {
             <View
               style={{
                 gap: 16,
-                flex: 1
+                flex: 1,
+                marginBottom: 25
               }}
             >
               <Text font="bold" size="lg" color="600" text="Venda" />
@@ -140,14 +143,14 @@ export const AdEdit = () => {
             </View>
           </View>
           <Styled.ButtonSection>
-            <Button.Root type="PRIMARY">
+            <Button.Root type="PRIMARY" onPress={goBack}>
               <Text color="600" font="bold" size="md" text="Cancelar" />
             </Button.Root>
             <Button.Root
               type="SECONDARY"
               onPress={() => {
                 handleAdUpdate(productId, product)
-                setTimeout(() => goBack(), 750)
+                setTimeout(() => bottomTab.navigate('myAds'), 1000)
               }}
             >
               <Text color="100" font="bold" size="md" text="Avançar" />
