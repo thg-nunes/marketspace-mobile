@@ -54,7 +54,7 @@ export const AdCreate = () => {
             <View style={{ gap: 4 }}>
               <Text text="Imagens" color="700" font="bold" size="lg" />
               <Text
-                text="Escolha até 3 imagens para mostrar o quando o seu produto é incrível!"
+                text="Escolha até 3 imagens para mostrar o quanto o seu produto é incrível!"
                 color="700"
                 font="regular"
                 size="md"
@@ -81,11 +81,11 @@ export const AdCreate = () => {
           <View
             style={{
               gap: 16,
+              marginTop: 16,
               marginBottom: 32,
               flex: 1
             }}
           >
-            <Text font="bold" size="lg" color="600" text="Sobre o produto" />
             <Input.Root
               placeholder="Descrição do produto"
               numberOfLines={10}
@@ -94,8 +94,7 @@ export const AdCreate = () => {
               maxLength={500}
               style={{
                 height: '100%',
-                textAlignVertical: 'top',
-                paddingVertical: 12
+                textAlignVertical: 'top'
               }}
               onChangeText={setProductDescription}
             />
@@ -117,12 +116,13 @@ export const AdCreate = () => {
           <View
             style={{
               gap: 16,
-              flex: 1
+              flex: 1,
+              marginBottom: 25
             }}
           >
             <Text font="bold" size="lg" color="600" text="Venda" />
             <Input.Root
-              placeholder="Valor de produto"
+              placeholder="Valor do produto"
               keyboardType="numeric"
               onChangeText={setProductValue}
             />
