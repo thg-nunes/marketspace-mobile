@@ -11,8 +11,6 @@ export const ProdutAdsContainer = styled.ImageBackground`
   flex-direction: row;
   justify-content: space-between;
 
-  padding: 4px 3px;
-
   flex: 1;
   min-height: 143px;
   max-height: 143px;
@@ -63,9 +61,10 @@ export const ProductState = styled.Text<ProductStateProps>`
 
 export const InactiveAdsIndicatorContainer = styled.View`
   position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
 
-  width: 153px;
-  height: 100px;
   z-index: 1;
 `
 
